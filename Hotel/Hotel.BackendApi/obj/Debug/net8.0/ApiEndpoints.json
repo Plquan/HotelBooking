@@ -9,7 +9,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Hotel.Data.Models.Room, Hotel.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.List\u00601[[Hotel.Data.Models.Room, Hotel.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -28,19 +28,15 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "room",
-        "Type": "Hotel.Data.Models.Room",
+        "Name": "roomdto",
+        "Type": "Hotel.BackendApi.Dtos.RoomDTO",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Int32",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
+        "Type": "System.Void",
+        "MediaTypes": [],
         "StatusCode": 200
       }
     ]

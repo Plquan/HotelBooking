@@ -1,8 +1,10 @@
 using Hotel.Data;
 using Hotel.Data.Models;
+using Hotel.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Runtime.CompilerServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +14,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddScoped<IRoomService, RoomService>();
+builder.Services.AddScoped<IRoomTypeService, RoomTypeService>();
 
 builder.Services.AddDbContext<HotelContext>(options =>
 {
@@ -22,6 +25,7 @@ builder.Services.AddDbContext<HotelContext>(options =>
 
 builder.Services.AddIdentity<AppUser,IdentityRole>().AddEntityFrameworkStores<HotelContext>();
 
+builder.Services.AddAutoMapper(typeof(Program));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
