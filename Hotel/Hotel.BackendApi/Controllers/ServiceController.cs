@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Hotel.BackendApi.Dtos;
+using Hotel.Data.Dtos;
 using Hotel.Data.Models;
 using Hotel.Services;
 using Microsoft.AspNetCore.Http;

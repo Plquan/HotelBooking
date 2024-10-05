@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
-using Hotel.BackendApi.Dtos;
+
 using Hotel.Data;
+using Hotel.Data.Dtos;
 using Hotel.Data.Models;
+using Hotel.Data.ViewModels;
 using Hotel.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,10 +26,10 @@ namespace Hotel.BackendApi.Controllers
         }
         [HttpGet]
         [Route("GetAll")]
-        public async Task<ActionResult<List<RoomDTO>>> GetAllRoom()
+        public async Task<ActionResult<List<RoomVM>>> GetAllRoom()
         {
             var rooms = await  _roomRepository.GetAll();
-            return  _mapper.Map<List<RoomDTO>>(rooms);
+            return  rooms;
         }
         [HttpPost]
         [Route("Add")]

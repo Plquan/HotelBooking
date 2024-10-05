@@ -1654,6 +1654,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "AutoMapper": "13.0.1",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.8",
           "Microsoft.EntityFrameworkCore": "8.0.8",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.8"
@@ -1663,19 +1664,6 @@
         },
         "runtime": {
           "bin/placeholder/Hotel.Data.dll": {}
-        }
-      },
-      "Hotel.Repository/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "dependencies": {
-          "Hotel.Data": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Hotel.Repository.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Hotel.Repository.dll": {}
         }
       },
       "Hotel.Services/1.0.0": {
@@ -4482,11 +4470,6 @@
       "path": "../Hotel.Data/Hotel.Data.csproj",
       "msbuildProject": "../Hotel.Data/Hotel.Data.csproj"
     },
-    "Hotel.Repository/1.0.0": {
-      "type": "project",
-      "path": "../Hotel.Services/Hotel.Repository.csproj",
-      "msbuildProject": "../Hotel.Services/Hotel.Repository.csproj"
-    },
     "Hotel.Services/1.0.0": {
       "type": "project",
       "path": "../Hotel.Services/Hotel.Services.csproj",
@@ -4497,7 +4480,6 @@
     "net8.0": [
       "AutoMapper >= 13.0.1",
       "Hotel.Data >= 1.0.0",
-      "Hotel.Repository >= 1.0.0",
       "Hotel.Services >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 8.0.8",
       "Microsoft.EntityFrameworkCore.Design >= 8.0.8",
@@ -4535,9 +4517,6 @@
           "projectReferences": {
             "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Hotel\\Hotel.Data\\Hotel.Data.csproj": {
               "projectPath": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Hotel\\Hotel.Data\\Hotel.Data.csproj"
-            },
-            "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Hotel\\Hotel.Services\\Hotel.Repository.csproj": {
-              "projectPath": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Hotel\\Hotel.Services\\Hotel.Repository.csproj"
             },
             "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Hotel\\Hotel.Services\\Hotel.Services.csproj": {
               "projectPath": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Hotel\\Hotel.Services\\Hotel.Services.csproj"

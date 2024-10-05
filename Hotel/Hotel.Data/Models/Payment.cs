@@ -15,7 +15,7 @@ namespace Hotel.Data.Models
         public string UserEmail { get; set; }
         public decimal Totalprice { get; set; }
         public string PaymentMethod { get; set; }
-        public DateTime? CreatedDate { get; set; }
+        public DateOnly? CreatedDate { get; set; }
         public bool Status { get; set; }
         public ICollection<Booking>? Bookings { get; set; }
     }

@@ -9,7 +9,7 @@
     "Parameters": [
       {
         "Name": "roomdto",
-        "Type": "Hotel.BackendApi.Dtos.RoomDTO",
+        "Type": "Hotel.Data.Dtos.RoomDTO",
         "IsRequired": true
       }
     ],
@@ -53,7 +53,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.List\u00601[[Hotel.BackendApi.Dtos.RoomDTO, Hotel.BackendApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.List\u00601[[Hotel.Data.ViewModels.RoomVM, Hotel.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -73,7 +73,7 @@
     "Parameters": [
       {
         "Name": "roomdto",
-        "Type": "Hotel.BackendApi.Dtos.RoomDTO",
+        "Type": "Hotel.Data.Dtos.RoomDTO",
         "IsRequired": true
       }
     ],
@@ -95,7 +95,7 @@
     "Parameters": [
       {
         "Name": "typeDTO",
-        "Type": "Hotel.BackendApi.Dtos.RoomTypeDTO",
+        "Type": "Hotel.Data.Dtos.RoomTypeDTO",
         "IsRequired": true
       }
     ],
@@ -139,7 +139,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.List\u00601[[Hotel.BackendApi.Dtos.RoomTypeDTO, Hotel.BackendApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.List\u00601[[Hotel.Data.Dtos.RoomTypeDTO, Hotel.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -159,7 +159,7 @@
     "Parameters": [
       {
         "Name": "roomTypeDTO",
-        "Type": "Hotel.BackendApi.Dtos.RoomTypeDTO",
+        "Type": "Hotel.Data.Dtos.RoomTypeDTO",
         "IsRequired": true
       }
     ],
@@ -181,7 +181,7 @@
     "Parameters": [
       {
         "Name": "supplyDTO",
-        "Type": "Hotel.BackendApi.Dtos.ServiceDTO",
+        "Type": "Hotel.Data.Dtos.ServiceDTO",
         "IsRequired": true
       }
     ],
@@ -225,7 +225,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.List\u00601[[Hotel.BackendApi.Dtos.ServiceDTO, Hotel.BackendApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.List\u00601[[Hotel.Data.Dtos.ServiceDTO, Hotel.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -245,7 +245,7 @@
     "Parameters": [
       {
         "Name": "supplyDTO",
-        "Type": "Hotel.BackendApi.Dtos.ServiceDTO",
+        "Type": "Hotel.Data.Dtos.ServiceDTO",
         "IsRequired": true
       }
     ],

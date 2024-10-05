@@ -10,7 +10,6 @@
         "dependencies": {
           "AutoMapper": "13.0.1",
           "Hotel.Data": "1.0.0",
-          "Hotel.Repository": "1.0.0",
           "Hotel.Services": "1.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.8",
           "Microsoft.EntityFrameworkCore.Design": "8.0.8",
@@ -975,6 +974,7 @@
       },
       "Hotel.Data/1.0.0": {
         "dependencies": {
+          "AutoMapper": "13.0.1",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.8",
           "Microsoft.EntityFrameworkCore": "8.0.8",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.8"

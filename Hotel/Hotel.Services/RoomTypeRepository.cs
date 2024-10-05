@@ -54,7 +54,6 @@ namespace Hotel.Services
             {
                 roomtype.Name = newtype.Name;
                 roomtype.Description = newtype.Description;
-                roomtype.UpdatedDate = newtype.UpdatedDate;       
                 await _context.SaveChangesAsync();
             }         
 

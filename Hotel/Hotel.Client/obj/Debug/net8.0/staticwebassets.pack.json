@@ -5,6 +5,18 @@
       "PackagePath": "staticwebassets\\Hotel.Client.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Hotel\\Hotel.Client\\wwwroot\\assets\\Api\\Room.js",
+      "PackagePath": "staticwebassets\\assets\\Api\\Room.js"
+    },
+    {
+      "Id": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Hotel\\Hotel.Client\\wwwroot\\assets\\Api\\RoomType.js",
+      "PackagePath": "staticwebassets\\assets\\Api\\RoomType.js"
+    },
+    {
+      "Id": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Hotel\\Hotel.Client\\wwwroot\\assets\\Api\\Service.js",
+      "PackagePath": "staticwebassets\\assets\\Api\\Service.js"
+    },
+    {
       "Id": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Hotel\\Hotel.Client\\wwwroot\\assets\\css\\bootstrap-datetimepicker.min.css",
       "PackagePath": "staticwebassets\\assets\\css\\bootstrap-datetimepicker.min.css"
     },
@@ -179,6 +191,10 @@
     {
       "Id": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Hotel\\Hotel.Client\\wwwroot\\assets\\img\\video-call.jpg",
       "PackagePath": "staticwebassets\\assets\\img\\video-call.jpg"
+    },
+    {
+      "Id": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Hotel\\Hotel.Client\\wwwroot\\assets\\js\\axios.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\axios.min.js"
     },
     {
       "Id": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Hotel\\Hotel.Client\\wwwroot\\assets\\js\\bootstrap-datetimepicker.min.js",

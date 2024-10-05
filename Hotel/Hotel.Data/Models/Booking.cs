@@ -18,8 +18,8 @@ namespace Hotel.Data.Models
         public string? Name { get; set; }
         public string? Email { get; set; }
         public string? Phone { get; set; }       
-        public DateTime FromDate { get; set; }
-        public DateTime ToDate { get; set; }
+        public DateOnly FromDate { get; set; }
+        public DateOnly ToDate { get; set; }
         public decimal Price { get; set; }
         public Payment Payment { get; set; }
         public AppUser User { get; set; }

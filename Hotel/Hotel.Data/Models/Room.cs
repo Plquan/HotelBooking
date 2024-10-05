@@ -13,10 +13,10 @@ namespace Hotel.Data.Models
         [Key]
         public int Id { get; set; }
         public int RoomTypeId { get; set; }
-        public string Code { get; set; }
-        public string Image { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+		public int RoomNumber { get; set; }
+		public int Capacity { set; get; }
+		public string Image { get; set; }
+        public decimal Price {  set; get; }
         public bool Status { get; set; }
         public RoomType RoomType { get; set; }
     }
