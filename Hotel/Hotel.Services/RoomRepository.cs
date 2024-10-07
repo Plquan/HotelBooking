@@ -17,6 +17,7 @@ namespace Hotel.Services
         Task Delete(int id);
         Task Update(Room room);
         Task<List<RoomVM>> GetAll();
+        Task<Room> GetById(int id);  
     }
 
     public class RoomRepository : IRoomRepository
@@ -51,7 +52,6 @@ namespace Hotel.Services
 							Id = r.Id,
                             RoomNumber = r.RoomNumber,
                             Capacity = r.Capacity,
-                            Image = r.Image,
                             Price = r.Price,
                             Status = r.Status,
                             TypeName = t.Name
@@ -59,15 +59,27 @@ namespace Hotel.Services
             return query;
 		}
 
-        public  async Task Update(Room newroom)
+		public async Task<Room> GetById(int id)
+		{
+			var room = await _context.Rooms.FirstOrDefaultAsync(x => x.Id == id);
+            if(room == null)
+            {
+                throw new Exception("Không tìm thấy phòng!");
+            }
+                return room;
+         
+			      
+		}
+
+		public  async Task Update(Room newroom)
         {
             var room = _context.Rooms.FirstOrDefault(x => x.Id == newroom.Id);
             if (room != null)
             {
-                room.RoomTypeId = newroom.RoomTypeId;
                 room.RoomNumber = newroom.RoomNumber;
-                room.Capacity = newroom.Capacity;
-                room.Image = newroom.Image;             
+                room.Capacity = newroom.Capacity;           
+                room.Price = newroom.Price;
+                room.Status = newroom.Status;
                 await _context.SaveChangesAsync();
             }
                 

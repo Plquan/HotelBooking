@@ -1,95 +1,109 @@
-﻿<div class="page-wrapper">
-	<div class="content container-fluid">
-		<div class="page-header">
-			<div class="row align-items-center">
-				<div class="col">
-					<h3 class="page-title mt-5">Add Room</h3>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-12">
-				<form>
-					<div class="row formtype">
-						<div class="col-md-4">
-							<div class="form-group">
-								<label>Room Number</label>
-								<input class="form-control" type="text" value="BKG-0001">
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label>Room Type</label>
-								<select class="form-control" id="sel1" name="sellist1">
-									<option>Select</option>
-									<option>Single</option>
-									<option>Double</option>
-									<option>Quad</option>
-									<option>King</option>
-									<option>Suite</option>
-									<option>Villa</option>
-								</select>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label>AC/NON-AC</label>
-								<select class="form-control" id="sel2" name="sellist1">
-									<option>Select</option>
-									<option>AC</option>
-									<option>NON-AC</option>
-								</select>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label>Food</label>
-								<select class="form-control" id="sel3" name="sellist1">
-									<option>Select</option>
-									<option>Free Breakfast</option>
-									<option>Free Lunch</option>
-									<option>Free Dinner</option>
-									<option>Free Breakfast & Dinner</option>
-									<option>Free Welcome Drink</option>
-									<option>No Free Food</option>
-								</select>
-							</div>
-						</div>
+﻿
+<div class="page-wrapper">
+    <div class="content container-fluid">
 
-		
-						<div class="col-md-4">
-							<div class="form-group">
-								<label>Rent</label>
-								<input type="text" class="form-control" id="usr">
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label>Phone Number</label>
-								<input type="text" class="form-control" id="usr1">
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label>File Upload</label>
-								<div class="custom-file mb-3">
-									<input type="file" class="custom-file-input" id="customFile" name="filename">
-									<label class="custom-file-label" for="customFile">Choose file</label>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label>Message</label>
-								<textarea class="form-control" rows="5" id="comment" name="text"></textarea>
-							</div>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-		<button type="button" class="btn btn-primary buttonedit ml-2">Save</button>
-		<button type="button" class="btn btn-primary buttonedit">Cancel</button>
-	</div>
+        <div class="page-header mt-5">
+            <div class="row">
+                <div class="col">
+                    <h3 class="page-title">Tạo phòng</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Add Room</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="#">
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Số phòng</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Số lượng</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Giá 1 đêm</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" placeholder="VND">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">File Input</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="file">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Status</label>
+                                <div class="col-md-10">
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="radio"> Active
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="radio"> Non-Active
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Dịch vụ</label>
+                                <div class="col-md-10" id="checkboxContainer">
+                                @*     <div class="checkbox">
+                                         <label><input type="checkbox" name="checkbox"> Option 1</label>
+                                     </div>
+                                     *@
+
+                                </div>
+                            </div>
+
+                            <style>
+                                #checkboxContainer {
+                                    display: flex;
+                                    flex-wrap: wrap; /* Tự động xuống dòng khi đủ số lượng cột */
+                                }
+
+                                .checkbox {
+                                    width: 20%; /* Mỗi cột chiếm 1/4 chiều rộng */
+                                    box-sizing: border-box; /* Đảm bảo padding và border không ảnh hưởng đến kích thước */
+                                    padding: 10px; /* Khoảng cách giữa các checkbox */
+                                }
+                            </style>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Textarea</label>
+                                <div class="col-md-10">
+                                    <textarea rows="5" cols="5" class="form-control"
+                                              placeholder="Enter text here"></textarea>
+                                </div>
+                            </div>
+                            <div class="content container-fluid">
+                                <button type="button" class="btn btn-primary buttonedit ml-2">Tạo</button>
+                                <button type="button" class="btn btn-primary buttonedit">Hủy</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
-<script src="~/assets/Api/Room.js"></script>
+<script src="~/assets/Api/Room/AddRoom.js"></script>
+
+
+
+
+

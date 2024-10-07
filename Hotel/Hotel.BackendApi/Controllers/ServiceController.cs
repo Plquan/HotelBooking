@@ -19,27 +19,27 @@ namespace Hotel.BackendApi.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        [Route("GetAllSupply")]
+        [Route("GetAll")]
         public async Task<ActionResult<List<ServiceDTO>>> GetAllSupply()
         {
             var supplys = await _serviceRepository.GetAll();
             return _mapper.Map<List<ServiceDTO>>(supplys);
         }
         [HttpPost]
-        [Route("AddSupply")]
+        [Route("AddService")]
         public async Task AddSupply(ServiceDTO supplyDTO)
         {
             var Supply = _mapper.Map<Service>(supplyDTO);
             await _serviceRepository.Add(Supply);
         }
         [HttpDelete]
-        [Route("DeleteSupply/{id}")]
+        [Route("DeleteService/{id}")]
         public async Task DeleleSupply(int id)
         {
             await _serviceRepository.Delete(id);
         }
         [HttpPut]
-        [Route("UpdateSupply")]
+        [Route("UpdateService")]
         public async Task UpdateSupply(ServiceDTO supplyDTO)
         {
             var supply = _mapper.Map<Service>(supplyDTO);

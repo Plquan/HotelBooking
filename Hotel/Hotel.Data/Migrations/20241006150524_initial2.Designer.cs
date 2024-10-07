@@ -4,6 +4,7 @@ using Hotel.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hotel.Data.Migrations
 {
     [DbContext(typeof(HotelContext))]
-    partial class HotelContextModelSnapshot : ModelSnapshot
+    [Migration("20241006150524_initial2")]
+    partial class initial2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -146,6 +149,29 @@ namespace Hotel.Data.Migrations
                     b.ToTable("Bookings");
                 });
 
+            modelBuilder.Entity("Hotel.Data.Models.BookingService", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BookingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookingId");
+
+                    b.HasIndex("ServiceId");
+
+                    b.ToTable("BookingServices");
+                });
+
             modelBuilder.Entity("Hotel.Data.Models.Payment", b =>
                 {
                     b.Property<int>("Id")
@@ -228,29 +254,6 @@ namespace Hotel.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("RoomTypes");
-                });
-
-            modelBuilder.Entity("Hotel.Data.Models.RoomTypeService", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("RoomTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ServiceId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoomTypeId");
-
-                    b.HasIndex("ServiceId");
-
-                    b.ToTable("RoomTypeServices");
                 });
 
             modelBuilder.Entity("Hotel.Data.Models.Service", b =>
@@ -410,21 +413,6 @@ namespace Hotel.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("RoomTypeService", b =>
-                {
-                    b.Property<int>("RoomTypesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ServicesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RoomTypesId", "ServicesId");
-
-                    b.HasIndex("ServicesId");
-
-                    b.ToTable("RoomTypeService");
-                });
-
             modelBuilder.Entity("Hotel.Data.Models.Booking", b =>
                 {
                     b.HasOne("Hotel.Data.Models.Payment", "Payment")
@@ -448,6 +436,25 @@ namespace Hotel.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Hotel.Data.Models.BookingService", b =>
+                {
+                    b.HasOne("Hotel.Data.Models.Booking", "Booking")
+                        .WithMany("bookingServices")
+                        .HasForeignKey("BookingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Hotel.Data.Models.Service", "Service")
+                        .WithMany("BookingServices")
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Booking");
+
+                    b.Navigation("Service");
+                });
+
             modelBuilder.Entity("Hotel.Data.Models.Room", b =>
                 {
                     b.HasOne("Hotel.Data.Models.RoomType", "RoomType")
@@ -457,25 +464,6 @@ namespace Hotel.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("RoomType");
-                });
-
-            modelBuilder.Entity("Hotel.Data.Models.RoomTypeService", b =>
-                {
-                    b.HasOne("Hotel.Data.Models.RoomType", "RoomType")
-                        .WithMany()
-                        .HasForeignKey("RoomTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Hotel.Data.Models.Service", "Service")
-                        .WithMany()
-                        .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("RoomType");
-
-                    b.Navigation("Service");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -529,19 +517,9 @@ namespace Hotel.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RoomTypeService", b =>
+            modelBuilder.Entity("Hotel.Data.Models.Booking", b =>
                 {
-                    b.HasOne("Hotel.Data.Models.RoomType", null)
-                        .WithMany()
-                        .HasForeignKey("RoomTypesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Hotel.Data.Models.Service", null)
-                        .WithMany()
-                        .HasForeignKey("ServicesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("bookingServices");
                 });
 
             modelBuilder.Entity("Hotel.Data.Models.Payment", b =>
@@ -552,6 +530,11 @@ namespace Hotel.Data.Migrations
             modelBuilder.Entity("Hotel.Data.Models.RoomType", b =>
                 {
                     b.Navigation("Rooms");
+                });
+
+            modelBuilder.Entity("Hotel.Data.Models.Service", b =>
+                {
+                    b.Navigation("BookingServices");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,7 +1,7 @@
 [
   {
     "ContainingType": "Hotel.BackendApi.Controllers.RoomController",
-    "Method": "AddRoom",
+    "Method": "Add",
     "RelativePath": "api/Room/Add",
     "HttpMethod": "POST",
     "IsController": true,
@@ -23,7 +23,7 @@
   },
   {
     "ContainingType": "Hotel.BackendApi.Controllers.RoomController",
-    "Method": "DeleteRoom",
+    "Method": "Delete",
     "RelativePath": "api/Room/Delete/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
@@ -45,7 +45,7 @@
   },
   {
     "ContainingType": "Hotel.BackendApi.Controllers.RoomController",
-    "Method": "GetAllRoom",
+    "Method": "GetAll",
     "RelativePath": "api/Room/GetAll",
     "HttpMethod": "GET",
     "IsController": true,
@@ -65,7 +65,33 @@
   },
   {
     "ContainingType": "Hotel.BackendApi.Controllers.RoomController",
-    "Method": "UpdateRoom",
+    "Method": "GetById",
+    "RelativePath": "api/Room/GetById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Hotel.Data.Dtos.RoomDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.RoomController",
+    "Method": "Update",
     "RelativePath": "api/Room/Update",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -174,7 +200,7 @@
   {
     "ContainingType": "Hotel.BackendApi.Controllers.ServiceController",
     "Method": "AddSupply",
-    "RelativePath": "api/Service/AddSupply",
+    "RelativePath": "api/Service/AddService",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -196,7 +222,7 @@
   {
     "ContainingType": "Hotel.BackendApi.Controllers.ServiceController",
     "Method": "DeleleSupply",
-    "RelativePath": "api/Service/DeleteSupply/{id}",
+    "RelativePath": "api/Service/DeleteService/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -218,7 +244,7 @@
   {
     "ContainingType": "Hotel.BackendApi.Controllers.ServiceController",
     "Method": "GetAllSupply",
-    "RelativePath": "api/Service/GetAllSupply",
+    "RelativePath": "api/Service/GetAll",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -238,7 +264,7 @@
   {
     "ContainingType": "Hotel.BackendApi.Controllers.ServiceController",
     "Method": "UpdateSupply",
-    "RelativePath": "api/Service/UpdateSupply",
+    "RelativePath": "api/Service/UpdateService",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,

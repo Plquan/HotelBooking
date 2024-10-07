@@ -21,7 +21,7 @@ namespace Hotel.Data
         public DbSet<Service> Services { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Payment> Payments { get; set; }
-        public DbSet<BookingService> BookingServices { get; set; }
+        public DbSet<RoomTypeService> RoomTypeServices { get; set; }
 
     }
 }

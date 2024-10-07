@@ -14,6 +14,6 @@ namespace Hotel.Data.Models
         public string Name { get; set; }
         public decimal Price { get; set; }
         public string Description { get; set; }
-        public ICollection<BookingService> BookingServices { get; set; }
+        public ICollection<RoomType> RoomTypes { get; set; }
     }
 }

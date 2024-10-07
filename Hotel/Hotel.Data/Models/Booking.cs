@@ -24,6 +24,5 @@ namespace Hotel.Data.Models
         public Payment Payment { get; set; }
         public AppUser User { get; set; }
         public Room Room { get; set; }
-        public ICollection<BookingService> bookingServices { get; set; }
     }
 }

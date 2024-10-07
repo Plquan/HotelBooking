@@ -26,31 +26,38 @@ namespace Hotel.BackendApi.Controllers
         }
         [HttpGet]
         [Route("GetAll")]
-        public async Task<ActionResult<List<RoomVM>>> GetAllRoom()
+        public async Task<ActionResult<List<RoomVM>>> GetAll()
         {
             var rooms = await  _roomRepository.GetAll();
             return  rooms;
         }
         [HttpPost]
         [Route("Add")]
-        public async Task AddRoom(RoomDTO roomdto)
+        public async Task Add(RoomDTO roomdto)
         {
             var room = _mapper.Map<Room>(roomdto);
           await  _roomRepository.Add(room);
         }
         [HttpDelete]
         [Route("Delete/{id}")]
-        public async Task DeleteRoom(int id)
+        public async Task Delete(int id)
         {
             await _roomRepository.Delete(id);
         }
         [HttpPut]
         [Route("Update")]
-        public async Task UpdateRoom(RoomDTO roomdto)
+        public async Task Update(RoomDTO roomdto)
         {
             var room = _mapper.Map<Room>(roomdto);
             await _roomRepository.Update(room);
         }
+        [HttpGet]
+        [Route("GetById/{id}")]
+        public async Task<RoomDTO> GetById(int id)
+        {
+			var room = await _roomRepository.GetById(id);
+			return  _mapper.Map<RoomDTO>(room);
+		}
 
     }
 }

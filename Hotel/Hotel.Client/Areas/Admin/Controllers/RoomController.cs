@@ -10,7 +10,11 @@ namespace Hotel.Client.Areas.Admin.Controllers
 			return View();
 		}
 
-		public IActionResult CreateRoom()
+		public IActionResult AddRoom()
+		{
+			return View();
+		}
+		public IActionResult EditRoom()
 		{
 			return View();
 		}

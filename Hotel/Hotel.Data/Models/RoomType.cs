@@ -14,5 +14,6 @@ namespace Hotel.Data.Models
         public string Name { get; set; }
         public string? Description { get; set; }
         public ICollection<Room> Rooms { get; set; }
+        public ICollection<Service> Services { get; set; }
     }
 }
