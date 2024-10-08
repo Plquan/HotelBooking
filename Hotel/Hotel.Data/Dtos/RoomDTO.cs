@@ -9,6 +9,6 @@ namespace Hotel.Data.Dtos
         public int RoomNumber { get; set; }
         public int Capacity { set; get; }
 		public decimal Price { set; get; }
-		public bool Status { get; set; }
+		public int Status { get; set; }
 	}
 }

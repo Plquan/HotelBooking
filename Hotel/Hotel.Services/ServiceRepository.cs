@@ -15,6 +15,7 @@ namespace Hotel.Services
         Task Add(Service Services);
         Task Delete(int id);
         Task Update(Service Services);
+        Task<Service> GetById(int id);
         Task<List<Service>> GetAll();
     }
     public class ServiceRepository : IServiceRepository
@@ -47,7 +48,17 @@ namespace Hotel.Services
            return await _context.Services.ToListAsync();
         }
 
-        public async Task Update(Service newServices)
+		public async Task<Service> GetById(int id)
+		{
+			var service = await _context.Services.FirstOrDefaultAsync(x => x.Id == id);
+			if (service == null)
+			{
+				throw new Exception("Không tìm thấy loại dịch vụ!");
+			}
+			return service;
+		}
+
+		public async Task Update(Service newServices)
         {
             var Services = _context.Services.FirstOrDefault(x => x.Id == newServices.Id);
             if (Services != null)

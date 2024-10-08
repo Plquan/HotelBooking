@@ -113,8 +113,8 @@
   },
   {
     "ContainingType": "Hotel.BackendApi.Controllers.RoomTypeController",
-    "Method": "AddRoomType",
-    "RelativePath": "api/RoomType/AddRoomType",
+    "Method": "Add",
+    "RelativePath": "api/RoomType/Add",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -135,8 +135,8 @@
   },
   {
     "ContainingType": "Hotel.BackendApi.Controllers.RoomTypeController",
-    "Method": "DeleteRoomType",
-    "RelativePath": "api/RoomType/DeleteRoomType/{id}",
+    "Method": "Delete",
+    "RelativePath": "api/RoomType/Delete/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -157,8 +157,8 @@
   },
   {
     "ContainingType": "Hotel.BackendApi.Controllers.RoomTypeController",
-    "Method": "GetAllRoomType",
-    "RelativePath": "api/RoomType/GetAllRoomType",
+    "Method": "GetAll",
+    "RelativePath": "api/RoomType/GetAll",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -177,8 +177,34 @@
   },
   {
     "ContainingType": "Hotel.BackendApi.Controllers.RoomTypeController",
-    "Method": "UpdateRoomType",
-    "RelativePath": "api/RoomType/UpdateRoomType",
+    "Method": "GetById",
+    "RelativePath": "api/RoomType/GetById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Hotel.Data.Dtos.RoomTypeDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.RoomTypeController",
+    "Method": "Update",
+    "RelativePath": "api/RoomType/Update",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -199,14 +225,14 @@
   },
   {
     "ContainingType": "Hotel.BackendApi.Controllers.ServiceController",
-    "Method": "AddSupply",
-    "RelativePath": "api/Service/AddService",
+    "Method": "Add",
+    "RelativePath": "api/Service/Add",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "supplyDTO",
+        "Name": "serviceDTO",
         "Type": "Hotel.Data.Dtos.ServiceDTO",
         "IsRequired": true
       }
@@ -221,8 +247,8 @@
   },
   {
     "ContainingType": "Hotel.BackendApi.Controllers.ServiceController",
-    "Method": "DeleleSupply",
-    "RelativePath": "api/Service/DeleteService/{id}",
+    "Method": "Delele",
+    "RelativePath": "api/Service/Delete/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -243,7 +269,7 @@
   },
   {
     "ContainingType": "Hotel.BackendApi.Controllers.ServiceController",
-    "Method": "GetAllSupply",
+    "Method": "GetAll",
     "RelativePath": "api/Service/GetAll",
     "HttpMethod": "GET",
     "IsController": true,
@@ -263,14 +289,40 @@
   },
   {
     "ContainingType": "Hotel.BackendApi.Controllers.ServiceController",
-    "Method": "UpdateSupply",
-    "RelativePath": "api/Service/UpdateService",
+    "Method": "GetById",
+    "RelativePath": "api/Service/GetById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Hotel.Data.Dtos.ServiceDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.ServiceController",
+    "Method": "Update",
+    "RelativePath": "api/Service/Update",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "supplyDTO",
+        "Name": "serviceDTO",
         "Type": "Hotel.Data.Dtos.ServiceDTO",
         "IsRequired": true
       }

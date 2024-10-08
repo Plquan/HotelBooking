@@ -15,6 +15,7 @@ namespace Hotel.Services
         Task Delete(int id);
         Task Update(RoomType room);
         Task<List<RoomType>> GetAll();
+        Task<RoomType> GetById(int id);
     }
 
 
@@ -47,7 +48,17 @@ namespace Hotel.Services
             return await _context.RoomTypes.ToListAsync();
         }
 
-        public async Task Update(RoomType newtype)
+		public async Task<RoomType> GetById(int id)
+		{
+			var room = await _context.RoomTypes.FirstOrDefaultAsync(x => x.Id == id);
+			if (room == null)
+			{
+				throw new Exception("Không tìm thấy loại phòng!");
+			}
+			return room;
+		}
+
+		public async Task Update(RoomType newtype)
         {
             var roomtype = _context.RoomTypes.FirstOrDefault(x => x.Id == newtype.Id);
             if (roomtype != null)
@@ -58,5 +69,8 @@ namespace Hotel.Services
             }         
 
         }
+
+
+
     }
 }

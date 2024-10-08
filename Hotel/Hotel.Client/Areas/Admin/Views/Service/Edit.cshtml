@@ -1,0 +1,68 @@
+﻿<div class="page-wrapper">
+	<div class="content container-fluid">
+		<div class="page-header">
+			<div class="row align-items-center">
+				<div class="col">
+					<h3 class="page-title mt-5">Chỉnh sửa</h3>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<form>
+					<div class="row formtype">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label>Mã số</label>
+								<input class="form-control" type="text" id="serviceId" required>
+							</div>
+						</div>
+
+						<div class="col-md-4">
+							<div class="form-group">
+								<label>Loại dịch vụ</label>
+								<input class="form-control" type="text" id="name" required>
+							</div>
+						</div>
+
+						<div class="col-md-4">
+							<div class="form-group">
+								<label>Mô tả</label>
+								<textarea class="form-control" rows="5" id="description" name="text" required></textarea>
+							</div>
+						</div>
+
+					</div>
+					<button type="button" onclick="editService()" class="btn btn-primary buttonedit ml-2">Thêm</button>
+					<button type="button" onclick="cancel()" class="btn btn-primary buttonedit">Hủy</button>
+				</form>
+			</div>
+		</div>
+
+	</div>
+</div>
+<script src="~/assets/apiAdmin/service.js"></script>
+
+<script>
+
+	document.addEventListener('DOMContentLoaded', function () {
+		// Lấy ID từ localStorage
+		const serviceId = localStorage.getItem('editServiceId');
+		console.log('id:', serviceId);
+
+		// Gọi API để lấy thông tin phòng bằng ID
+		axios.get(`https://localhost:7197/api/Service/GetById/${serviceId}`)
+			.then(function (response) {
+				const Data = response.data;
+				// Hiển thị dữ liệu vào form
+				document.getElementById('name').value = Data.name;
+				document.getElementById('description').value = Data.description;
+				document.getElementById('serviceId').value = Data.id;
+				localStorage.removeItem('editRoomTypeId');
+			})
+			.catch(function (error) {
+				console.error('Lỗi khi lấy thông tin:', error);
+			});
+	});
+
+</script>

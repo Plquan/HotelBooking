@@ -30,20 +30,48 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRGFzaGJvYXJkXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phaml/source/repos/HotelBooking/Hotel/Hotel.Client/Areas/Admin/Views/Room/AddRoom.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUm9vbVxBZGRSb29tLmNzaHRtbA==
+[C:/Users/phaml/source/repos/HotelBooking/Hotel/Hotel.Client/Areas/Admin/Views/RoomType/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUm9vbVR5cGVcQWRkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/phaml/source/repos/HotelBooking/Hotel/Hotel.Client/Areas/Admin/Views/RoomType/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUm9vbVR5cGVcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/phaml/source/repos/HotelBooking/Hotel/Hotel.Client/Areas/Admin/Views/RoomType/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUm9vbVR5cGVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/phaml/source/repos/HotelBooking/Hotel/Hotel.Client/Areas/Admin/Views/RoomType/RoomService.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUm9vbVR5cGVcUm9vbVNlcnZpY2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/phaml/source/repos/HotelBooking/Hotel/Hotel.Client/Areas/Admin/Views/Room/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUm9vbVxBZGQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/phaml/source/repos/HotelBooking/Hotel/Hotel.Client/Areas/Admin/Views/Room/CreateRoom.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUm9vbVxDcmVhdGVSb29tLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phaml/source/repos/HotelBooking/Hotel/Hotel.Client/Areas/Admin/Views/Room/EditRoom.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUm9vbVxFZGl0Um9vbS5jc2h0bWw=
+[C:/Users/phaml/source/repos/HotelBooking/Hotel/Hotel.Client/Areas/Admin/Views/Room/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUm9vbVxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/phaml/source/repos/HotelBooking/Hotel/Hotel.Client/Areas/Admin/Views/Room/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUm9vbVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/phaml/source/repos/HotelBooking/Hotel/Hotel.Client/Areas/Admin/Views/Service/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2VydmljZVxBZGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/phaml/source/repos/HotelBooking/Hotel/Hotel.Client/Areas/Admin/Views/Service/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2VydmljZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/phaml/source/repos/HotelBooking/Hotel/Hotel.Client/Areas/Admin/Views/Service/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2VydmljZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/phaml/source/repos/HotelBooking/Hotel/Hotel.Client/Areas/Admin/Views/Shared/_Layout.cshtml]

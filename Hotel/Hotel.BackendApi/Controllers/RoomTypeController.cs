@@ -20,32 +20,38 @@ namespace Hotel.BackendApi.Controllers
             _mapper = mapper;
         }
         [HttpPost]
-        [Route("AddRoomType")]
-        public  async Task AddRoomType(RoomTypeDTO typeDTO)
+        [Route("Add")]
+        public  async Task Add(RoomTypeDTO typeDTO)
         {
             var roomtype = _mapper.Map<RoomType>(typeDTO);
               await _roomTypeRepository.Add(roomtype);           
         }
         [HttpGet]
-        [Route("GetAllRoomType")]
-        public async Task<ActionResult<List<RoomTypeDTO>>> GetAllRoomType()
+        [Route("GetAll")]
+        public async Task<ActionResult<List<RoomTypeDTO>>> GetAll()
         {
             var roomtype = await _roomTypeRepository.GetAll();
             return _mapper.Map<List<RoomTypeDTO>>(roomtype);
         }
         [HttpDelete]
-        [Route("DeleteRoomType/{id}")]
-        public async Task DeleteRoomType(int id)
+        [Route("Delete/{id}")]
+        public async Task Delete(int id)
         {
             await _roomTypeRepository.Delete(id);
         }
         [HttpPut]
-        [Route("UpdateRoomType")]
-        public async Task UpdateRoomType(RoomTypeDTO roomTypeDTO)
+        [Route("Update")]
+        public async Task Update(RoomTypeDTO roomTypeDTO)
         {
             var room = _mapper.Map<RoomType>(roomTypeDTO);
             await _roomTypeRepository.Update(room);
         }
-
+        [HttpGet]
+        [Route("GetById/{id}")]
+        public async Task<RoomTypeDTO> GetById(int id)
+        {
+            var roomtype = await _roomTypeRepository.GetById(id);
+            return _mapper.Map<RoomTypeDTO>(roomtype);
+        }
     }
 }

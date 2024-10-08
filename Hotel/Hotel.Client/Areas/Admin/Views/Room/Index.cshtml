@@ -5,7 +5,7 @@
 			<div class="row align-items-center">
 				<div class="col">
 					<div class="mt-5">
-						<h4 class="card-title float-left mt-2">All Rooms</h4> <a asp-action="AddRoom" asp-controller="Room" class="btn btn-primary float-right veiwbutton">Add Room</a>
+						<h4 class="card-title float-left mt-2">Danh sách phòng</h4> <a asp-action="Add" asp-controller="Room" class="btn btn-primary float-right veiwbutton">Thêm mới</a>
 					</div>
 				</div>
 			</div>
@@ -21,8 +21,8 @@
 										<th>Stt</th>
 										<th>Số phòng</th>
 										<th>Loại phòng</th>
-										<th>Sô lượng</th>
-										<th>Giá</th>
+										<th>Số lượng</th>
+										<th>Giá thành</th>
 										<th>Trạng thái</th>
 										<th class="text-right">Chức năng</th>
 									</tr>
@@ -81,7 +81,8 @@
 	</div>
 </div>
 
-<script src="~/assets/ApiAdmin/Room.js"></script>
+<script src="~/assets/apiAdmin/room.js"></script>
+
 <script>
 	document.addEventListener('DOMContentLoaded', function () {
 		console.log('Trang đã được tải. Đang gọi API...'); // Thêm dòng này để log khi trang tải

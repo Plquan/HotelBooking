@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "BxT0NZv1VlUsBF3g8/rcr09cOpNzaK9shJmqao9emzg=",
+  "Hash": "DWM9PdLmdpbOagX844rUN++tSIFo47rXY5xgLUaRb04=",
   "Source": "Hotel.Client",
   "BasePath": "_content/Hotel.Client",
   "Mode": "Default",
@@ -55,12 +55,12 @@
       "OriginalItemSpec": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Hotel\\Hotel.Client\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Hotel.Client.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Hotel\\Hotel.Client\\wwwroot\\assets\\ApiAdmin\\Room.js",
+      "Identity": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Hotel\\Hotel.Client\\wwwroot\\assets\\ApiAdmin\\room.js",
       "SourceId": "Hotel.Client",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Hotel\\Hotel.Client\\wwwroot\\",
       "BasePath": "_content/Hotel.Client",
-      "RelativePath": "assets/ApiAdmin/Room.js",
+      "RelativePath": "assets/ApiAdmin/room.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -71,15 +71,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\assets\\ApiAdmin\\Room.js"
+      "OriginalItemSpec": "wwwroot\\assets\\ApiAdmin\\room.js"
     },
     {
-      "Identity": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Hotel\\Hotel.Client\\wwwroot\\assets\\ApiAdmin\\RoomType.js",
+      "Identity": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Hotel\\Hotel.Client\\wwwroot\\assets\\ApiAdmin\\roomType.js",
       "SourceId": "Hotel.Client",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Hotel\\Hotel.Client\\wwwroot\\",
       "BasePath": "_content/Hotel.Client",
-      "RelativePath": "assets/ApiAdmin/RoomType.js",
+      "RelativePath": "assets/ApiAdmin/roomType.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -90,15 +90,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\assets\\ApiAdmin\\RoomType.js"
+      "OriginalItemSpec": "wwwroot\\assets\\ApiAdmin\\roomType.js"
     },
     {
-      "Identity": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Hotel\\Hotel.Client\\wwwroot\\assets\\ApiAdmin\\Service.js",
+      "Identity": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Hotel\\Hotel.Client\\wwwroot\\assets\\ApiAdmin\\service.js",
       "SourceId": "Hotel.Client",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Hotel\\Hotel.Client\\wwwroot\\",
       "BasePath": "_content/Hotel.Client",
-      "RelativePath": "assets/ApiAdmin/Service.js",
+      "RelativePath": "assets/ApiAdmin/service.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -109,7 +109,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\assets\\ApiAdmin\\Service.js"
+      "OriginalItemSpec": "wwwroot\\assets\\ApiAdmin\\service.js"
     },
     {
       "Identity": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Hotel\\Hotel.Client\\wwwroot\\assets\\css\\bootstrap.min.css",

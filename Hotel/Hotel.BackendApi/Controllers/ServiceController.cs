@@ -20,30 +20,37 @@ namespace Hotel.BackendApi.Controllers
         }
         [HttpGet]
         [Route("GetAll")]
-        public async Task<ActionResult<List<ServiceDTO>>> GetAllSupply()
+        public async Task<ActionResult<List<ServiceDTO>>> GetAll()
         {
-            var supplys = await _serviceRepository.GetAll();
-            return _mapper.Map<List<ServiceDTO>>(supplys);
+            var services = await _serviceRepository.GetAll();
+            return _mapper.Map<List<ServiceDTO>>(services);
         }
         [HttpPost]
-        [Route("AddService")]
-        public async Task AddSupply(ServiceDTO supplyDTO)
+        [Route("Add")]
+        public async Task Add(ServiceDTO serviceDTO)
         {
-            var Supply = _mapper.Map<Service>(supplyDTO);
-            await _serviceRepository.Add(Supply);
+            var service = _mapper.Map<Service>(serviceDTO);
+            await _serviceRepository.Add(service);
         }
         [HttpDelete]
-        [Route("DeleteService/{id}")]
-        public async Task DeleleSupply(int id)
+        [Route("Delete/{id}")]
+        public async Task Delele(int id)
         {
             await _serviceRepository.Delete(id);
         }
         [HttpPut]
-        [Route("UpdateService")]
-        public async Task UpdateSupply(ServiceDTO supplyDTO)
+        [Route("Update")]
+        public async Task Update(ServiceDTO serviceDTO)
         {
-            var supply = _mapper.Map<Service>(supplyDTO);
-            await _serviceRepository.Update(supply);
+            var service = _mapper.Map<Service>(serviceDTO);
+            await _serviceRepository.Update(service);
+        }
+        [HttpGet]
+        [Route("GetById/{id}")]
+        public async Task<ServiceDTO> GetById(int id)
+        {
+            var service = await _serviceRepository.GetById(id);
+            return _mapper.Map<ServiceDTO>(service);
         }
     }
 }

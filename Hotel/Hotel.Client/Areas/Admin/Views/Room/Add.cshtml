@@ -1,0 +1,94 @@
+﻿
+	<div class="page-wrapper">
+			<div class="content container-fluid">
+				<div class="page-header">
+					<div class="row align-items-center">
+						<div class="col">
+							<h3 class="page-title mt-5">Thêm phòng</h3> </div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<form id ="AddRoomForm">
+							<div class="row formtype">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label>Số phòng</label>
+										<input class="form-control" type="text" id="roomNumber" required> 
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label>Loại phòng</label>
+										<select required class="form-control" id="roomTypeId" name="sellist1">
+											<option value="">Chọn</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label>Trạng thái</label>
+								<select class="form-control" id="status" name="sellist1" required>
+											<option value="">Chọn</option>
+											<option value="1">Hoạt động</option>
+											<option value="0">Tạm dừng</option>
+										</select>
+									</div>
+								</div>			
+
+								<div class="col-md-4">
+									<div class="form-group">
+										<label>Số lượng người</label>
+								<input type="text" class="form-control" id="capacity" required>
+							</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label>Giá</label>
+								<input type="text" class="form-control" id="price" required>
+							</div>
+								</div>
+										
+							</div>
+					     <button type="submit" onclick="addRoom()" class="btn btn-primary buttonedit ml-2">Thêm</button>
+					    <button type="button" onclick="Cancel()" class="btn btn-primary buttonedit">Hủy</button>
+						</form>
+					</div>
+				</div>
+		
+			</div>
+		</div>
+
+<script src="~/assets/apiAdmin/room.js"></script>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		// Hàm để lấy loại phòng từ API
+		function getRoomTypes() {
+			axios.get('https://localhost:7197/api/RoomType/GetAll')
+				.then(function (response) {
+					const roomTypes = response.data;  // Dữ liệu loại phòng từ API
+					const tableData = document.getElementById('roomTypeId');
+					if (tableData.value == null) {
+						alert("Vui lòng chọn loại phòng");						
+					}					
+					tableData.innerHTML = '<option value="">Chọn</option>';
+
+					// Duyệt qua dữ liệu và tạo các option mới
+					roomTypes.forEach(roomType => {
+						const option = document.createElement('option');
+						option.value = roomType.id;    // Giá trị của option là id của loại phòng
+						option.text = roomType.name;   // Tên loại phòng
+						tableData.appendChild(option); // Thêm option vào select
+					});
+				})
+				.catch(function (error) {
+					console.error('Lỗi khi lấy loại phòng:', error);
+				});
+		}
+
+		// Gọi hàm để lấy và hiển thị loại phòng
+		getRoomTypes();
+	});
+
+</script>

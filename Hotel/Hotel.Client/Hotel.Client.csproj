@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="wwwroot\assets\apiUser\" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,38 @@
+﻿<div class="page-wrapper">
+	<div class="content container-fluid">
+		<div class="page-header">
+			<div class="row align-items-center">
+				<div class="col">
+					<h3 class="page-title mt-5">Thêm mới</h3>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<form >
+					<div class="row formtype">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label>Loại phòng</label>
+								<input class="form-control" type="text" id="typeName" required>
+							</div>
+						</div>
+
+						<div class="col-md-4">
+							<div class="form-group">
+								<label>Mô tả</label>
+								<textarea class="form-control" rows="5" id="description" name="text" required></textarea>
+							</div>
+						</div>
+
+					</div>
+					<button type="submit" onclick="addRoomType()" class="btn btn-primary buttonedit ml-2">Thêm</button>
+					<button type="button" onclick="cancel()" class="btn btn-primary buttonedit">Hủy</button>
+				</form>
+			</div>
+		</div>
+		
+	</div>
+</div>
+<script src="~/assets/apiAdmin/roomType.js"></script>
+

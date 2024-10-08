@@ -3,13 +3,12 @@
 namespace Hotel.Client.Areas.Admin.Controllers
 {
 	[Area("Admin")]
-	public class RoomController : Controller
+	public class ServiceController : Controller
 	{
 		public IActionResult Index()
 		{
 			return View();
 		}
-
 		public IActionResult Add()
 		{
 			return View();

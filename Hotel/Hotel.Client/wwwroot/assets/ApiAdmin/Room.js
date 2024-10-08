@@ -27,10 +27,10 @@ function addRoom() {
 
 function editRoomId(id) {
     localStorage.setItem('editRoomId', id);
-    window.location.href = 'https://localhost:7060/Admin/Room/EditRoom';
+    window.location.href = 'https://localhost:7060/Admin/Room/Edit';
 }
 function editRoom() {
-    const id = localStorage.getItem('editRoomId');
+    const id = document.getElementById('roomId').value;
     const roomNumber = document.getElementById('roomNumber').value;
     const roomTypeId = document.getElementById('roomTypeId').value;
     const status = document.getElementById('status').value;
@@ -46,10 +46,10 @@ function editRoom() {
     };
 
     console.log(roomData);
-    axios.post('https://localhost:7197/api/Room/Update', roomData)
+    axios.put('https://localhost:7197/api/Room/Update', roomData)
         .then(function (response) {
             console.log('Phòng đã được cập nhật thành công:', response.data);
-            localStorage.removeItem('editRoomId');
+
             window.location.href = 'https://localhost:7060/Admin/Room';
         })
         .catch(function (error) {
