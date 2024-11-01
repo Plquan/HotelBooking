@@ -1,0 +1,45 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\phaml\\source\\repos\\Hotel\\Hotel.BackendApi\\wwwroot\\images\\575e5cb8-786f-4311-b92b-cde18f38eb48.jpeg",
+      "PackagePath": "staticwebassets\\images\\575e5cb8-786f-4311-b92b-cde18f38eb48.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\phaml\\source\\repos\\Hotel\\Hotel.BackendApi\\wwwroot\\images\\7f296313-a20f-42f9-8e1c-505c46d327c9.jpeg",
+      "PackagePath": "staticwebassets\\images\\7f296313-a20f-42f9-8e1c-505c46d327c9.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\phaml\\source\\repos\\Hotel\\Hotel.BackendApi\\wwwroot\\images\\cd439c01-39f5-4080-b9fa-27f0c5c175a1.jpeg",
+      "PackagePath": "staticwebassets\\images\\cd439c01-39f5-4080-b9fa-27f0c5c175a1.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\phaml\\source\\repos\\Hotel\\Hotel.BackendApi\\wwwroot\\images\\e4b67c71-19f4-4974-ae48-ac814ec9e3c1.jpeg",
+      "PackagePath": "staticwebassets\\images\\e4b67c71-19f4-4974-ae48-ac814ec9e3c1.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\phaml\\source\\repos\\Hotel\\Hotel.BackendApi\\wwwroot\\images\\f6f33a3f-35c6-4c2b-a8a1-3d3044c404af.jpeg",
+      "PackagePath": "staticwebassets\\images\\f6f33a3f-35c6-4c2b-a8a1-3d3044c404af.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\phaml\\source\\repos\\Hotel\\Hotel.BackendApi\\wwwroot\\images\\fbfd4397-90d8-4e01-8da0-9a430cddac12.jpeg",
+      "PackagePath": "staticwebassets\\images\\fbfd4397-90d8-4e01-8da0-9a430cddac12.jpeg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Hotel.BackendApi.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.Hotel.BackendApi.props",
+      "PackagePath": "build\\Hotel.BackendApi.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.Hotel.BackendApi.props",
+      "PackagePath": "buildMultiTargeting\\Hotel.BackendApi.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.Hotel.BackendApi.props",
+      "PackagePath": "buildTransitive\\Hotel.BackendApi.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
