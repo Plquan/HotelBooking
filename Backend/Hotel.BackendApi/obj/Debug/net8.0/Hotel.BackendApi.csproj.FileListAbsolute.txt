@@ -468,3 +468,16 @@ C:\Users\phaml\source\repos\Hotel\Hotel.BackendApi\bin\Debug\net8.0\runtimes\win
 C:\Users\phaml\source\repos\Hotel\Hotel.BackendApi\bin\Debug\net8.0\Hotel.Services.dll
 C:\Users\phaml\source\repos\Hotel\Hotel.BackendApi\bin\Debug\net8.0\Hotel.Services.pdb
 C:\Users\phaml\source\repos\Hotel\Hotel.BackendApi\obj\Debug\net8.0\Hotel.BackendApi.sourcelink.json
+C:\Users\phaml\source\repos\HotelBooking\Backend\Hotel.BackendApi\bin\Debug\net8.0\Hotel.BackendApi.staticwebassets.runtime.json
+C:\Users\phaml\source\repos\HotelBooking\Backend\Hotel.BackendApi\bin\Debug\net8.0\CloudinaryDotNet.dll
+C:\Users\phaml\source\repos\HotelBooking\Backend\Hotel.BackendApi\bin\Debug\net8.0\FirebaseAdmin.dll
+C:\Users\phaml\source\repos\HotelBooking\Backend\Hotel.BackendApi\bin\Debug\net8.0\Google.Api.Gax.dll
+C:\Users\phaml\source\repos\HotelBooking\Backend\Hotel.BackendApi\bin\Debug\net8.0\Google.Api.Gax.Rest.dll
+C:\Users\phaml\source\repos\HotelBooking\Backend\Hotel.BackendApi\bin\Debug\net8.0\Google.Apis.dll
+C:\Users\phaml\source\repos\HotelBooking\Backend\Hotel.BackendApi\bin\Debug\net8.0\Google.Apis.Auth.dll
+C:\Users\phaml\source\repos\HotelBooking\Backend\Hotel.BackendApi\bin\Debug\net8.0\Google.Apis.Core.dll
+C:\Users\phaml\source\repos\HotelBooking\Backend\Hotel.BackendApi\bin\Debug\net8.0\Google.Apis.Storage.v1.dll
+C:\Users\phaml\source\repos\HotelBooking\Backend\Hotel.BackendApi\bin\Debug\net8.0\Google.Cloud.Storage.V1.dll
+C:\Users\phaml\source\repos\HotelBooking\Backend\Hotel.BackendApi\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\phaml\source\repos\HotelBooking\Backend\Hotel.BackendApi\bin\Debug\net8.0\System.Management.dll
+C:\Users\phaml\source\repos\HotelBooking\Backend\Hotel.BackendApi\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Management.dll

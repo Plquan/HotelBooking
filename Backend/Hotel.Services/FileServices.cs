@@ -20,9 +20,12 @@ namespace Hotel.Services
         {
             try
             {
-                if (base64Image.Length % 4 == 0 && Regex.IsMatch(base64Image, @"^[a-zA-Z0-9\+/]*={0,2}$"))
+                if (ImageExist(base64Image))
                 {
-                    byte[] imageBytes = Convert.FromBase64String(base64Image);
+                    return base64Image;
+                }
+
+                   byte[] imageBytes = Convert.FromBase64String(base64Image);
                     var fileName = $"{Guid.NewGuid()}.jpeg";
                     var imagesFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
 
@@ -30,8 +33,7 @@ namespace Hotel.Services
                     System.IO.File.WriteAllBytes(filePath, imageBytes);
 
                     return fileName;
-                }
-                return base64Image;
+
             }
             catch 
             {

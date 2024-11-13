@@ -11,12 +11,15 @@ namespace Hotel.Data.Models
     {
         [Key]
         public int Id { get; set; }
-        public string UserId { get; set; }
-        public string UserEmail { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
         public decimal Totalprice { get; set; }
+        public DateOnly FromDate { get; set; }
+        public DateOnly ToDate { get; set; }
         public string PaymentMethod { get; set; }
         public DateOnly? CreatedDate { get; set; }
-        public int Status { get; set; }
-        public ICollection<Booking>? Bookings { get; set; }
+        public string Status { get; set; }
+
     }
 }

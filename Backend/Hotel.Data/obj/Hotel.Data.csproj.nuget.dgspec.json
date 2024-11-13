@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\phaml\\source\\repos\\Hotel\\Hotel.Data\\Hotel.Data.csproj": {}
+    "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Backend\\Hotel.Data\\Hotel.Data.csproj": {}
   },
   "projects": {
-    "C:\\Users\\phaml\\source\\repos\\Hotel\\Hotel.Data\\Hotel.Data.csproj": {
+    "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Backend\\Hotel.Data\\Hotel.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\phaml\\source\\repos\\Hotel\\Hotel.Data\\Hotel.Data.csproj",
+        "projectUniqueName": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Backend\\Hotel.Data\\Hotel.Data.csproj",
         "projectName": "Hotel.Data",
-        "projectPath": "C:\\Users\\phaml\\source\\repos\\Hotel\\Hotel.Data\\Hotel.Data.csproj",
+        "projectPath": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Backend\\Hotel.Data\\Hotel.Data.csproj",
         "packagesPath": "C:\\Users\\phaml\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\phaml\\source\\repos\\Hotel\\Hotel.Data\\obj\\",
+        "outputPath": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Backend\\Hotel.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\phaml\\AppData\\Roaming\\NuGet\\NuGet.Config",

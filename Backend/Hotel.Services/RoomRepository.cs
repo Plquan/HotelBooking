@@ -18,7 +18,8 @@ namespace Hotel.Services
         Task Delete(int id);
         Task Update(Room room);
         Task<List<RoomVM>> GetAll();
-        Task<Room> GetById(int id);  
+        Task<Room> GetById(int id);
+        Task<string> ChangeStatus(int id);
     }
 
     public class RoomRepository : IRoomRepository
@@ -33,7 +34,11 @@ namespace Hotel.Services
 
         public async Task Add(RoomDTO roomDTO)
         {
-            var room = _mapper.Map<Room>(roomDTO);
+            var room = new Room() { 
+            RoomNumber = roomDTO.RoomNumber,
+            RoomTypeId = roomDTO.RoomTypeId,
+            Status = "inActive"
+            };
             _context.Rooms.Add(room);
           await _context.SaveChangesAsync();
         }
@@ -68,9 +73,7 @@ namespace Hotel.Services
             {
                 throw new Exception("Không tìm thấy phòng!");
             }
-                return room;
-         
-			      
+                return room;      	      
 		}
 
 		public  async Task Update(Room newroom)
@@ -84,5 +87,30 @@ namespace Hotel.Services
             }
                 
         }
+
+
+
+
+        public async Task<string> ChangeStatus(int id)
+        {
+            var room = _context.Rooms.FirstOrDefault(x => x.Id == id);
+
+            if (room != null)
+            {
+                room.Status = room.Status == "active" ? "inActive" : "active";
+                await _context.SaveChangesAsync();
+                return room.Status;
+            }
+            else
+            {
+                throw new Exception("không tìm thấy phòng");
+            }
+
+        }
+
     }
+
+
+
 }
+

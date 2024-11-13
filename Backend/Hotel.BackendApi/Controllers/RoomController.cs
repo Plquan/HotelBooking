@@ -57,6 +57,11 @@ namespace Hotel.BackendApi.Controllers
 			var room = await _roomRepository.GetById(id);
 			return  _mapper.Map<RoomDTO>(room);
 		}
-
+        [HttpPost]
+        [Route("ChangeStatus/{id}")]
+        public async Task<string> ChangeStatus(int id)
+        {
+            return await _roomRepository.ChangeStatus(id);
+        }
     }
 }

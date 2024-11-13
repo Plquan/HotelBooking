@@ -1,5 +1,31 @@
 [
   {
+    "ContainingType": "Hotel.BackendApi.Controllers.BookingController",
+    "Method": "CheckRoom",
+    "RelativePath": "api/Booking/CheckRoom",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "date",
+        "Type": "Hotel.Services.CheckDate",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[Hotel.Data.ViewModels.CheckRoomVM, Hotel.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Hotel.BackendApi.Controllers.RoomController",
     "Method": "Add",
     "RelativePath": "api/Room/Add",
@@ -17,6 +43,32 @@
       {
         "Type": "System.Void",
         "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.RoomController",
+    "Method": "ChangeStatus",
+    "RelativePath": "api/Room/ChangeStatus/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
         "StatusCode": 200
       }
     ]
@@ -131,7 +183,7 @@
     "ContainingType": "Hotel.BackendApi.Controllers.RoomTypeController",
     "Method": "ChangeStatus",
     "RelativePath": "api/RoomType/ChangeStatus/{id}",
-    "HttpMethod": "PUT",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [

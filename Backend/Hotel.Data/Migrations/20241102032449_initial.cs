@@ -59,12 +59,15 @@ namespace Hotel.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Totalprice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    FromDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    ToDate = table.Column<DateOnly>(type: "date", nullable: false),
                     PaymentMethod = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedDate = table.Column<DateOnly>(type: "date", nullable: true),
-                    Status = table.Column<int>(type: "int", nullable: false)
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -78,15 +81,14 @@ namespace Hotel.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Capacity = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    View = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    View = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BedType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Size = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Thumb = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Thumb = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -246,7 +248,7 @@ namespace Hotel.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoomTypeId = table.Column<int>(type: "int", nullable: false),
-                    RoomNumber = table.Column<int>(type: "int", nullable: false),
+                    RoomNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -281,36 +283,25 @@ namespace Hotel.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Bookings",
+                name: "PaymentRooms",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    PaymentId = table.Column<int>(type: "int", nullable: true),
-                    RoomId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FromDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    ToDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    PaymentId = table.Column<int>(type: "int", nullable: false),
+                    RoomId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Bookings", x => x.Id);
+                    table.PrimaryKey("PK_PaymentRooms", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Bookings_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Bookings_Payments_PaymentId",
+                        name: "FK_PaymentRooms_Payments_PaymentId",
                         column: x => x.PaymentId,
                         principalTable: "Payments",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Bookings_Rooms_RoomId",
+                        name: "FK_PaymentRooms_Rooms_RoomId",
                         column: x => x.RoomId,
                         principalTable: "Rooms",
                         principalColumn: "Id",
@@ -357,19 +348,14 @@ namespace Hotel.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bookings_PaymentId",
-                table: "Bookings",
+                name: "IX_PaymentRooms_PaymentId",
+                table: "PaymentRooms",
                 column: "PaymentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bookings_RoomId",
-                table: "Bookings",
+                name: "IX_PaymentRooms_RoomId",
+                table: "PaymentRooms",
                 column: "RoomId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Bookings_UserId",
-                table: "Bookings",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoomFacilitys_RoomTypeId",
@@ -411,7 +397,7 @@ namespace Hotel.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Bookings");
+                name: "PaymentRooms");
 
             migrationBuilder.DropTable(
                 name: "RoomFacilitys");

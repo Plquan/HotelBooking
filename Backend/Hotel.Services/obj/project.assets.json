@@ -6134,11 +6134,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\phaml\\source\\repos\\Hotel\\Hotel.Services\\Hotel.Services.csproj",
+      "projectUniqueName": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Backend\\Hotel.Services\\Hotel.Services.csproj",
       "projectName": "Hotel.Services",
-      "projectPath": "C:\\Users\\phaml\\source\\repos\\Hotel\\Hotel.Services\\Hotel.Services.csproj",
+      "projectPath": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Backend\\Hotel.Services\\Hotel.Services.csproj",
       "packagesPath": "C:\\Users\\phaml\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\phaml\\source\\repos\\Hotel\\Hotel.Services\\obj\\",
+      "outputPath": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Backend\\Hotel.Services\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\phaml\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -6156,8 +6156,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\phaml\\source\\repos\\Hotel\\Hotel.Data\\Hotel.Data.csproj": {
-              "projectPath": "C:\\Users\\phaml\\source\\repos\\Hotel\\Hotel.Data\\Hotel.Data.csproj"
+            "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Backend\\Hotel.Data\\Hotel.Data.csproj": {
+              "projectPath": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Backend\\Hotel.Data\\Hotel.Data.csproj"
             }
           }
         }

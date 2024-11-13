@@ -46,7 +46,7 @@ namespace Hotel.Services
                 View = roomType.View,
                 BedType = roomType.BedType,
                 Size = roomType.Size,
-                Thumb = roomType.Thumb != null ? _fileServices.Upload(roomType.Thumb) : null,
+                Thumb = roomType.Thumb != null ? _fileServices.Upload(roomType.Thumb) : null,              
                 Status = "inactive"
             };
 
@@ -172,14 +172,14 @@ namespace Hotel.Services
             var roomtype = _context.RoomTypes.FirstOrDefault(x => x.Id == roomTypeDTO.Id);
 
             if (roomtype != null)
-            {
-               
+            { 
                 roomtype.Name = roomTypeDTO.Name;
                 roomtype.Content = roomTypeDTO.Content;
                 roomtype.Capacity = roomTypeDTO.Capacity;
                 roomtype.View = roomTypeDTO.View;
                 roomtype.BedType = roomTypeDTO.BedType;
                 roomtype.Price = roomTypeDTO.Price;
+
                if(roomTypeDTO.Thumb != null)
                 {
 					var newthumb = _fileServices.Upload(roomTypeDTO.Thumb);
@@ -189,7 +189,11 @@ namespace Hotel.Services
                 if (roomTypeDTO.RoomImages != null)
                 {
                     var roomImg = _context.RoomImages.Where(x => x.RoomTypeId == roomtype.Id).ToList();
-                    foreach(var img in roomImg)
+
+                    var deleteImage = roomImg
+                          .Where(img => !roomTypeDTO.RoomImages.Any(dtoImg => dtoImg == img.Url))
+                     .ToList();
+                    foreach(var img in deleteImage)
                     {
                         _fileServices.Delete(img.Url);
                     }
@@ -204,6 +208,7 @@ namespace Hotel.Services
                             Url = imgUpload
 						};
                         _context.RoomImages.Add(newImg);
+
                     }
                 }
 
@@ -257,9 +262,12 @@ namespace Hotel.Services
             }
 					
 		}
+
+  
+
+
+
 	}
-
-
 
   }
 

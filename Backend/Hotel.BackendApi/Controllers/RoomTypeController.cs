@@ -65,7 +65,7 @@ namespace Hotel.BackendApi.Controllers
             var roomtype = await _roomTypeRepository.GetById(id);
             return roomtype;
         }
-        [HttpPut]
+        [HttpPost]
 		[Route("ChangeStatus/{id}")]
 		public async Task<string> ChangeStatus(int id)
         {      

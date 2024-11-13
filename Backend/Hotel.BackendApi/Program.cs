@@ -25,7 +25,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<IRoomTypeRepository, RoomTypeRepository>();
 builder.Services.AddScoped<IFileServices, FileServices>();
-
+builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddDbContext<HotelContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));

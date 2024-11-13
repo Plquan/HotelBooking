@@ -7,6 +7,6 @@ namespace Hotel.Data.Dtos
         public int Id { get; set; }
         public int RoomTypeId { get; set; }
         public string RoomNumber { get; set; }
-		public string Status { get; set; }
+		public string? Status { get; set; }
 	}
 }
