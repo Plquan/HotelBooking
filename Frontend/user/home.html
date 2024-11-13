@@ -91,29 +91,37 @@
         <div class="check-avail">
             <div class="container">
                 <div class="arrival date-title ">
-                    <label>Arrival Date </label>
-                    <div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
+                    
+                    <label>Ngày đến</label>
+                    <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
                         <input class="form-control" type="text" id="fromDate">
                         <span class="input-group-addon"><img src="images/Home-1/date-icon.png" alt="#"></span>
                     </div>
                 </div>
                 <div class="departure date-title ">
-                    <label>Departure Date </label>
-                    <div id="datepickeri" class="input-group date" data-date-format="dd-mm-yyyy">
-                        <input class="form-control" type="text" id="toDate">
+                    <label>Ngày rời đi </label>
+                    <div id="datepickeri" class="input-group date" data-date-format="yyyy-mm-dd">
+                        <input class="form-control" type="text" id="toDate" >
                         <span class="input-group-addon"><img src="images/Home-1/date-icon.png" alt="#"></span>
+                    </div>
+                </div>
+                <div class="departure date-title" style="width: 156px;">
+                    <label>Số Người</label>
+                    <div class="input-group date"  >
+                        <input class="form-control" type="number" style="color: black; text-align: center;" value="0" id="numberPerson">
                     </div>
                 </div>
                 <div class="find_btn date-title">
                     <a onclick="checkDate()">
                         <div class="text-find">
-                            Check
-                            <br>Availability
+                           Kiểm tra
+                            <br>Phòng trống
                         </div>
                     </a>
                 </div>
             </div>
         </div>
+
     </section>
     <!-- END / SLIDER -->
     <style>
@@ -281,5 +289,6 @@
       $("#navP").load("template/nav.html");
       $("#footerP").load("template/footer.html");
     }); 
+
 </script>
 </html>

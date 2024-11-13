@@ -8641,7 +8641,7 @@ button.close {
           content: '';
           height: 1px;
           float: left;
-          background-color: #red;
+          background-color: red;
           background-image: -webkit-gradient(linear, left top, right top, from(#fff), to(#e3e3e3));
           background-image: -webkit-linear-gradient(left, #fff, #e3e3e3);
           background-image: -moz-linear-gradient(left, #fff, #e3e3e3);
@@ -8649,7 +8649,7 @@ button.close {
           background-image: -o-linear-gradient(left, #fff, #e3e3e3); }
         .body-restaurant .restaurant-lager .restaurant_content .hr:after {
           float: right;
-          background-color: #red;
+          background-color: red;
           background-image: -webkit-gradient(linear, left top, right top, from(#e3e3e3), to(#fff));
           background-image: -webkit-linear-gradient(left, #e3e3e3, #fff);
           background-image: -moz-linear-gradient(left, #e3e3e3, #fff);
@@ -11252,10 +11252,9 @@ button.close {
   .table-condensed thead tr .prev,
   .table-condensed thead tr .datepicker-switch,
   .table-condensed thead tr .next {
-    background: #8f7037 !important;
     -webkit-border-radius: 0;
     border-radius: 0;
-    color: #FFF;
+    color: black;
     padding: 10px 0px; }
   .table-condensed thead tr .prev,
   .table-condensed thead tr .next {
@@ -11278,10 +11277,9 @@ button.close {
     font-size: 20px;
     vertical-align: middle; }
   .table-condensed thead tr .dow {
-    background: #977A42;
     -webkit-border-radius: 0;
     border-radius: 0;
-    color: #FFF;
+    color: black;
     font-family: "Poppins", sans-serif;
     font-weight: 600;
     padding: 6px 0px;

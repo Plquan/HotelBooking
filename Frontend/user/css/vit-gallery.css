@@ -19,6 +19,7 @@ body.slide-blur {
   overflow: hidden;
   position: relative;
   box-sizing: border-box;
+  
 }
 .gallery__fake {
   display: inline-block;
@@ -170,21 +171,7 @@ body.slide-blur {
 .gallery__img-block.load {
   background-size: 40px;
 }
-.gallery__description-block {
-  padding: 12px 0;
-  width: 100%;
-  margin: 0 auto;
-  position: absolute;
-  bottom: 0;
-  background: rgba(63, 60, 60, 0.5);
-  text-align: left;
-}
-.gallery__description-block__description {
-  font-size: 20px;
-  color: #fff;
-  display: none;
-  margin-left: 30px;
-}
+
 .gallery__description-block__description.current {
   display: inline-block;
   font-size: 14px;

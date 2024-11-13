@@ -1,16 +1,21 @@
 function checkDate() {
     const fromDate = document.getElementById('fromDate').value;
     const toDate = document.getElementById('toDate').value;
-
+    const numberPerson = document.getElementById('numberPerson').value;
+    
     localStorage.setItem('fromDate', fromDate);
     localStorage.setItem('toDate', toDate);
+    localStorage.setItem('numberPerson',numberPerson);
     window.location.href = 'http://127.0.0.1:5500/user/checkRoom.html';
-
 }
 
 const baseUrl = "https://localhost:7197/images";
 
 document.addEventListener('DOMContentLoaded', function () {
+
+
+
+
     axios.get('https://localhost:7197/api/RoomType/GetAll')
         .then(function (response) {
             const rooms = response.data; // Lấy dữ liệu từ response

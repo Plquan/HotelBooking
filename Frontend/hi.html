@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sortable Example</title>
+</head>
+<body>
+    <ul id="sortable-list">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+    </ul>
+
+    <!-- Thêm thư viện Sortable -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+    <script>
+        // Bước 3: Tạo tính năng kéo và thả
+        const sortable = new Sortable(document.getElementById('sortable-list'), {
+            animation: 150, // Thêm hiệu ứng khi kéo (mili giây)
+            ghostClass: 'sortable-ghost', // Class cho phần tử đang kéo
+            onEnd(evt) { 
+                console.log('Item moved:', evt);
+                console.log('New order:', evt.from.children);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -193,38 +193,64 @@ $(document).ready(function() {
     });
     /*end/scroll-header*/
 
+    function convertDate(inputFormat) {
+        function pad(s) { return (s < 10) ? '0' + s : s; }
+        var d = new Date(inputFormat);
+        return [d.getFullYear(), pad(d.getMonth() + 1), pad(d.getDate())].join('-');
+    }
+    
+    
+
     /*datepicker*/
     $(function() {
         $('#datepicker').each(function() {
             $(this).datepicker({
+                startDate: new Date(),
                 autoclose: true,
                 todayHighlight: true
-            }).datepicker('update', new Date());
+            }).datepicker('update', new Date()).on('changeDate', function(e) {
+                var day = new Date(e.dates);
+                var nextDay = new Date(day);
+                nextDay.setDate(day.getDate() + 1);
+                $('#datepickeri input').val(convertDate(nextDay));
+            });;
         });
+        var tomorrow = new Date();
+        tomorrow.setDate(new Date().getDate()+1);
+
         $('#datepickeri').each(function() {
             $(this).datepicker({
+                startDate: new Date(),
                 autoclose: true,
                 todayHighlight: true
             }).datepicker('update', new Date());
         });
+        $('#datepickeri').datepicker('setDate', tomorrow);
 
         $('#datepicker1').each(function() {
             $("#datepicker1").datepicker({
-                dateFormat: 'mm/dd/yy',
+                startDate: new Date(),
+                dateFormat: 'yy/mm/dd',
                 changeMonth: true,
                 changeYear: true,
                 yearRange: '-100y:c+nn',
-                maxDate: '-1d'
+                maxDate: '-1d',
+            }).on('changeDate', function(e) {
+                var day = new Date(e.dates);
+                var nextDay = new Date(day);
+                nextDay.setDate(day.getDate() + 1);
+                $('#datepicker2 input').val(convertDate(nextDay));
             });
         });
-
         $('#datepicker2').each(function() {
             $("#datepicker2").datepicker({
-                dateFormat: 'mm/dd/yy',
+                startDate: new Date(),
+                dateFormat: 'yy/mm/dd',
                 changeMonth: true,
                 changeYear: true,
                 yearRange: '-100y:c+nn',
                 maxDate: '-1d'
+            }).on('changeDate', function(e) {
             });
         });
 
@@ -237,9 +263,7 @@ $(document).ready(function() {
 
     function StatisticsCount() {
         if ($('.item .count').length) {
-
             $('.item').appear(function() {
-
                 var count_element = $('.count', this).html();
                 $(".count", this).countTo({
                     from: 0,
@@ -524,13 +548,7 @@ $(document).ready(function() {
     });
     /*end/datepicker*/
     /*rooms-detail*/
-    $('.gallery3').each(function() {
-        $(this).vitGallery({
-            debag: true,
-            thumbnailMargin: 37,
-            fullscreen: true
-        });
-    });
+
     $('.gallery1').each(function() {
         $(this).vitGallery({
             controls: 'points',

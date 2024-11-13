@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="css/vit-gallery.css">
     <link rel="shortcut icon" type="text/css" href="images/favicon.png" />
     <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
+    <link rel="stylesheet" type="text/css" href="css/toastr.min.css">
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css" />
     <!-- MAIN STYLE -->
@@ -97,45 +98,49 @@
                                     <h6 class="check_availability_title">Chọn ngày tháng</h6>
                                     <div class="check_availability-field">
                                         <label>Ngày đến</label>
-                                        <div class="input-group date" data-date-format="dd-mm-yyyy" id="datepicker1">
-                                            <input class="form-control wrap-box" type="text" placeholder="Arrival Date" id="arrivalDate">
+                                        <div id="datepicker1" class="input-group date" data-date-format="yyyy-mm-dd" >
+                                            <input class="form-control wrap-box" type="text" placeholder="Ngày đến" id="fromDate">
                                             <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
                                         </div>
                                     </div>
                                
                                     <div class="check_availability-field">
-                                        <label>Ngày đi</label>
-                                        <div id="datepicker2" class="input-group date" data-date-format="dd-mm-yyyy">
-                                            <input class="form-control wrap-box" type="text" placeholder="Departure Date" id="endDate">
+                                        <label>Ngày rời đi</label>
+                                        <div id="datepicker2" class="input-group date" data-date-format="yyyy-mm-dd">
+                                            <input class="form-control wrap-box" type="text" placeholder="Ngày đi" id="toDate">
                                             <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
                                         </div>
                                     </div>
-                                    <button onclick="changeSearch()" class="btn-room btn">Áp dụng thay đổi</button>
+                                    <button onclick="checkDate()" class="btn-room btn">Áp dụng thay đổi</button>
                      
                                     <div class="check_availability-field">
                                         <label>Số người</label>
-                                        <input class="awe-select" id="numberSelect">
-                                          
+                                        <div class="input-group date">
+                                            <input class="form-control wrap-box" type="number" placeholder="Nhập số lượng" id="numberPerson" >                                   
+                                        </div>
                                     </div>
                                 
-                                    <button class="btn-room btn">XÁC NHẬN</button>
+                                    <button onclick="confirm()" class="btn-room btn">XÁC NHẬN</button>
                                 </div>
                             </div>
+                            
                             <!-- END / WIDGET CHECK AVAILABILITY -->
                         </div>
                     </div>
+                    
                     <!--  END/SIDEBAR -->
                     <!-- CONTENT -->
+
                   <div>
                         <div class="col-lg-9 col-md-8 col-sm-12 col-xs-12">
                             <div class="reservation_content">
                                 <!-- RESERVATION ROOM -->
-                                <div class="reservation-room">
+                                <div class="reservation-room" id="roomTypeContainer">
                                     <!-- ITEM -->
-                                    <div class="reservation-room_item">
+                                    <!-- <div class="reservation-room_item">
                                         <h2 class="reservation-room_name"><a href="#">Luxury room</a></h2>
                                         <div class="reservation-room_img">
-                                            <a href="#"><img src="~/user/images/Reservation/luxury.jpg" alt="#" class="img-responsive"></a>
+                                            <a href="#"><img src="images/Reservation/luxury.jpg" alt="#" class="img-responsive"></a>
                                         </div>
                                         <div class="reservation-room_text">
                                             <div class="reservation-room_desc">
@@ -158,8 +163,9 @@
                                                 <option value="room3">Room 3</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <!-- END / ITEM -->
+
                                 </div>
                                 <!-- END / RESERVATION ROOM -->
                             </div>
@@ -186,6 +192,7 @@
     <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="js/owl.carousel.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/toastr.min.js"></script>
     <script type="text/javascript" src="js/vit-gallery.js"></script>
     <script type="text/javascript" src="js/jquery.countTo.js"></script>
     <script type="text/javascript" src="js/jquery.appear.min.js"></script>
@@ -197,7 +204,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDyCxHyc8z9gMA5IlipXpt0c33Ajzqix4"></script>
     <!-- Custom jQuery -->
     <script type="text/javascript" src="js/sky.js"></script>
-    <script src="api/allRoom.js"></script>
+    <script src="api/checkRoom.js"></script>
 </body>
 <script>
     $(function () {
