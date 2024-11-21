@@ -79,7 +79,7 @@
                 <!-- STEP -->
                 <div class="reservation_step">
                     <ul>
-                        <li><a href="#"><span>1.</span> Chọn phòng</a></li>
+                        <li><a href="/user/checkRoom.html"><span>1.</span> Chọn phòng</a></li>
                         <li class="active"><a href="#"><span>2.</span> Xác nhận</a></li>
                     </ul>
                 </div>
@@ -95,24 +95,20 @@
                                 <!-- END / HEADING -->
                                 <ul>
                                     <li>
-                                        <span>Ngày đến</span>
+                                        <span>Nhận phòng</span>
                                         <span id="fromDate"></span>
                                     </li>
                                     <li>
-                                        <span>Ngày đi</span>
+                                        <span>Trả về</span>
                                         <span id="toDate"></span>
                                     </li>
                                     <li>
-                                        <span>Total Nights</span>
-                                        <span>2</span>
+                                        <span>Tổng số đêm</span>
+                                        <span id="totalNight"></span>
                                     </li>
                                     <li>
-                                        <span>Total Rooms</span>
-                                        <span>2 of 2</span>
-                                    </li>
-                                    <li>
-                                        <span>Total Guests</span>
-                                        <span>4 Adults 1 Children</span>
+                                        <span>Số lượng khách</span>
+                                        <span id="numbePerson"></span>
                                     </li>
                                 </ul>
                             </div>
@@ -120,37 +116,19 @@
                             <!-- ROOM SELECT -->
                             <div class="reservation-room-selected selected-4 ">
                                 <!-- HEADING -->
-                                <h2 class="reservation-heading">Phòng đã chọn</h2>
+                                <h2 class="reservation-heading">Chọn phòng</h2>
                                 <!-- END / HEADING -->                             
                                 <!-- ITEM -->
-                                <div class="reservation-room-seleted_item">
-                                    <h6>ROOM 2</h6> <span class="reservation-option">2 Adult, 1 Child</span>
-                                    <div class="reservation-room-seleted_name has-package">
-                                        <h2><a href="#">COUPLE ROOM</a></h2>
-                                    </div>
-                                    <div class="reservation-room-seleted_package">
-                                       
-                                        <ul>
-                                            <li>
-                                                <span id="price">Giá phòng</span>
-                                                <span>Free</span>
-                                            </li>
-                                            <li>
-                                                <span>VAT</span>
-                                                <span>$30.00</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="reservation-room-seleted_total-room">
-                                        TOTAL Room 2
-                                        <span class="reservation-amout">$500.00</span>
-                                    </div>
-                                </div>
+                                 <div id="chooseRoom">
+                                  
+                                 </div>
+                                
+                                
                                 <!-- END / ITEM -->
                                 <!-- TOTAL -->
                                 <div class="reservation-room-seleted_total ">
                                     <label>TỔNG CỘNG</label>
-                                    <span class="reservation-total" id="totalPrice">$1000.00</span>
+                                    <span class="reservation-total" id="totalPrice"></span>
                                 </div>
                                 <!-- END / TOTAL -->
                             </div>
@@ -232,7 +210,8 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDyCxHyc8z9gMA5IlipXpt0c33Ajzqix4"></script>
     <!-- Custom jQuery -->
     <script type="text/javascript" src="js/sky.js"></script>
-    <script src="api/payment.js"></script>
+    <script src="api/menu.js"></script>
+    <script src="api/booking.js"></script>
 </body>
 <script>
     $(function () {

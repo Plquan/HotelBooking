@@ -106,6 +106,7 @@
                                 <h6>GIÁ PHÒNG TỪ</h6>
                                 <p class="price">
                                     <span class="amout" id="price">330đ</span> /Ngày
+                                    <input type="hidden" value="" id="roomPrice">
                                 </p>
                             </div>
                             <div class="product-detail_form">
@@ -115,9 +116,9 @@
                                         <div class="check_availability">
                                             <div class="check_availability-field">
                                                 <label>Ngày đến</label>
-                                                <div class="input-group date" data-date-format="dd-mm-yyyy"
-                                                    id="datepicker1">
-                                                    <input class="form-control wrap-box" type="text"
+                                                <div class="input-group date" data-date-format="yyyy-mm-dd"
+                                                    id="datepicker">
+                                                    <input id="fromDate" class="form-control wrap-box" type="text"
                                                         placeholder="Ngày đến">
                                                     <span class="input-group-addon"><i class="fa fa-calendar"
                                                             aria-hidden="true"></i></span>
@@ -125,21 +126,26 @@
                                             </div>
                                             <div class="check_availability-field">
                                                 <label>Ngày đi</label>
-                                                <div id="datepicker2" class="input-group date"
-                                                    data-date-format="dd-mm-yyyy">
-                                                    <input class="form-control wrap-box" type="text"
+                                                <div id="datepickeri" class="input-group date"
+                                                    data-date-format="yyyy-mm-dd">
+                                                    <input id="toDate" class="form-control wrap-box" type="text"
                                                         placeholder="Ngày đi">
                                                     <span class="input-group-addon"><i class="fa fa-calendar"
                                                             aria-hidden="true"></i></span>
                                                 </div>
-                                            </div>
-
+                                            </div>                                        
                                             <div class="check_availability-field">
-                                                <label>Số người</label>
-                                                <div class="input-group date" data-date-format="dd-mm-yyyy">
-                                                    <input class="form-control wrap-box" type="text"
-                                                        placeholder="Nhập số lượng">
-                                                   
+                                                <label>Số lượng</label>
+                                                <div class="input-group date">
+                                                    <input id="numberPerson" class="form-control wrap-box" type="number"
+                                                        placeholder="1">                                      
+                                                </div>
+                                            </div>
+                                            <div class="check_availability-field">
+                                                <label>Số phòng</label>
+                                                <div class="input-group date">
+                                                    <input id="numberRoom" class="form-control wrap-box" type="number"
+                                                        placeholder="1">                                      
                                                 </div>
                                             </div>
                                         </div>
@@ -154,11 +160,12 @@
                             <ul style="padding: 10px 20px;">
                                 <li>
                                     <span>Thời gian:</span>
-                                    <span id="time_check">1 ngày 1 đêm</span>
+                                    <span id="totalDay">1 ngày 1 đêm</span>
                                 </li>
+                                
                                 <li>
                                     <span>Tổng tiền:</span>
-                                    <span id="total_price"></span>
+                                    <span id="totalPrice"></span>
                                 </li>
                             </ul>
                         </div>
@@ -175,8 +182,8 @@
                         <ul class="product-detail_tab-header">
                             <li class="active"><a href="#overview" data-toggle="tab">Tổng quan</a></li>
                             <li><a href="#amenities" data-toggle="tab">Tiện ích</a></li>
-                            <li><a href="#rates" data-toggle="tab">RATES</a></li>
-                            <li><a href="#calendar" data-toggle="tab">Calendar</a></li>
+                            <li><a href="#rates" data-toggle="tab">Đánh giá</a></li>
+                            
                         </ul>
                     </div>
                     <div class="col-md-9">
@@ -198,13 +205,7 @@
                                                 <li id="view">View: </li>
                                                 <li id="bedType">Bed: </li>
                                             </ul>
-                                        </div>
-                                        <div class="col-xs-6 col-md-4">
-                                            <h6>Dịch Vụ</h6>
-                                            <ul id="roomService">
-
-                                            </ul>
-                                        </div>
+                                        </div>                                 
                                     </div>
                                 </div>
                             </div>
@@ -261,103 +262,7 @@
                                             <td>
                                                 <p class="price"><span class="amout">$89</span></p>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <h6>Spring/Summer Season</h6>
-                                                <ul>
-                                                    <li>Jun 1 - Aug 31</li>
-                                                    <li>3 night minimum stay</li>
-                                                </ul>
-                                            </td>
-                                            <td>
-                                                <p class="price"><span class="amout">$320</span></p>
-                                            </td>
-                                            <td>
-                                                <p class="price"><span class="amout">$23</span></p>
-                                            </td>
-                                            <td>
-                                                <p class="price"><span class="amout">$120</span></p>
-                                            </td>
-                                            <td>
-                                                <p class="price"><span class="amout">$100</span></p>
-                                            </td>
-                                            <td>
-                                                <p class="price"><span class="amout">$89</span></p>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <h6>Spring/Summer Season</h6>
-                                                <ul>
-                                                    <li>Jun 1 - Aug 31</li>
-                                                    <li>3 night minimum stay</li>
-                                                </ul>
-                                            </td>
-                                            <td>
-                                                <p class="price"><span class="amout">$320</span></p>
-                                            </td>
-                                            <td>
-                                                <p class="price"><span class="amout">$23</span></p>
-                                            </td>
-                                            <td>
-                                                <p class="price"><span class="amout">$120</span></p>
-                                            </td>
-                                            <td>
-                                                <p class="price"><span class="amout">$100</span></p>
-                                            </td>
-                                            <td>
-                                                <p class="price"><span class="amout">$89</span></p>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <h6>Summer/Fall Season</h6>
-                                                <ul>
-                                                    <li>Jun 1 - Aug 31</li>
-                                                    <li>3 night minimum stay</li>
-                                                </ul>
-                                            </td>
-                                            <td>
-                                                <p class="price"><span class="amout">$150</span></p>
-                                            </td>
-                                            <td>
-                                                <p class="price"><span class="amout">$130</span></p>
-                                            </td>
-                                            <td>
-                                                <p class="price"><span class="amout">$100</span></p>
-                                            </td>
-                                            <td>
-                                                <p class="price"><span class="amout">$80</span></p>
-                                            </td>
-                                            <td>
-                                                <p class="price"><span class="amout">$85</span></p>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <h6>Christmas Season</h6>
-                                                <ul>
-                                                    <li>Jun 1 - Aug 31</li>
-                                                    <li>3 night minimum stay</li>
-                                                </ul>
-                                            </td>
-                                            <td>
-                                                <p class="price"><span class="amout">$225</span></p>
-                                            </td>
-                                            <td>
-                                                <p class="price"><span class="amout">$200</span></p>
-                                            </td>
-                                            <td>
-                                                <p class="price"><span class="amout">$180</span></p>
-                                            </td>
-                                            <td>
-                                                <p class="price"><span class="amout">$160</span></p>
-                                            </td>
-                                            <td>
-                                                <p class="price"><span class="amout">$140</span></p>
-                                            </td>
-                                        </tr>
+                                        </tr>                                            
                                     </table>
                                 </div>
                             </div>
@@ -365,48 +270,43 @@
                             <!-- CALENDAR -->
                             <div class="tab-pane fade" id="calendar">
                                 <div class="product-detail_calendar-wrap row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-12">
                                         <!-- CALENDAR ITEM -->
+                                         <style>
+                                           .col-sm-12 {
+    display: flex;
+    justify-content: center;  /* Căn giữa theo chiều ngang */
+    align-items: center;      /* Căn giữa theo chiều dọc */
+    height: 100%;              /* Đảm bảo thẻ cha có chiều cao đầy đủ */
+}
+
+.calendar_custom {
+    width: 80%;               /* Hoặc một giá trị chiều rộng tùy ý */
+    max-width: 500px;         /* Tối đa chiều rộng của thẻ con */
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;       /* Căn giữa nội dung bên trong */
+}
+
+                                             
+                                         </style>
                                         <div class="calendar_custom">
                                             <div class="calendar_title">
                                                 <span class="calendar_month">JUNE</span>
-                                                <span class="calendar_year">2017</span>
-                                                <a href="#" class="calendar_prev calendar_corner"><i
-                                                        class="ion-ios-arrow-thin-left"></i></a>
+                                                <span class="calendar_year">2017</span>                                          
                                             </div>
                                             <table class="calendar_tabel">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Su</th>
-                                                        <th>Mo</th>
-                                                        <th>Tu</th>
-                                                        <th>We</th>
-                                                        <th>Th</th>
-                                                        <th>Fr</th>
-                                                        <th>Sa</th>
-                                                    </tr>
-                                                </thead>
+                                                <br>
                                                 <tr>
-                                                    <td></td>
-                                                    <td class="apb-calendar_current-date">
-                                                        <a href="#"><small>1</small></a>
-                                                    </td>
+                                                    <td> <a href="#"><small>1</small></a></td>                                                                                      
                                                     <td><a href="#"><small>2</small></a></td>
                                                     <td><a href="#"><small>3</small></a></td>
                                                     <td><a href="#"><small>4</small></a></td>
                                                     <td><a href="#"><small>5</small></a></td>
                                                     <td><a href="#"><small>6</small></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a href="#"><small>7</small></a></td>
-                                                    <td><a href="#"><small>8</small></a></td>
-                                                    <td><a href="#"><small>9</small></a></td>
-                                                    <td><a href="#"><small>10</small></a></td>
-                                                    <td class="apb-calendar_current-select"><a
-                                                            href="#"><small>11</small></a></td>
-                                                    <td class="apb-calendar_current-select"><a
-                                                            href="#"><small>12</small></a></td>
-                                                    <td><a href="#"><small>13</small></a></td>
+                                                
                                                 </tr>
                                                 <tr>
                                                     <td><a href="#"><small>14</small></a></td>
@@ -417,98 +317,7 @@
                                                     <td><a href="#"><small>19</small></a></td>
                                                     <td><a href="#"><small>20</small></a></td>
                                                 </tr>
-                                                <tr>
-                                                    <td><a href="#"><small>21</small></a></td>
-                                                    <td><a href="#"><small>22</small></a></td>
-                                                    <td><a href="#"><small>23</small></a></td>
-                                                    <td><a href="#"><small>24</small></a></td>
-                                                    <td><a href="#"><small>25</small></a></td>
-                                                    <td><a href="#"><small>26</small></a></td>
-                                                    <td><a href="#"><small>27</small></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a href="#"><small>28</small></a></td>
-                                                    <td><a href="#"><small>29</small></a></td>
-                                                    <td><a href="#"><small>30</small></a></td>
-                                                    <td><a href="#"><small>31</small></a></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        <!-- END CALENDAR ITEM -->
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <!-- CALENDAR ITEM -->
-                                        <div class="calendar_custom">
-                                            <div class="calendar_title">
-                                                <span class="calendar_month">JUNE</span>
-                                                <span class="calendar_year">2017</span>
-                                                <a href="#" class="calendar_next calendar_corner"><i
-                                                        class="ion-ios-arrow-thin-right"></i></a>
-                                            </div>
-                                            <table class="calendar_tabel">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Su</th>
-                                                        <th>Mo</th>
-                                                        <th>Tu</th>
-                                                        <th>We</th>
-                                                        <th>Th</th>
-                                                        <th>Fr</th>
-                                                        <th>Sa</th>
-                                                    </tr>
-                                                </thead>
-                                                <tr>
-                                                    <td></td>
-                                                    <td class="apb-calendar_current-date">
-                                                        <a href="#"><small>1</small></a>
-                                                    </td>
-                                                    <td><a href="#"><small>2</small></a></td>
-                                                    <td><a href="#"><small>3</small></a></td>
-                                                    <td><a href="#"><small>4</small></a></td>
-                                                    <td><a href="#"><small>5</small></a></td>
-                                                    <td><a href="#"><small>6</small></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a href="#"><small>7</small></a></td>
-                                                    <td><a href="#"><small>8</small></a></td>
-                                                    <td><a href="#"><small>9</small></a></td>
-                                                    <td><a href="#"><small>10</small></a></td>
-                                                    <td class="apb-calendar_current-select"><a
-                                                            href="#"><small>11</small></a></td>
-                                                    <td class="apb-calendar_current-select"><a
-                                                            href="#"><small>12</small></a></td>
-                                                    <td><a href="#"><small>13</small></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a href="#"><small>14</small></a></td>
-                                                    <td><a href="#"><small>15</small></a></td>
-                                                    <td class="not-available"><a href="#"><small>16</small></a></td>
-                                                    <td class="not-available"><a href="#"><small>17</small></a></td>
-                                                    <td><a href="#"><small>18</small></a></td>
-                                                    <td><a href="#"><small>19</small></a></td>
-                                                    <td><a href="#"><small>20</small></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a href="#"><small>21</small></a></td>
-                                                    <td><a href="#"><small>22</small></a></td>
-                                                    <td><a href="#"><small>23</small></a></td>
-                                                    <td><a href="#"><small>24</small></a></td>
-                                                    <td><a href="#"><small>25</small></a></td>
-                                                    <td><a href="#"><small>26</small></a></td>
-                                                    <td><a href="#"><small>27</small></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a href="#"><small>28</small></a></td>
-                                                    <td><a href="#"><small>29</small></a></td>
-                                                    <td><a href="#"><small>30</small></a></td>
-                                                    <td><a href="#"><small>31</small></a></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
+                                                
                                             </table>
                                         </div>
                                         <!-- END CALENDAR ITEM -->
@@ -575,6 +384,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDyCxHyc8z9gMA5IlipXpt0c33Ajzqix4"></script>
     <!-- Custom jQuery -->
     <script type="text/javascript" src="js/sky.js"></script>
+    <script src="api/menu.js"></script>
     <script src="api/roomDetail.js"></script>
 </body>
 <script>
@@ -582,12 +392,6 @@
         $("#navP").load("template/nav.html");
         $("#footerP").load("template/footer.html");
     }); 
-
-window.onload = function(){
-
-
-}
 </script>
-
 </html>
 

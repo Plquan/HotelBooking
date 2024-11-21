@@ -2,7 +2,7 @@
     <div class="sidebar-inner slimscroll">
         <div id="sidebar-menu" class="sidebar-menu">
             <ul>
-                <li class="active"> <a asp-action="Index" asp-controller="Dashboard"><i class="fas fa-tachometer-alt"></i> <span>Trang chủ</span></a> </li>
+                <li class="active"> <a href="/admin/Dashboard/index.html"><i class="fas fa-tachometer-alt"></i> <span>Thống kê</span></a> </li>
                 <li class="list-divider"></li>
             
 
@@ -13,7 +13,14 @@
                         <li><a href="/admin/roomType/index.html">Loại phòng</a></li>
                     </ul>
                 </li>
-                <li> <a href="pricing.html"><i class="fa fa-bars"></i> <span>Menu</span></a> </li>
+                <li> <a href="/admin/Menu/index.html"><i class="fa fa-bars"></i> <span>Menu</span></a> </li>
+                <li class="submenu">
+                    <a href="#"><i class="fas fa-calendar-alt"></i> <span>Đặt phòng</span> <span class="menu-arrow"></span></a>
+                    <ul class="submenu_class" style="display: none;">
+                        <li><a href="/admin/booking/calendar.html">Xem dạng lịch</a></li>
+                        <li><a href="/admin/booking/index.html">Xem dạng danh sách</a></li>
+                    </ul>
+                </li>
                 <li class="submenu">
                     <a href="#"><i class="fas fa-share-alt"></i> <span> Apps </span> <span class="menu-arrow"></span></a>
                     <ul class="submenu_class" style="display: none;">
@@ -62,7 +69,7 @@
                         <li><a href="salary-veiw.html">Payslip </a></li>
                     </ul>
                 </li>
-                <li> <a href="calendar.html"><i class="fas fa-calendar-alt"></i> <span>Calendar</span></a> </li>
+          
                 <li class="submenu">
                     <a href="#"><i class="fe fe-table"></i> <span> Blog </span> <span class="menu-arrow"></span></a>
                     <ul class="submenu_class" style="display: none;">

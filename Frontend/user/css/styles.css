@@ -11605,8 +11605,7 @@ button.close {
   .calendar_custom .calendar_tabel {
     width: 100%;
     vertical-align: middle;
-    text-align: center;
-    table-layout: fixed; }
+    text-align: center;}
     .calendar_custom .calendar_tabel th {
       text-transform: uppercase;
       text-align: center;

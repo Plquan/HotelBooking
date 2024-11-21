@@ -2,39 +2,37 @@ function checkDate() {
     const fromDate = document.getElementById('fromDate').value;
     const toDate = document.getElementById('toDate').value;
     const numberPerson = document.getElementById('numberPerson').value;
-    
+
     localStorage.setItem('fromDate', fromDate);
     localStorage.setItem('toDate', toDate);
-    localStorage.setItem('numberPerson',numberPerson);
+    localStorage.setItem('numberPerson', numberPerson);
     window.location.href = 'http://127.0.0.1:5500/user/checkRoom.html';
 }
 
 const baseUrl = "https://localhost:7197/images";
 
 document.addEventListener('DOMContentLoaded', function () {
+    getAllRoom()
 
+});
 
-
-
-    axios.get('https://localhost:7197/api/RoomType/GetAll')
+function getAllRoom(){
+        axios.get('https://localhost:7197/api/RoomType/GetAll')
         .then(function (response) {
-            const rooms = response.data; // Lấy dữ liệu từ response
-            console.log(rooms); // Kiểm tra dữ liệu trả về từ API
+            const rooms = response.data;
+            console.log(rooms);
 
-            const container = document.getElementById('rooms'); // Sửa lại getElementById
+            const container = document.getElementById('rooms');
 
-            // Tạo một biến để chứa các item
             let itemDiv = document.createElement('div');
             itemDiv.classList.add('item');
-
-            // Vòng lặp để thêm các phòng vào itemDiv
-            rooms.forEach((room, index) => {
-                // Tạo HTML cho mỗi phòng
-                const roomHTML = `
+            if (rooms.length > 0) {
+                rooms.forEach((room, index) => {
+                    const roomHTML = `
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
                             <div class="wrap-box">
                                 <div class="box-img">
-                                    <img src="${baseUrl}/${room.thumb}" class="img-responsive" alt="${room.name}" title="${room.name}">
+                                    <img src="${baseUrl}/${room.roomImages[0].url}" class="img-responsive" alt="${room.name}" title="${room.name}">
                                 </div>
                                    <a href="https://localhost:7060/Room/RoomDetail">
                                     <div class="rooms-content">
@@ -45,45 +43,41 @@ document.addEventListener('DOMContentLoaded', function () {
                             </div>
                         </div>`;
 
-
-                itemDiv.innerHTML += roomHTML;
-
-               
-                if ((index + 1) % 3 === 0) {
+                    itemDiv.innerHTML += roomHTML;
+                    if ((index + 1) % 3 === 0) {
+                        container.appendChild(itemDiv);
+                        itemDiv = document.createElement('div');
+                        itemDiv.classList.add('item');
+                    }
+                });
+                if (itemDiv.innerHTML.trim() !== '') {
                     container.appendChild(itemDiv);
-                    itemDiv = document.createElement('div'); 
-                    itemDiv.classList.add('item'); 
                 }
-            });
-
-            
-            if (itemDiv.innerHTML.trim() !== '') {
-                container.appendChild(itemDiv);
+                $('#rooms').owlCarousel({
+                    loop: true,
+                    nav: true,
+                    margin: 0,
+                    /* autoplay: true,
+                    autoplayTimeout: 12000,*/
+                    responsive: {
+                        0: {
+                            items: 1
+                        },
+                        600: {
+                            items: 1
+                        },
+                        1000: {
+                            items: 1
+                        }
+                    }
+                });
+            }
+            else {
+                container.innerHTML = '<p>Hiện không có phòng!</p>'
             }
 
-            // Khởi tạo Owl Carousel
-            $('#rooms').owlCarousel({
-                loop: true,
-                nav: true,
-                margin: 0,
-                /* autoplay: true,
-                autoplayTimeout: 12000,*/
-                responsive: {
-                    0: {
-                        items: 1
-                    },
-                    600: {
-                        items: 1
-                    },
-                    1000: {
-                        items: 1
-                    }
-                }
-            });
-
-            console.log("Owl Carousel initialized with jQuery version: " + $.fn.jquery);
         })
         .catch(function (error) {
             console.error('Error fetching room data:', error);
         });
-});
+}

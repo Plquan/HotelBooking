@@ -139,11 +139,10 @@
             <div class="content container-fluid">
         
                 <div class="page-header mt-5">
-                    <button type="button" onclick="cancel()" class="btn btn-primary buttonedit ml-2">Quay lại</button>
-                    <button type="button" onclick="addRoom()" class="btn btn-primary buttonedit">Thêm mới</button>
+                    
                     <div class="row">
                         <div class="col">
-                            <h3 class="page-title">Thêm mới</h3>
+                            <h3 class="page-title">Chỉnh sửa</h3>
                         </div>
                     </div>
                 </div>
@@ -159,28 +158,52 @@
                                 <h4 class="card-title">Thông tin</h4>
                             </div>
                             <div class="card-body">
-                                <form enctype="multipart/form-data">
+                                <form>
                                     <div class="form-group row">
-                                        <label class="col-form-label col-md-2">Mã số phòng</label>
+                                        <label class="col-form-label col-md-2">Tên Menu</label>
                                         <div class="col-md-10">
-                                            <input type="text" id="roomNumber" class="form-control" autofocus placeholder="K01...">
+                                            <input type="text" id="name" class="form-control" autofocus placeholder="Trang chủ...">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-form-label col-md-2">Loại phòng</label>
+                                        <label class="col-form-label col-md-2">Link</label>
                                         <div class="col-md-10">
-                                            <select required class="form-control" id="roomTypeId" name="sellist1">
-                                                <option value="">Chọn</option>
+                                            <input type="text" id="link" class="form-control"  placeholder="https/..">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-2">Thuộc về</label>
+                                        <div class="col-md-10">
+                                            <select required class="form-control" id="parentId" name="sellist1">
+                                                <option value="" selected hidden disabled>Chọn</option>                                            
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-2">Kiểu mở</label>
+                                        <div class="col-md-10">
+                                            <select  class="form-control" id="typeOpen" name="sellist1">
+                                                <option value="_self">Mở cửa sổ hiện tại</option>
+                                                <option value="_blank">Mở cửa sổ mới</option>                                           
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-2">Trạng thái</label>
+                                        <div class="col-md-10">
+                                            <select  class="form-control" id="status" name="sellist1">  
+                                                <option value="inactive">Chưa kích hoạt</option>                                                 
+                                                <option value="active">Kích hoạt</option>                                                                                    
+                                            </select>
+                                        </div>
+                                    </div>    
                                 </form>
+                                <button type="button" onclick="editMenu()" class="btn btn-primary buttonedit ml-2">Lưu</button>
+                              <button type="button" onclick="cancel()" class="btn btn-primary buttonedit">Quay lại</button>
                             </div>
                         </div>
                     </div>
-                </div>
-        
-            
+                </div>  
             </div>
         </div>
 
@@ -198,7 +221,7 @@
     <script src="../assets/js/tagify.js"></script>
     <script src="../assets/js/chart.morris.js"></script>
     <script src="../assets/js/script.js"></script>
-    <script src="../api/room/add.js"></script>
+    <script src="../api/menu/edit.js"></script>
 </body>
 <script>
 
