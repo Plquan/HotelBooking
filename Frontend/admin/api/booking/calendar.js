@@ -1,10 +1,8 @@
-document.addEventListener('DOMContentLoaded', function() {
-
-});
 
 var calendarEl = document.getElementById('calendar');
 var calendar = new FullCalendar.Calendar(calendarEl, {
     locale: 'vi', 
+    timezone: 'local',
     headerToolbar: {
         left: 'prev,next today',
         center: 'title',
@@ -18,38 +16,44 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
         list: 'Danh sách'
     },
     initialView: 'dayGridMonth', 
-    events: [
+    events: [],
+    displayEventTime: false,
+    editable: false,  
+    droppable: false, 
+    eventClick: function(info) {
+        var name = info.event.title;
+      
 
- 
+      
 
-    ],
-    dateClick: function(info) {
-        var eventDateInput = document.querySelector('#add_new_event');
-        eventDateInput.value = info.dateStr; // info.dateStr là ngày được nhấn (YYYY-MM-DD)
-        
-        $('#add_new_event').modal('show');
-    },
-    // eventClick: function(info) {
-    //     // Lấy thông tin sự kiện đã click
-    //     var eventTitle = info.event.title;
-    //     var eventStart = info.event.start.toLocaleString();
-    //     var eventEnd = info.event.end ? info.event.end.toLocaleString() : 'Không có ngày kết thúc';
-    //     var eventDescription = info.event.extendedProps.description;
+        $('#edit_booking').modal('show');
+    }
 
-    //     // Hiển thị thông tin trong modal
-    //     document.getElementById('eventTitle').innerText = eventTitle;
-    //     document.getElementById('eventStart').innerText = 'Ngày bắt đầu: ' + eventStart;
-    //     document.getElementById('eventEnd').innerText = 'Ngày kết thúc: ' + eventEnd;
-    //     document.getElementById('eventDescription').innerText = 'Mô tả: ' + eventDescription;
-
-    //     // Mở modal
-    //     $('#eventModal').modal('show');
-    // }
-    
+});
+calendar.render();
+document.addEventListener('DOMContentLoaded', function() {
+getAll()
 });
 
-calendar.render();
 
 function getAll(){
-    
+    axios.get('https://localhost:7197/api/Booking/GetAll')
+    .then(function(respone){
+       const bookings = respone.data.data
+       bookings.forEach( booking => {
+        calendar.addEvent({
+            id: booking.id,            
+            title: booking.code,        
+            start: new Date(booking.fromDate),         
+            end: new Date(booking.toDate),   
+            backgroundColor: '#6495ED',
+            extendedProps:{
+                name:booking.name,
+                
+            }       
+        });
+       });
+       calendar.render();
+    })
 }
+

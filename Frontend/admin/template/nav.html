@@ -22,37 +22,6 @@
                     </ul>
                 </li>
                 <li class="submenu">
-                    <a href="#"><i class="fas fa-share-alt"></i> <span> Apps </span> <span class="menu-arrow"></span></a>
-                    <ul class="submenu_class" style="display: none;">
-                        <li><a href="chat.html"><i class="fas fa-comments"></i><span> Chat </span></a></li>
-                        <li class="submenu">
-                            <a href="#"><i class="fas fa-video camera"></i> <span> Calls </span> <span class="menu-arrow"></span></a>
-                            <ul class="submenu_class" style="display: none;">
-                                <li><a href="voice-call.html"> Voice Call </a></li>
-                                <li><a href="video-call.html"> Video Call </a></li>
-                                <li><a href="incoming-call.html"> Incoming Call </a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i class="fas fa-envelope"></i> <span> Email </span> <span class="menu-arrow"></span></a>
-                            <ul class="submenu_class" style="display: none;">
-                                <li><a href="compose.html">Compose Mail </a></li>
-                                <li><a href="inbox.html"> Inbox </a></li>
-                                <li><a href="mail-veiw.html"> Mail Veiw </a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li class="submenu">
-                    <a href="#"><i class="fas fa-user"></i> <span> Employees </span> <span class="menu-arrow"></span></a>
-                    <ul class="submenu_class" style="display: none;">
-                        <li><a href="employees.html">Employees List </a></li>
-                        <li><a href="leaves.html">Leaves </a></li>
-                        <li><a href="holidays.html">Holidays </a></li>
-                        <li><a href="attendance.html">Attendance </a></li>
-                    </ul>
-                </li>
-                <li class="submenu">
                     <a href="#"><i class="far fa-money-bill-alt"></i> <span> Accounts </span> <span class="menu-arrow"></span></a>
                     <ul class="submenu_class" style="display: none;">
                         <li><a href="invoices.html">Invoices </a></li>
@@ -78,8 +47,7 @@
                         <li><a href="add-blog.html">Add Blog </a></li>
                         <li><a href="edit-blog.html">Edit Blog </a></li>
                     </ul>
-                </li>
-                <li> <a href="~/admin/assets.html"><i class="fas fa-cube"></i> <span>Assests</span></a> </li>
+                </li>             
                 <li> <a href="activities.html"><i class="far fa-bell"></i> <span>Activities</span></a> </li>
                 <li class="submenu">
                     <a href="#"><i class="fe fe-table"></i> <span> Reports </span> <span class="menu-arrow"></span></a>
@@ -90,55 +58,6 @@
                 </li>
                 <li> <a href="settings.html"><i class="fas fa-cog"></i> <span>Settings</span></a> </li>
                 <li class="list-divider"></li>
-                <li class="menu-title mt-3"> <span>UI ELEMENTS</span> </li>
-                <li class="submenu">
-                    <a href="#"><i class="fas fa-laptop"></i> <span> Components </span> <span class="menu-arrow"></span></a>
-                    <ul class="submenu_class" style="display: none;">
-                        <li><a href="uikit.html">UI Kit </a></li>
-                        <li><a href="typography.html">Typography </a></li>
-                        <li><a href="tabs.html">Tabs </a></li>
-                    </ul>
-                </li>
-                <li class="submenu">
-                    <a href="#"><i class="fas fa-edit"></i> <span> Forms </span> <span class="menu-arrow"></span></a>
-                    <ul class="submenu_class" style="display: none;">
-                        <li><a href="form-basic-inputs.html">Basic Input </a></li>
-                        <li><a href="form-input-groups.html">Input Groups </a></li>
-                        <li><a href="form-horizontal.html">Horizontal Form </a></li>
-                        <li><a href="form-vertical.html">Vertical Form </a></li>
-                    </ul>
-                </li>
-                <li class="submenu">
-                    <a href="#"><i class="fas fa-table"></i> <span> Tables </span> <span class="menu-arrow"></span></a>
-                    <ul class="submenu_class" style="display: none;">
-                        <li><a href="tables-basic.html">Basic Table </a></li>
-                        <li><a href="tables-datatables.html">Data Table </a></li>
-                    </ul>
-                </li>
-                <li class="list-divider"></li>
-                <li class="menu-title mt-3"> <span>EXTRAS</span> </li>
-                <li class="submenu">
-                    <a href="#"><i class="fas fa-columns"></i> <span> Pages </span> <span class="menu-arrow"></span></a>
-                    <ul class="submenu_class" style="display: none;">
-                        <li><a href="login.html">Login </a></li>
-                        <li><a href="register.html">Register </a></li>
-                        <li><a href="forgot-password.html">Forgot Password </a></li>
-                        <li><a href="change-password.html">Change Password </a></li>
-                        <li><a href="lock-screen.html">Lockscreen </a></li>
-                        <li><a href="profile.html">Profile </a></li>
-                        <li><a href="gallery.html">Gallery </a></li>
-                        <li><a href="error-404.html">404 Error </a></li>
-                        <li><a href="error-500.html">500 Error </a></li>
-                        <li><a href="blank-page.html">Blank Page </a></li>
-                    </ul>
-                </li>
-                <li class="submenu">
-                    <a href="#"><i class="fas fa-share-alt"></i> <span> Multi Level </span> <span class="menu-arrow"></span></a>
-                    <ul class="submenu_class" style="display: none;">
-                        <li><a href="">Level 1 </a></li>
-                        <li><a href="">Level 2 </a></li>
-                    </ul>
-                </li>
             </ul>
         </div>
     </div>
@@ -150,12 +69,14 @@
 
     var Sidemenu = function() {
         this.$menuItem = $('#sidebar-menu a');
+        this.$slimScrolls = $('.sidebar .slimscroll'); // Initialize slimscrolls
         this.init();
     };
 
     Sidemenu.prototype.init = function() {
         var self = this;
 
+        // Menu item click behavior for submenus
         this.$menuItem.on('click', function(e) {
             if ($(this).parent().hasClass('submenu')) {
                 e.preventDefault();
@@ -165,21 +86,60 @@
                 $('a', $(this).parents('ul:first')).removeClass('subdrop');
                 $(this).next('ul').slideDown(350);
                 $(this).addClass('subdrop');
-            } else if ($(this).hasClass('subdrop')) {
+            } else {
                 $(this).removeClass('subdrop');
                 $(this).next('ul').slideUp(350);
             }
         });
 
-        $('#sidebar-menu ul li.submenu a.active').parents('li:last').children('a:first').addClass('active').trigger('click');
+        // Initialize slimscroll
+        if (this.$slimScrolls.length > 0) {
+            this.$slimScrolls.slimScroll({
+                height: 'auto',
+                width: '100%',
+                position: 'right',
+                size: '7px',
+                color: '#ccc',
+                allowPageScroll: false,
+                wheelStep: 10,
+                touchScrollStep: 100
+            });
+
+            var wHeight = $(window).height() - 60;
+            this.$slimScrolls.height(wHeight);
+            $('.sidebar .slimScrollDiv').height(wHeight);
+
+            $(window).resize(function() {
+                var rHeight = $(window).height() - 60;
+                self.$slimScrolls.height(rHeight);
+                $('.sidebar .slimScrollDiv').height(rHeight);
+            });
+        }
+
+        // Handle mouseover for expand menu in mini sidebar mode
+        $(document).on('mouseover', function(e) {
+            e.stopPropagation();
+
+            if ($('body').hasClass('mini-sidebar') && $('#toggle_btn').is(':visible')) {
+                var isSidebarHovered = $(e.target).closest('.sidebar').length > 0;
+
+                if (isSidebarHovered) {
+                    $('body').addClass('expand-menu');
+                    $('.subdrop + ul').slideDown();
+                } else {
+                    $('body').removeClass('expand-menu');
+                    $('.subdrop + ul').slideUp();
+                }
+                return false;
+            }
+        });
     };
 
-    // Khởi tạo
+    // Initialize the Sidemenu
     $(document).ready(function() {
         new Sidemenu();
     });
 
 })(jQuery);
-
 
 </script>

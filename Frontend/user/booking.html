@@ -99,7 +99,7 @@
                                         <span id="fromDate"></span>
                                     </li>
                                     <li>
-                                        <span>Trả về</span>
+                                        <span>Trả phòng</span>
                                         <span id="toDate"></span>
                                     </li>
                                     <li>
@@ -108,7 +108,7 @@
                                     </li>
                                     <li>
                                         <span>Số lượng khách</span>
-                                        <span id="numbePerson"></span>
+                                        <span id="numberPerson"></span>
                                     </li>
                                 </ul>
                             </div>
@@ -142,21 +142,21 @@
                             <div class="reservation-billing-detail">
                                 <p class="reservation-login">Returning customer? <a href="#">Click here to login</a></p>
                                 <h4>CHI TIẾT ĐẶT PHÒNG</h4>
-                                <label>Họ tên</label>
-                                <input type="text" class="input-text">
+                                <label>Họ tên<sup> *</sup></label>
+                                <input type="text" id="name" class="input-text">
                                 <div class="row">                                   
                                     <div class="col-sm-6">
                                         <label>Số điện thoại<sup> *</sup></label>
-                                        <input type="text" class="input-text">
+                                        <input type="text" id="phone" class="input-text">
                                     </div>
                                     <div class="col-sm-6">
                                         <label>Email<sup> *</sup></label>
-                                        <input type="text" class="input-text">
+                                        <input type="text" id="email" class="input-text">
                                     </div>
                                 </div>                              
                                 <br>
                                 <label>Order Notes</label>
-                                <textarea class="input-textarea" placeholder="Notes about your order, eg. special notes for delivery"></textarea>
+                                <textarea class="input-textarea" id="note" placeholder="Ghi chú"></textarea>
                                 <label class="label-radio">
                                     <input type="checkbox" class="input-radio"> Create an account?
                                 </label>
@@ -166,18 +166,18 @@
                                 <ul class="option-bank">
                                     <li>
                                         <label class="label-radio">
-                                            <input type="radio" class="input-radio" name="chose-bank"> Thanh toán tại quầy
+                                            <input type="radio" class="input-radio" name="payment"> Thanh toán tại quầy
                                         </label>                                    
                                     </li>
                                     <li>
                                         <label class="label-radio">
-                                            <input type="radio" class="input-radio" name="chose-bank"> Thanh toán online
+                                            <input type="radio" class="input-radio" name="payment"> Thanh toán online
                                         </label>
                                         <a href="#" title=""><img src="images/Reservation/american.jpg" alt="#"></a>
                                         <a href="#" title=""><img src="images/Reservation/mastercard.jpg" alt="#"> </a>                                  
                                     </li>
                                 </ul>
-                                <button class="btn btn-room btn4">PLACE ORDER</button>
+                                <button onclick="placeOrder()" class="btn btn-room btn4">ĐẶT CHỖ</button>
                             </div>
                         </div>
                     </div>

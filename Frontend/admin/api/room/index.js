@@ -11,9 +11,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const activeCount = rooms.filter(item => item.status === "active").length;
             const inActiveCount = rooms.filter(item => item.status === "inActive").length;
 
-            document.getElementById('allBtn').textContent = `Tất cả (${totalCount})`;
-            document.getElementById('activeBtn').textContent = `Kích hoạt (${activeCount})`;
-            document.getElementById('inActiveBtn').textContent = `Chưa kích hoạt (${inActiveCount})`;
+            document.getElementById('allBtn').textContent = `${totalCount}`;
+            document.getElementById('activeBtn').textContent = `${activeCount}`;
+            document.getElementById('inActiveBtn').textContent = `${inActiveCount}`;
 
             let counter = 1;
             rooms.forEach(room => {
@@ -23,17 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                          <td>${counter}</td>
                                             <td>${room.roomNumber}</td>
                                             <td>${room.typeName}</td>
-                                              <td><span style="width: 42px; display: inline-block">
-    <a href="URL_FOR_UP" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Up" data-original-title="Up">
-        <i class="fa fa-arrow-up"></i>
-    </a>
-</span>
-<span style="width: 42px; display: inline-block">
-    <a href="URL_FOR_DOWN" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Down" data-original-title="Down">
-        <i class="fa fa-arrow-down"></i>
-    </a>
-</span>
-</td>
+ 
                                      	<td>
 											<button type="button" data-id="${room.id}" onclick="changeStatus(${room.id})" class="btn btn-rounded ${room.status === "active" ? "btn-primary" : "btn-info active"}">
 													${room.status === "active" ? "Kích hoạt" : "Chưa kích hoạt"}
@@ -56,11 +46,9 @@ document.addEventListener('DOMContentLoaded', function () {
                                                         </div>
                                                     </div>
                                                 </td>`;
-
                 tableBody.appendChild(row);
                 counter++;
             });
-
         })
         .catch(function (error) {
             console.error('Lỗi khi lấy dữ liệu:', error);
@@ -93,7 +81,6 @@ function deleteRoom(id) {
                 alert("Lỗi khi xóa phòng: " + error.response.data.message);
             });
     });
-
 }
 
 function changeStatus(id) {

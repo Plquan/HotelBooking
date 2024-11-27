@@ -1,4 +1,5 @@
-﻿document.addEventListener('DOMContentLoaded', function () {
+﻿const baseUrl = "https://localhost:7197/images";
+document.addEventListener('DOMContentLoaded', function () {
     const fromDate = localStorage.getItem('fromDate');
     const toDate = localStorage.getItem('toDate');
     const numberPerson = localStorage.getItem('numberPerson');
@@ -95,13 +96,15 @@ function checkDate() {
             container.innerHTML = ''
             if (respData.length > 0) {
                 respData.forEach(roomType => {
-
+                     if(roomType.rooms.length === 0){                      
+                        return
+                     }
                     const fromDateFormatted = new Date(fromDate);
                     const toDateFormatted = new Date(toDate);
                     const night = (toDateFormatted - fromDateFormatted) / (1000 * 60 * 60 * 24);
 
                     let options = '';
-                    for (let i = 1; i <= roomType.roomCount; i++) {
+                    for (let i = 1; i <= roomType.rooms.length; i++) {
                         const VNDprice = (i * roomType.price * night).toLocaleString('vi-VN');
                         options += `<option value="${i}">${i} (VND ${VNDprice})</option>`;
                     }
@@ -114,7 +117,7 @@ function checkDate() {
                     const roomHTML = ` 
                                             <h2 class="reservation-room_name"><a href="#">${roomType.name}</a></h2>
                                             <div class="reservation-room_img">
-                                                <a href="#"><img src="images/Reservation/luxury.jpg" alt="#" class="img-responsive"></a>
+                                                <a href="#"><img src="${baseUrl}/${roomType.roomImages[0].url}" alt="Ảnh bìa" class="img-responsive"></a>
                                             </div>
                                             <div class="reservation-room_text">
                                                 <div class="reservation-room_desc">
@@ -129,7 +132,7 @@ function checkDate() {
                                                 <div class="clear"></div>
 
                                                <div>
-                                                 <label>Chọn phòng</label>
+                                                 <span>Chọn phòng</span>
                                                 <select data-room-id = "${roomType.id}" data-number="${roomType.capacity}" 
                                                 data-room-name = ${roomType.name} data-room-price = ${roomType.price}
                                                 class="btn btn-room"> 
@@ -140,6 +143,9 @@ function checkDate() {
                     itemDiv.innerHTML += roomHTML;
                     container.appendChild(itemDiv)
                 });
+                if(container.textContent.trim() === ""){
+                    toastr.info("Không có phòng trống")
+                }
             }
             else {
                 container.innerHTML = '<h4 style="text-align: center; font-family: Poppins, sans-serif;">Không có phòng trống !</h4>'
