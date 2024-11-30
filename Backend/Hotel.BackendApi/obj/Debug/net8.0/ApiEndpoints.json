@@ -1,5 +1,37 @@
 [
   {
+    "ContainingType": "Hotel.BackendApi.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/Auth/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "login",
+        "Type": "Hotel.Services.LoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.AuthController",
+    "Method": "Register",
+    "RelativePath": "api/Auth/Register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "register",
+        "Type": "Hotel.Services.RegisterRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Hotel.BackendApi.Controllers.BookingController",
     "Method": "CheckRoom",
     "RelativePath": "api/Booking/CheckRoom",
@@ -24,6 +56,138 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.BookingController",
+    "Method": "GetAll",
+    "RelativePath": "api/Booking/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.BookingController",
+    "Method": "PlaceOrder",
+    "RelativePath": "api/Booking/PlaceOrder",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "bookingVM",
+        "Type": "Hotel.Data.ViewModels.BookingVM",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.MenuController",
+    "Method": "Add",
+    "RelativePath": "api/Menu/Add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "menu",
+        "Type": "Hotel.Data.Models.Menu",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.MenuController",
+    "Method": "Delete",
+    "RelativePath": "api/Menu/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.MenuController",
+    "Method": "GetAll",
+    "RelativePath": "api/Menu/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.MenuController",
+    "Method": "GetById",
+    "RelativePath": "api/Menu/GetById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.MenuController",
+    "Method": "GetMenuSelect",
+    "RelativePath": "api/Menu/GetMenuSelect/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.MenuController",
+    "Method": "SaveItem",
+    "RelativePath": "api/Menu/SaveItem",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Hotel.Services.Request",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.MenuController",
+    "Method": "Update",
+    "RelativePath": "api/Menu/Update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "menu",
+        "Type": "Hotel.Data.Models.Menu",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Hotel.BackendApi.Controllers.RoomController",
@@ -237,7 +401,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.List\u00601[[Hotel.Data.Models.RoomType, Hotel.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.List\u00601[[Hotel.Data.ViewModels.RoomTypeVM, Hotel.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -272,6 +436,27 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.RoomTypeController",
+    "Method": "GetListPaging",
+    "RelativePath": "api/RoomType/GetListPaging",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageIndex",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Hotel.BackendApi.Controllers.RoomTypeController",

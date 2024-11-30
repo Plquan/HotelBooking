@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Hotel.Services
 {
-    public interface IRoomRepository
+    public interface IRoomService
     {
         Task Add(RoomDTO roomDTO);
         Task Delete(int id);
@@ -22,11 +22,11 @@ namespace Hotel.Services
         Task<string> ChangeStatus(int id);
     }
 
-    public class RoomRepository : IRoomRepository
+    public class RoomService : IRoomService
     {
         private readonly HotelContext _context;
 		private readonly IMapper _mapper;
-		public RoomRepository(HotelContext context, IMapper mapper)
+		public RoomService(HotelContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -62,7 +62,7 @@ namespace Hotel.Services
                             RoomNumber = r.RoomNumber,
                             Status = r.Status,
                             TypeName = t.Name
-						}).ToListAsync();
+						}).Distinct().ToListAsync();
             return query;
 		}
 
@@ -87,9 +87,6 @@ namespace Hotel.Services
             }
                 
         }
-
-
-
 
         public async Task<string> ChangeStatus(int id)
         {

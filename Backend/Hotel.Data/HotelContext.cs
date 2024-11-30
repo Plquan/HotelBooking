@@ -18,11 +18,10 @@ namespace Hotel.Data
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<RoomType> RoomTypes { get; set; }
-        public DbSet<RoomService> RoomServices { get; set; }
-        public DbSet<Payment> Payments { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
         public DbSet<RoomImage> RoomImages { get; set; }
         public DbSet<RoomFacility> RoomFacilitys { get; set; }
-        public DbSet<PaymentRoom> PaymentRooms { get; set; }
+        public DbSet<BookingRoom> BookingRooms { get; set; }
         public DbSet<Menu> Menus { get; set; }
     }
 

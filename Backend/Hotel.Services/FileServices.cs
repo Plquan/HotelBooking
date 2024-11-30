@@ -72,7 +72,6 @@ namespace Hotel.Services
             }
             catch (Exception ex)
             {
-                // Log lỗi hoặc xử lý lỗi nếu cần
                 throw new Exception($"Error while deleting image: {ex.Message}");
             }
         }

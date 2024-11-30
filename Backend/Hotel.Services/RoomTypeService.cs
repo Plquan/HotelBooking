@@ -9,30 +9,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Hotel.Services
 {
-    public interface IRoomTypeRepository
+    public interface IRoomTypeService
     {      
         Task Add(RoomTypeDTO roomType);
         Task Delete(int id);
         Task Update(RoomTypeDTO room);
         Task<string> ChangeStatus(int id);
-        Task<List<RoomType>> GetAll();
+        Task<List<RoomTypeVM>> GetAll();
         Task<RoomTypeVM> GetById(int id);
+        Task<Paging<RoomTypeVM>> GetListPaging(int pageIndex, int pageSize);
     }
 
 
-    public class RoomTypeRepository : IRoomTypeRepository
+    public class RoomTypeService : IRoomTypeService
     {
         private readonly HotelContext _context;
         private readonly IMapper _mapper;
         private readonly IFileServices _fileServices;
-        public RoomTypeRepository(HotelContext context, IMapper mapper,IFileServices fileServices)
+        private readonly IPagingService _pagingService;
+        public RoomTypeService(HotelContext context, IMapper mapper,IFileServices fileServices,IPagingService pagingService)
         {
             _context = context;
             _mapper = mapper;
             _fileServices = fileServices;
+            _pagingService = pagingService;
             
         }
 
@@ -41,12 +45,12 @@ namespace Hotel.Services
             var newroomtype = new RoomType() {
                 Name = roomType.Name,
                 Content = roomType.Content,
+                Slug = roomType.Slug,
                 Capacity = roomType.Capacity,
                 Price = roomType.Price,
                 View = roomType.View,
                 BedType = roomType.BedType,
-                Size = roomType.Size,
-                Thumb = roomType.Thumb != null ? _fileServices.Upload(roomType.Thumb) : null,              
+                Size = roomType.Size,         
                 Status = "inactive"
             };
 
@@ -83,18 +87,6 @@ namespace Hotel.Services
                     _context.RoomImages.Add(newImage);
                 }
             }
-            if(roomType.RoomServices != null)
-            {
-                foreach(var service in roomType.RoomServices)
-                {
-                    var newService = new RoomService() 
-                    {
-                        RoomTypeId = Id,
-                        Name = service
-                    };
-                    _context.RoomServices.Add(newService);
-                }
-            }
             await _context.SaveChangesAsync();
         }
 
@@ -109,33 +101,26 @@ namespace Hotel.Services
             }
         }
 
-        public async Task<List<RoomType>> GetAll()
+        public async Task<List<RoomTypeVM>> GetAll()
         {
-
-        //    var roomType = _context.RoomTypes
-        // .Include(r => r.RoomImages)
-        //  .Include(r => r.RoomServices)
-        //.Include(r => r.RoomFacilitys)
-        // .Select(r => new RoomTypeVM
-        // {
-        //     Id = r.Id,
-        //     Name = r.Name,
-        //     Capacity = r.Capacity,
-        //     View = r.View,
-        //     BedType = r.BedType,
-        //     Price = r.Price,
-        //     Size = r.Size,
-        //     Status = r.Status,
-        //     Content = r.Content,
-        //     Thumb = r.Thumb,
-        //     RoomImages = _mapper.Map<List<RoomImageDTO>>(r.RoomImages.ToList()),
-        //     RoomServices = _mapper.Map<List<RoomServiceDTO>>(r.RoomServices.ToList()),
-        //     RoomFacilitys = _mapper.Map<List<RoomFacilityDTO>>(r.RoomFacilitys.ToList())
-
-        // }).ToList();
-
-
-            return await _context.RoomTypes.ToListAsync();
+            var roomTypes = await (from rt in _context.RoomTypes                            
+                              select new RoomTypeVM
+                              {
+                                  Id = rt.Id,
+                                  Name = rt.Name,
+                                  Capacity = rt.Capacity,
+                                  Slug = rt.Slug,
+                                  View = rt.View,
+                                  BedType = rt.BedType,
+                                  Price = rt.Price,
+                                  Status = rt.Status,
+                                  Content = rt.Content,
+                                  Size = rt.Size,
+                                  RoomImages = _mapper.Map<List<RoomImageDTO>>(rt.RoomImages),
+                                  RoomFacilitys = _mapper.Map<List<RoomFacilityDTO>>(rt.RoomFacilitys)
+                              }).ToListAsync();
+      
+            return roomTypes;
         }
 
 		public async Task<RoomTypeVM> GetById(int id)
@@ -147,20 +132,18 @@ namespace Hotel.Services
             }
             var facility = await _context.RoomFacilitys.Where(x => x.RoomTypeId == id).ToListAsync();
 			var image = await _context.RoomImages.Where(x => x.RoomTypeId == id).ToListAsync();
-			var service = await _context.RoomServices.Where(x => x.RoomTypeId == id).ToListAsync();
                      
 			var roomtype = new RoomTypeVM()
 			{
 				Name = room.Name,
                 Capacity = room.Capacity,
                 View = room.View,
+                Slug = room.Slug,
                 BedType = room.BedType,
                 Price = room.Price,
                 Status = room.Status,
                 Content = room.Content,
                 Size = room.Size,
-                Thumb = room.Thumb,
-                RoomServices = _mapper.Map<List<RoomServiceDTO>>(service),
                 RoomImages = _mapper.Map<List<RoomImageDTO>>(image),
                 RoomFacilitys = _mapper.Map<List<RoomFacilityDTO>>(facility)
 			};
@@ -175,17 +158,12 @@ namespace Hotel.Services
             { 
                 roomtype.Name = roomTypeDTO.Name;
                 roomtype.Content = roomTypeDTO.Content;
+                roomtype.Slug = roomTypeDTO.Slug;
+                roomtype.Size = roomTypeDTO.Size;
                 roomtype.Capacity = roomTypeDTO.Capacity;
                 roomtype.View = roomTypeDTO.View;
                 roomtype.BedType = roomTypeDTO.BedType;
                 roomtype.Price = roomTypeDTO.Price;
-
-               if(roomTypeDTO.Thumb != null)
-                {
-					var newthumb = _fileServices.Upload(roomTypeDTO.Thumb);
-					_fileServices.Delete(roomtype.Thumb);
-                    roomtype.Thumb = newthumb;
-				}
                 if (roomTypeDTO.RoomImages != null)
                 {
                     var roomImg = _context.RoomImages.Where(x => x.RoomTypeId == roomtype.Id).ToList();
@@ -226,20 +204,6 @@ namespace Hotel.Services
                         _context.RoomFacilitys.Add(newtag);                                                     
                         }
                 }
-                if (roomTypeDTO.RoomServices != null)
-                {
-                   var roomService = _context.RoomServices.Where(x => x.RoomTypeId == roomtype.Id).ToList();
-                    _context.RemoveRange(roomService);
-                    foreach(var service in roomTypeDTO.RoomServices)
-                    {
-                        var newRoomService = new RoomService() { 
-                            RoomTypeId = roomtype.Id,
-                            Name = service
-                        };
-                        _context.RoomServices.Add(newRoomService);
-
-                    }
-                }
                     await _context.SaveChangesAsync();
 
                 }
@@ -262,12 +226,27 @@ namespace Hotel.Services
             }
 					
 		}
-
-  
-
-
-
-	}
+        public async Task<Paging<RoomTypeVM>> GetListPaging(int pageIndex, int pageSize)
+        {
+            var query = from rt in _context.RoomTypes
+                                 select new RoomTypeVM
+                                 {
+                                     Id = rt.Id,
+                                     Name = rt.Name,
+                                     Capacity = rt.Capacity,
+                                     Slug = rt.Slug,
+                                     View = rt.View,
+                                     BedType = rt.BedType,
+                                     Price = rt.Price,
+                                     Status = rt.Status,
+                                     Content = rt.Content,
+                                     Size = rt.Size,
+                                     RoomImages = _mapper.Map<List<RoomImageDTO>>(rt.RoomImages),
+                                     RoomFacilitys = _mapper.Map<List<RoomFacilityDTO>>(rt.RoomFacilitys)
+                                 };
+            return await _pagingService.GetPagedAsync<RoomTypeVM>(query, pageIndex, pageSize);
+        }
+    }
 
   }
 

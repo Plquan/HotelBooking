@@ -16,52 +16,50 @@ namespace Hotel.BackendApi.Controllers
     [ApiController]
     public class RoomController : ControllerBase
     {
-        private readonly HotelContext _context;
-        private readonly IRoomRepository _roomRepository;
+        private readonly IRoomService _roomService;
         private readonly IMapper _mapper;
-        public RoomController(HotelContext Context , IRoomRepository roomRepository, IMapper mapper) { 
-            _context = Context;
-            _roomRepository = roomRepository;
+        public RoomController(IRoomService roomService, IMapper mapper) { 
+            _roomService = roomService;
             _mapper = mapper;
         }
         [HttpGet]
         [Route("GetAll")]
         public async Task<ActionResult<List<RoomVM>>> GetAll()
         {
-            var rooms = await  _roomRepository.GetAll();
+            var rooms = await  _roomService.GetAll();
             return  rooms;
         }
         [HttpPost]
         [Route("Add")]
         public async Task Add(RoomDTO room)
         {     
-          await  _roomRepository.Add(room);
+          await  _roomService.Add(room);
         }
         [HttpDelete]
         [Route("Delete/{id}")]
         public async Task Delete(int id)
         {
-            await _roomRepository.Delete(id);
+            await _roomService.Delete(id);
         }
         [HttpPut]
         [Route("Update")]
         public async Task Update(RoomDTO roomdto)
         {
             var room = _mapper.Map<Room>(roomdto);
-            await _roomRepository.Update(room);
+            await _roomService.Update(room);
         }
         [HttpGet]
         [Route("GetById/{id}")]
         public async Task<RoomDTO> GetById(int id)
         {
-			var room = await _roomRepository.GetById(id);
+			var room = await _roomService.GetById(id);
 			return  _mapper.Map<RoomDTO>(room);
 		}
         [HttpPost]
         [Route("ChangeStatus/{id}")]
         public async Task<string> ChangeStatus(int id)
         {
-            return await _roomRepository.ChangeStatus(id);
+            return await _roomService.ChangeStatus(id);
         }
     }
 }
