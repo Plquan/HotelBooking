@@ -2,6 +2,7 @@
 using Hotel.Data;
 using Hotel.Data.Dtos;
 using Hotel.Data.Models;
+using Hotel.Data.Ultils;
 using Hotel.Data.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -23,8 +24,8 @@ namespace Hotel.Services
 
     public class CheckDate
     {
-        public DateOnly? FromDate {  get; set; }
-        public DateOnly? ToDate { get; set; }
+        public DateTime? FromDate {  get; set; }
+        public DateTime? ToDate { get; set; }
     }
     public class BookingService : IBookingService
     {
@@ -102,7 +103,7 @@ namespace Hotel.Services
         {
             var newBooking = new Booking()
             {
-                Name = bookingVM.Name,
+                UserName = bookingVM.Name,
                 Email = bookingVM.Email,
                 Phone = bookingVM.Phone,
                 Note = bookingVM.Note,
@@ -111,8 +112,8 @@ namespace Hotel.Services
                 TotalPerson = bookingVM.TotalPerson,
                 FromDate = bookingVM.FromDate,
                 ToDate = bookingVM.ToDate,
-                CreatedDate = DateOnly.FromDateTime(DateTime.Now),
-                Status = "booked"
+                CreatedDate = DateTime.Now,
+                Status = Status.PlaceOrder
             };
             _context.Bookings.Add(newBooking);
              _context.SaveChanges();

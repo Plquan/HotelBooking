@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hotel.Services
 {
+
     public class AccountService
     {
     }

@@ -15,11 +15,13 @@ namespace Hotel.Data.Models
         public string? Name { get; set; }
         public string? Slug { get; set; }
         public string? Content  { get; set; }
-        public int Capacity { set; get; }
-        public decimal Price { set; get; }
+        public int? Capacity { set; get; }
+        public decimal? Price { set; get; }
         public string? View {  get; set; }
         public string? BedType { set; get; }
 		public string? Size { get; set; }
+        public DateTime? CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
         public string? Status { set; get; }
         public List<Room>? Rooms { get; set; }
 		public List<RoomImage>? RoomImages { get; set; }

@@ -11,18 +11,18 @@ namespace Hotel.Data.Models
     {
         [Key]
         public int Id { get; set; }
-        public string? Name { get; set; }
+        public string? UserName { get; set; }
         public string? Email { get; set; }
         public string? Phone { get; set; }
         public string? Code { get; set; }
         public string? Note { get; set; }
         public int? TotalPerson { get; set; }
         public decimal? TotalPrice { get; set; }
-        public DateOnly? FromDate { get; set; }
-        public DateOnly? ToDate { get; set; }
+        public DateTime? FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
         public string? PaymentMethod { get; set; }
         public string? PaymentStatus { get; set; }
-        public DateOnly? CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
         public string? ConfirmBy { get; set; }
         public string? Status { get; set; }
 

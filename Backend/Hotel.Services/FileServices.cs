@@ -31,9 +31,7 @@ namespace Hotel.Services
 
                     var filePath = Path.Combine(imagesFolder, fileName);
                     System.IO.File.WriteAllBytes(filePath, imageBytes);
-
                     return fileName;
-
             }
             catch 
             {

@@ -13,6 +13,6 @@ namespace Hotel.Data.Models
         public int Id { get; set; }
         public int RoomTypeId { get; set; }
         public string? Url { get; set; }
-        public RoomType RoomType { get; set; }
+        public RoomType? RoomType { get; set; }
     }
 }
