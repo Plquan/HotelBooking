@@ -90,7 +90,7 @@ function addRoomType() {
         return
     }
 
-    const Data = {
+    const data = {
         Name: name,
         Content: content,
         Slug: slug,
@@ -100,10 +100,9 @@ function addRoomType() {
         BedType: bedType,
         Size: size,
         RoomFacilitys: listFacility,
-        RoomImages: listImage
+        RoomImages: listImage,
     };
-
-    axios.post('https://localhost:7197/api/RoomType/Add', Data)
+    axios.post('https://localhost:7197/api/RoomType/Add', data)
         .then(function () {
             localStorage.setItem('toastrMessage', 'Đã thêm thành công');
             window.location.href = 'http://127.0.0.1:5500/admin/roomType/index.html';

@@ -25,7 +25,13 @@
     <!-- MAIN STYLE -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
+<style>
+    .form-select:focus {
+        outline: none;
+        box-shadow: none;
+    }                 
 
+</style>
 <body>
     <!-- HEADER -->
     <header class="header-sky">
@@ -90,7 +96,6 @@
                     <!--  SIDEBAR -->
                     <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
                         <div class="sidebar">
-                     
                             <!-- WIDGET CHECK AVAILABILITY -->
                             <div class="widget widget_check_availability widget-1">
                                 <h4 class="widget-title">THÔNG TIN ĐẶT PHÒNG </h4>
@@ -98,40 +103,45 @@
                                     <h6 class="check_availability_title">Chọn ngày tháng</h6>
                                     <div class="check_availability-field">
                                         <label>Ngày đến</label>
-                                        <div id="datepicker1" class="input-group date" data-date-format="yyyy-mm-dd" >
-                                            <input class="form-control wrap-box" type="text" placeholder="Ngày đến" id="fromDate">
-                                            <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                        <div id="datepicker1" class="input-group date" data-date-format="yyyy-mm-dd">
+                                            <input class="form-control wrap-box" type="text" placeholder="Ngày đến"
+                                                id="fromDate">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"
+                                                    aria-hidden="true"></i></span>
                                         </div>
                                     </div>
-                               
+
                                     <div class="check_availability-field">
                                         <label>Ngày rời đi</label>
                                         <div id="datepicker2" class="input-group date" data-date-format="yyyy-mm-dd">
-                                            <input class="form-control wrap-box" type="text" placeholder="Ngày đi" id="toDate">
-                                            <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                            <input class="form-control wrap-box" type="text" placeholder="Ngày đi"
+                                                id="toDate">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"
+                                                    aria-hidden="true"></i></span>
                                         </div>
                                     </div>
                                     <button onclick="checkDate()" class="btn-room btn">Áp dụng thay đổi</button>
-                     
+
                                     <div class="check_availability-field">
                                         <label>Số người</label>
                                         <div class="input-group date">
-                                            <input class="form-control wrap-box" type="number" placeholder="Nhập số lượng" id="numberPerson" >                                   
+                                            <input class="form-control wrap-box" type="number"
+                                                placeholder="Nhập số lượng" id="numberPerson">
                                         </div>
                                     </div>
-                                
+
                                     <button onclick="confirm()" class="btn-room btn">XÁC NHẬN</button>
                                 </div>
                             </div>
-                            
+
                             <!-- END / WIDGET CHECK AVAILABILITY -->
                         </div>
                     </div>
-                    
+
                     <!--  END/SIDEBAR -->
                     <!-- CONTENT -->
 
-                  <div>
+                    <div>
                         <div class="col-lg-9 col-md-8 col-sm-12 col-xs-12">
                             <div class="reservation_content">
                                 <!-- RESERVATION ROOM -->
@@ -171,7 +181,7 @@
                             </div>
                         </div>
 
-                  </div>
+                    </div>
                 </div>
             </div>
         </div>

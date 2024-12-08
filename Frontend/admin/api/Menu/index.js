@@ -1,3 +1,7 @@
+const accessToken = localStorage.getItem('accessToken'); 
+
+axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+
 document.addEventListener('DOMContentLoaded', function () {
     getAll()
 });
@@ -18,7 +22,7 @@ function getAll() {
             tableData.innerHTML = ''         
             renderMenus(menus, tableData);
         }).catch(function (error) {
-            console.error('Lỗi khi lấy dữ liệu từ API:', error);
+            console.log('Lỗi khi lấy dữ liệu từ API:', error.response.data);
         });
 }
 

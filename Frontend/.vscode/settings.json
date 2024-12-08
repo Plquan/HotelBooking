@@ -1,0 +1,9 @@
+// {  
+// "liveServer.settings.https":   
+// {
+// "enable": true, 
+// "cert": "C:\\OpenSSL-Win64\\https\\server.crt",
+// "key": "C:\\OpenSSL-Win64\\https\\server.key", 
+// "passphrase": "12345"  
+// }  
+// }

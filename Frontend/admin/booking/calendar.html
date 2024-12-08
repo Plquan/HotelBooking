@@ -26,7 +26,7 @@
 		border-top-left-radius: 3px;
 		border-bottom-left-radius: 3px;
 	}
-
+     /* điểm bắt đầu sẽ có gạch đen */
 	.fc-event:not(.fc-event-start)::before {
 		display: none;
 	}
@@ -44,7 +44,6 @@
 	.fc .fc-button {
 		background-color: #4682B4 !important;
 		color: white !important;
-
 		border: 1px solid #4682B4 !important;
 		border-radius: 4px !important;
 		padding: 5px 10px !important;
@@ -72,7 +71,6 @@
 		flex-wrap: wrap;
 		gap: 10px;
 	}
-
 	.filter-select {
 		display: flex;
 		align-items: center;
@@ -80,12 +78,12 @@
 	}
 
 	label {
-		font-weight: bold;
+		font-family: inherit;
 	}
 
 	.form-select {
 		padding: 5px 10px;
-
+		font-family: inherit;
 		font-size: 14px;
 	}
 
@@ -93,13 +91,14 @@
 		display: flex;
 		align-items: center;
 		gap: 60px;
+		
 	}
 
 	.status {
 		display: flex;
 		align-items: center;
 		font-size: 14px;
-		font-weight: bold;
+		font-family: inherit;
 	}
 
 	.indicator {
@@ -122,7 +121,7 @@
 	}
 
 	.filter-title {
-		font-weight: bold;
+		font-family: inherit;
 		font-size: 16px;
 		margin-bottom: 5px;
 	}

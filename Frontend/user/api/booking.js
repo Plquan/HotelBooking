@@ -57,21 +57,23 @@ function placeOrder(){
     const toDate = localStorage.getItem('toDate');
     const numberPerson = localStorage.getItem('numberPerson');
     const selectedRooms = JSON.parse(localStorage.getItem('selectedRooms')) || [];
-    const name = document.getElementById('name').value 
+    const userName = document.getElementById('name').value 
     const email = document.getElementById('email').value 
     const phone = document.getElementById('phone').value 
     const note = document.getElementById('note').value 
     const totalPrice = document.getElementById('totalPrice').getAttribute("data-totalPrice")
     const selectedPayment = document.querySelector('input[name="payment"]:checked');
+
     const chooseRoom = []
-   selectedRooms.forEach(room => {
+    selectedRooms.forEach(room => {
       chooseRoom.push({
-        id: room.roomId,
+        roomTypeId: room.roomTypeId,
         number: room.number
       })
    })
+
     const data = {
-        name: name,
+        userName: userName,
         email:email,
         phone: phone,
         note: note,
@@ -90,11 +92,11 @@ function placeOrder(){
 
 }
 
-function generateCode(length = 8) {
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let result = "";
-    for (let i = 0; i < length; i++) {
-        result += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return result;
-}
+// function generateCode(length = 8) {
+//     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+//     let result = "";
+//     for (let i = 0; i < length; i++) {
+//         result += chars.charAt(Math.floor(Math.random() * chars.length));
+//     }
+//     return result;
+// }

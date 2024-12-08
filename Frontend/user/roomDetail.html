@@ -24,6 +24,25 @@
     <!-- MAIN STYLE -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
+<style>
+    .container1 {
+        width: 85% !important;
+        margin: 0 auto;
+        margin: 20px auto !important;
+        padding: 20px !important;
+    }
+
+    .reviewImg {
+        display: block;
+        width: 100%;
+        margin: 2px 0;
+        padding: 10px 5px;
+        background-color: #A9A9A9;
+        text-align: left;
+        padding-left: 20px;
+        color: #ffffff;
+    }
+</style>
 
 <body>
     <!-- HEADER -->
@@ -74,294 +93,291 @@
     </section>
     <!-- ROOM DETAIL -->
     <section class="section-product-detail">
-        <div class="container">
+        <div class="container1">
             <!-- DETAIL -->
-<style>
-
-
-</style>
-            <div class="product-detail margin">
+            <div class="product-detail margin" style="width: 100%">
                 <div class="row">
                     <div class="col-lg-9">
                         <!-- LAGER IMGAE -->
                         <div class="wrapper">
-                            <div class="gallery3" id="imageContainer">
+                            <div class="gallery3" id="imageContainer"">
                                
-                                <!-- <div class="gallery__img-block ">
+                                <!-- <div class=" gallery__img-block ">
                                    
-                                    <img src="images/Product/img-7.jpg" alt="images/Product/img-7.jpg" class="">
-                                </div> -->
-                              
-                                <div class="gallery__controls">
-                                </div>
+                                    <img src=" images/Product/img-7.jpg" alt="images/Product/img-7.jpg" class="">
+                            </div> -->
+
+                            <div class="gallery__controls">
                             </div>
                         </div>
-                        <!-- END / LAGER IMGAE -->
                     </div>
-                    <div class="col-lg-3">
-                        <!-- FORM BOOK -->
-                        <div class="product-detail_book">
-                            <div class="product-detail_total">
-                                <img src="images/Product/icon.png" alt="#" class="icon-logo">
-                                <h6>GIÁ PHÒNG TỪ</h6>
-                                <p class="price">
-                                    <span class="amout" id="price">330đ</span> /Ngày
-                                    <input type="hidden" value="" id="roomPrice">
-                                </p>
-                            </div>
-                            <div class="product-detail_form">
-                                <div class="sidebar">
-                                    <!-- WIDGET CHECK AVAILABILITY -->
-                                    <div class="widget widget_check_availability">
-                                        <div class="check_availability">
-                                            <div class="check_availability-field">
-                                                <label>Ngày đến</label>
-                                                <div class="input-group date" data-date-format="yyyy-mm-dd"
-                                                    id="datepicker">
-                                                    <input id="fromDate" class="form-control wrap-box" type="text"
-                                                        placeholder="Ngày đến">
-                                                    <span class="input-group-addon"><i class="fa fa-calendar"
-                                                            aria-hidden="true"></i></span>
-                                                </div>
-                                            </div>
-                                            <div class="check_availability-field">
-                                                <label>Ngày đi</label>
-                                                <div id="datepickeri" class="input-group date"
-                                                    data-date-format="yyyy-mm-dd">
-                                                    <input id="toDate" class="form-control wrap-box" type="text"
-                                                        placeholder="Ngày đi">
-                                                    <span class="input-group-addon"><i class="fa fa-calendar"
-                                                            aria-hidden="true"></i></span>
-                                                </div>
-                                            </div>                                        
-                                            <div class="check_availability-field">
-                                                <label>Số lượng</label>
-                                                <div class="input-group date">
-                                                    <input id="numberPerson" class="form-control wrap-box" type="number"
-                                                        value="1">                                      
-                                                </div>
-                                            </div>
-                                            <div class="check_availability-field">
-                                                <label>Số phòng</label>
-                                                <div class="input-group date">
-                                                    <input id="numberRoom" class="form-control wrap-box" type="number"
-                                                        value="1">                                      
-                                                </div>
+                    <!-- END / LAGER IMGAE -->
+                     
+                </div>
+                <div class="col-lg-3">
+                    <!-- FORM BOOK -->
+                    <div class="product-detail_book">
+                        <div class="product-detail_total">
+                            <img src="images/Product/icon.png" alt="#" class="icon-logo">
+                            <h6>GIÁ PHÒNG TỪ</h6>
+                            <p class="price">
+                                <span class="amout" id="price">0đ</span> /Ngày
+                                <input type="hidden" value="" id="roomPrice">
+                            </p>
+                        </div>
+                        <div class="product-detail_form">
+                            <div class="sidebar">
+                                <!-- WIDGET CHECK AVAILABILITY -->
+                                <div class="widget widget_check_availability">
+                                    <div class="check_availability">
+                                        <div class="check_availability-field">
+                                            <label>Ngày đến</label>
+                                            <div class="input-group date" data-date-format="yyyy-mm-dd" id="datepicker">
+                                                <input id="fromDate" class="form-control wrap-box" type="text"
+                                                    placeholder="Ngày đến" onchange="preview()">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"
+                                                        aria-hidden="true"></i></span>
                                             </div>
                                         </div>
+                                        <div class="check_availability-field">
+                                            <label>Ngày đi</label>
+                                            <div id="datepickeri" class="input-group date"
+                                                data-date-format="yyyy-mm-dd">
+                                                <input id="toDate" class="form-control wrap-box" type="text"
+                                                    placeholder="Ngày đi" onchange="preview()">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"
+                                                        aria-hidden="true"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="check_availability-field">
+                                            <label>Số phòng</label>
+                                            <select class="awe-select" id="numberRoom">
+                                                <!-- <option>1</option> -->
+
+                                            </select>
+                                        </div>
+                                        <div class="check_availability-field">
+                                            <label>Số lượng</label>
+                                            <div class="input-group date">
+                                                <input id="numberPerson" class="form-control wrap-box" type="number"
+                                                    value="1">
+                                            </div>
+                                        </div>
+
                                     </div>
-                                    <!-- END / WIDGET CHECK AVAILABILITY -->
                                 </div>
-                                <button class="btn btn-room btn-product">Đặt ngay</button>
+                                <!-- END / WIDGET CHECK AVAILABILITY -->
                             </div>
+                            <button class="btn btn-room btn-product">Đặt ngay</button>
                         </div>
-                        <div class="reservation-date" style="margin-top:5px">
-                         
-                            <ul style="padding: 10px 20px;">
-                                <li>
-                                    <span>Thời gian:</span>
-                                    <span id="totalDay">1 ngày 1 đêm</span>
-                                </li>
-                                
-                                <li>
-                                    <span>Tổng tiền:</span>
-                                    <span id="totalPrice"></span>
-                                </li>
-                            </ul>
-                        </div>
-                        
-                        <!-- END / FORM BOOK -->
                     </div>
-                </div>
-            </div>
-            <!-- END / DETAIL -->
-            <!-- TAB -->
-            <div class="product-detail_tab">
-                <div class="row">
-                    <div class="col-md-3">
-                        <ul class="product-detail_tab-header">
-                            <li class="active"><a href="#overview" data-toggle="tab">Tổng quan</a></li>
-                            <li><a href="#amenities" data-toggle="tab">Tiện ích</a></li>
-                            <li><a href="#rates" data-toggle="tab">Đánh giá</a></li>
-                            
+                    <div class="reservation-date" style="margin-top:5px">
+
+                        <ul style="padding: 10px 20px;">
+                            <li>
+                                <span>Thời gian:</span>
+                                <span id="totalDay"></span>
+                            </li>
+
+                            <li>
+                                <span>Tổng tiền:</span>
+                                <span id="totalPrice"></span>
+                            </li>
                         </ul>
                     </div>
-                    <div class="col-md-9">
-                        <div class="product-detail_tab-content tab-content">
-                            <!-- OVERVIEW -->
-                            <div class="tab-pane active fade in" id="overview">
-                                <div class="product-detail_overview">
-                                    <div id="content">
+
+                    <!-- END / FORM BOOK -->
+                </div>
+            </div>
+        </div>
+        <!-- END / DETAIL -->
+        <!-- TAB -->
+        <div class="product-detail_tab">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="product-detail_tab-header">
+                        <li class="active"><a href="#overview" data-toggle="tab">Tổng quan</a></li>
+                        <li><a href="#amenities" data-toggle="tab">Tiện ích</a></li>
+                        <li><a href="#rates" data-toggle="tab">Đánh giá</a></li>
+
+                    </ul>
+                </div>
+                <div class="col-md-9">
+                    <div class="product-detail_tab-content tab-content">
+                        <!-- OVERVIEW -->
+                        <div class="tab-pane active fade in" id="overview">
+                            <div class="product-detail_overview">
+                                <div id="content">
 
 
-                                    </div>
+                                </div>
 
-                                    <div class="row">
-                                        <div class="col-xs-6 col-md-4">
-                                            <h6>Thông tin</h6>
-                                            <ul>
-                                                <li id="capacity">Max: </li>
-                                                <li id="size">Size: </li>
-                                                <li id="view">View: </li>
-                                                <li id="bedType">Bed: </li>
-                                            </ul>
-                                        </div>                                 
+                                <div class="row">
+                                    <div class="col-xs-6 col-md-4">
+                                        <h6>Thông tin</h6>
+                                        <ul>
+                                            <li id="capacity">Max: </li>
+                                            <li id="size">Size: </li>
+                                            <li id="view">View: </li>
+                                            <li id="bedType">Bed: </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- AMENITIES -->
-                            <div class="tab-pane fade" id="amenities">
-                                <div class="product-detail_amenities">
-                                    <h6>LIVING ROOM</h6>
-                                    <div class="row" id="facilityContainer">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <style>
-                                .product-detail_rates {
-                                    max-height: 300px;
-                                    overflow-y: auto;
-                                }
-                            </style>
-                            <!-- RATES -->
-                            <div class="tab-pane fade" id="rates">
-                                <div class="product-detail_rates">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>Rate Period</th>
-                                                <th>Nightly</th>
-                                                <th>Weekend Night</th>
-                                                <th>Weekly</th>
-                                                <th>Monthly</th>
-                                                <th>Event</th>
-                                            </tr>
-                                        </thead>
-                                        <tr>
-                                            <td>
-                                                <h6>Spring/Summer Season</h6>
-                                                <ul>
-                                                    <li>Jun 1 - Aug 31</li>
-                                                    <li>3 night minimum stay</li>
-                                                </ul>
-                                            </td>
-                                            <td>
-                                                <p class="price"><span class="amout">$320</span></p>
-                                            </td>
-                                            <td>
-                                                <p class="price"><span class="amout">$23</span></p>
-                                            </td>
-                                            <td>
-                                                <p class="price"><span class="amout">$120</span></p>
-                                            </td>
-                                            <td>
-                                                <p class="price"><span class="amout">$100</span></p>
-                                            </td>
-                                            <td>
-                                                <p class="price"><span class="amout">$89</span></p>
-                                            </td>
-                                        </tr>                                            
-                                    </table>
-                                </div>
-                            </div>
-                            <!-- END / RATES -->
-                            <!-- CALENDAR -->
-                            <div class="tab-pane fade" id="calendar">
-                                <div class="product-detail_calendar-wrap row">
-                                    <div class="col-sm-12">
-                                        <!-- CALENDAR ITEM -->
-                                         <style>
-                                           .col-sm-12 {
-    display: flex;
-    justify-content: center;  /* Căn giữa theo chiều ngang */
-    align-items: center;      /* Căn giữa theo chiều dọc */
-    height: 100%;              /* Đảm bảo thẻ cha có chiều cao đầy đủ */
-}
-
-.calendar_custom {
-    width: 80%;               /* Hoặc một giá trị chiều rộng tùy ý */
-    max-width: 500px;         /* Tối đa chiều rộng của thẻ con */
-    padding: 20px;
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;       /* Căn giữa nội dung bên trong */
-}
-
-                                             
-                                         </style>
-                                        <div class="calendar_custom">
-                                            <div class="calendar_title">
-                                                <span class="calendar_month">JUNE</span>
-                                                <span class="calendar_year">2017</span>                                          
-                                            </div>
-                                            <table class="calendar_tabel">
-                                                <br>
-                                                <tr>
-                                                    <td> <a href="#"><small>1</small></a></td>                                                                                      
-                                                    <td><a href="#"><small>2</small></a></td>
-                                                    <td><a href="#"><small>3</small></a></td>
-                                                    <td><a href="#"><small>4</small></a></td>
-                                                    <td><a href="#"><small>5</small></a></td>
-                                                    <td><a href="#"><small>6</small></a></td>
-                                                
-                                                </tr>
-                                                <tr>
-                                                    <td><a href="#"><small>14</small></a></td>
-                                                    <td><a href="#"><small>15</small></a></td>
-                                                    <td class="not-available"><a href="#"><small>16</small></a></td>
-                                                    <td class="not-available"><a href="#"><small>17</small></a></td>
-                                                    <td><a href="#"><small>18</small></a></td>
-                                                    <td><a href="#"><small>19</small></a></td>
-                                                    <td><a href="#"><small>20</small></a></td>
-                                                </tr>
-                                                
-                                            </table>
-                                        </div>
-                                        <!-- END CALENDAR ITEM -->
-                                    </div>
-                                    <div class="calendar_status text-center col-sm-12">
-                                        <span>Available</span>
-                                        <span class="not-available">Not Available</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- END / CALENDAR -->
                         </div>
+
+                        <!-- AMENITIES -->
+                        <div class="tab-pane fade" id="amenities">
+                            <div class="product-detail_amenities">
+                                <h6>LIVING ROOM</h6>
+                                <div class="row" id="facilityContainer">
+                                </div>
+                            </div>
+                        </div>
+
+                        <style>
+                            .product-detail_rates {
+                                max-height: 300px;
+                                overflow-y: auto;
+                            }
+                        </style>
+                        <!-- RATES -->
+                        <div class="tab-pane fade" id="rates">
+                            <div class="product-detail_rates">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Rate Period</th>
+                                            <th>Nightly</th>
+                                            <th>Weekend Night</th>
+                                            <th>Weekly</th>
+                                            <th>Monthly</th>
+                                            <th>Event</th>
+                                        </tr>
+                                    </thead>
+                                    <tr>
+                                        <td>
+                                            <h6>Spring/Summer Season</h6>
+                                            <ul>
+                                                <li>Jun 1 - Aug 31</li>
+                                                <li>3 night minimum stay</li>
+                                            </ul>
+                                        </td>
+                                        <td>
+                                            <p class="price"><span class="amout">$320</span></p>
+                                        </td>
+                                        <td>
+                                            <p class="price"><span class="amout">$23</span></p>
+                                        </td>
+                                        <td>
+                                            <p class="price"><span class="amout">$120</span></p>
+                                        </td>
+                                        <td>
+                                            <p class="price"><span class="amout">$100</span></p>
+                                        </td>
+                                        <td>
+                                            <p class="price"><span class="amout">$89</span></p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- END / RATES -->
+                        <!-- CALENDAR -->
+                        <div class="tab-pane fade" id="calendar">
+                            <div class="product-detail_calendar-wrap row">
+                                <div class="col-sm-12">
+                                    <!-- CALENDAR ITEM -->
+                                    <style>
+                                        .col-sm-12 {
+                                            display: flex;
+                                            justify-content: center;
+                                            /* Căn giữa theo chiều ngang */
+                                            align-items: center;
+                                            /* Căn giữa theo chiều dọc */
+                                            height: 100%;
+                                            /* Đảm bảo thẻ cha có chiều cao đầy đủ */
+                                        }
+
+                                        .calendar_custom {
+                                            width: 80%;
+                                            /* Hoặc một giá trị chiều rộng tùy ý */
+                                            max-width: 500px;
+                                            /* Tối đa chiều rộng của thẻ con */
+                                            padding: 20px;
+                                            background-color: #ffffff;
+                                            border: 1px solid #ccc;
+                                            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                                            text-align: center;
+                                            /* Căn giữa nội dung bên trong */
+                                        }
+                                    </style>
+                                    <div class="calendar_custom">
+                                        <div class="calendar_title">
+                                            <span class="calendar_month">JUNE</span>
+                                            <span class="calendar_year">2017</span>
+                                        </div>
+                                        <table class="calendar_tabel">
+                                            <br>
+                                            <tr>
+                                                <td> <a href="#"><small>1</small></a></td>
+                                                <td><a href="#"><small>2</small></a></td>
+                                                <td><a href="#"><small>3</small></a></td>
+                                                <td><a href="#"><small>4</small></a></td>
+                                                <td><a href="#"><small>5</small></a></td>
+                                                <td><a href="#"><small>6</small></a></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#"><small>14</small></a></td>
+                                                <td><a href="#"><small>15</small></a></td>
+                                                <td class="not-available"><a href="#"><small>16</small></a></td>
+                                                <td class="not-available"><a href="#"><small>17</small></a></td>
+                                                <td><a href="#"><small>18</small></a></td>
+                                                <td><a href="#"><small>19</small></a></td>
+                                                <td><a href="#"><small>20</small></a></td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                    <!-- END CALENDAR ITEM -->
+                                </div>
+                                <div class="calendar_status text-center col-sm-12">
+                                    <span>Available</span>
+                                    <span class="not-available">Not Available</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END / CALENDAR -->
                     </div>
                 </div>
             </div>
-            <!-- END / TAB -->
-            <div class="comment-respond">
-                <h3 class="comment-reply-title">ĐÁNH GIÁ</h3>
-                <form action="#" method="post" class="comment-form">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <input type="text" class="field-text" placeholder="Họ tên">
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="text" class="field-text" placeholder="Số điện thoại">
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="text" class="field-text" placeholder="Email">
-                        </div>
-                        <div class="col-sm-12">
-                            <textarea placeholder="Nhập đánh giá của bạn" class="field-textarea"></textarea>
-                        </div>
-                        <div class="col-sm-12">
-                            <button class="btn btn-room">VIẾT ĐÁNH GIÁ</button>
-                        </div>
+        </div>
+        <!-- END / TAB -->
+        <div class="comment-respond">
+            <h3 class="comment-reply-title">ĐÁNH GIÁ</h3>
+            <form action="#" method="post" class="comment-form">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input type="text" class="field-text" placeholder="Họ tên">
                     </div>
-                </form>
-            </div>
+                    <div class="col-sm-6">
+                        <input type="text" class="field-text" placeholder="Số điện thoại">
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" class="field-text" placeholder="Email">
+                    </div>
+                    <div class="col-sm-12">
+                        <textarea placeholder="Nhập đánh giá của bạn" class="field-textarea"></textarea>
+                    </div>
+                    <div class="col-sm-12">
+                        <button class="btn btn-room">VIẾT ĐÁNH GIÁ</button>
+                    </div>
+                </div>
+            </form>
+        </div>
         </div>
     </section>
-
-
-
-
 
 
     <div id="footerP"></div>
@@ -379,9 +395,8 @@
     <script type="text/javascript" src="js/isotope.pkgd.min.js"></script>
     <script type="text/javascript" src="js/bootstrap-select.js"></script>
     <script type="text/javascript" src="js/jquery.littlelightbox.js"></script>
-    <script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDyCxHyc8z9gMA5IlipXpt0c33Ajzqix4"></script>
+    <script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
+
     <!-- Custom jQuery -->
     <script type="text/javascript" src="js/sky.js"></script>
     <script src="api/menu.js"></script>
@@ -393,5 +408,5 @@
         $("#footerP").load("template/footer.html");
     }); 
 </script>
-</html>
 
+</html>

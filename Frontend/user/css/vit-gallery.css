@@ -278,10 +278,11 @@ body.slide-blur {
   position: relative;
   height: auto !important;
 }
+/* anh day */
 .gallery__thumbnail img {
   opacity: 0.5;
-  height: 75px;
-  width: 110px !important;
+  height: 80px;
+  width: 120px !important;
 }
 .gallery__thumbnail i {
   content: "";

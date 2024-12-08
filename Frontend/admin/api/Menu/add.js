@@ -1,3 +1,7 @@
+const accessToken = localStorage.getItem('accessToken'); 
+
+axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+
 document.addEventListener('DOMContentLoaded',function(){
     axios.get('https://localhost:7197/api/Menu/GetAll')
     .then(function (response) {
@@ -6,7 +10,6 @@ document.addEventListener('DOMContentLoaded',function(){
         tableData.innerHTML = '';				
         tableData.innerHTML = ' <option value="" selected hidden disabled>Chọn</option>';
         
-      
         renderMenus(menus, tableData)
     
     }).catch(function (error) {

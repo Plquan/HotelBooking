@@ -43,7 +43,7 @@ function getAll(){
        bookings.forEach( booking => {
         calendar.addEvent({
             id: booking.id,            
-            title: booking.code,        
+            title: 'Mã đơn: ' + booking.code + ' - ' + booking.name,        
             start: new Date(booking.fromDate),         
             end: new Date(booking.toDate),   
             backgroundColor: '#6495ED',

@@ -124,7 +124,7 @@ function checkDate() {
                                                     ${roomType.content}
                                                     <ul>
                                                         <li>Giá cho ${night} đêm: (VND ${(roomType.price * night).toLocaleString('vi-VN')})</li>
-                                                        <li>Số lượng: ${roomType.capacity} khách</li>
+                                                        <li>Số lượng: ${roomType.capacity} khách 1 phòng</li>
                                                         <li>Đánh giá</li>
                                                     </ul>
                                                 </div>
@@ -133,13 +133,14 @@ function checkDate() {
 
                                                <div>
                                                  <span>Chọn phòng</span>
-                                                <select data-room-id = "${roomType.id}" data-number="${roomType.capacity}" 
+                                                <select data-roomType-id = "${roomType.id}" data-number="${roomType.capacity}" 
                                                 data-room-name = ${roomType.name} data-room-price = ${roomType.price}
-                                                class="btn btn-room"> 
+                                                class="btn btn-room form-select"> 
                                                      <option value="0" selected>0</option>                                        
                                                   ${options}
-                                                </select></div>                               
-                                        </div>`;
+                                                </select></div>            
+                                        </div>
+                                      `
                     itemDiv.innerHTML += roomHTML;
                     container.appendChild(itemDiv)
                 });
@@ -166,23 +167,22 @@ function confirm() {
         toastr.warning("Chưa nhập số lượng !")
         return;
     }
-
     const container = document.getElementById('roomTypeContainer');
     const selectElements = Array.from(container.querySelectorAll('select'));
     let totalPerson = 0
     const selectedRooms = [];
     if (selectElements.length > 0) {
         selectElements.forEach(select => {
-            const roomId = select.getAttribute('data-room-id')
+            const roomTypeId = select.getAttribute('data-roomType-id')
             const capacity = select.getAttribute('data-number')
             const roomName = select.getAttribute('data-room-name')
             const roomPrice = select.getAttribute('data-room-price')
             const selectedValue = select.value;          
             if (selectedValue > 0 || selectedValue != null) {
-                const roomNumber = capacity * selectedValue
-                totalPerson += roomNumber
+                const roomSelected = capacity * selectedValue
+                totalPerson += roomSelected
                 selectedRooms.push({
-                    roomId: roomId,
+                    roomTypeId: roomTypeId,
                     number: selectedValue,
                     name: roomName,
                     price: roomPrice
@@ -199,6 +199,5 @@ function confirm() {
     localStorage.setItem('toDate', toDate);
     localStorage.setItem('numberPerson', numberPerson);
     localStorage.setItem('selectedRooms', JSON.stringify(selectedRooms));
-
     window.location.href = 'http://127.0.0.1:5500/user/booking.html';
 }
