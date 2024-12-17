@@ -1,7 +1,6 @@
 ﻿using Hotel.Data.Ultils;
 using Hotel.Services;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hotel.BackendApi.Controllers
@@ -58,14 +57,7 @@ namespace Hotel.BackendApi.Controllers
             {
                 var refreshToken = Request.Cookies["refreshToken"];
                 if (string.IsNullOrEmpty(refreshToken)){
-                    return Unauthorized(
-                        new ApiResponse()
-                        {
-                            StatusCode = 500,
-                            Message = "Bạn chưa được xác thực, làm ơn đăng nhập lại",
-                            IsSuccess = false
-                        }
-                        );
+                    return StatusCode(401, "Người dùng chưa xác thực");
                 }
                 var respone = await _authService.RefreshTokenAsync(refreshToken);
                 return Ok(respone);

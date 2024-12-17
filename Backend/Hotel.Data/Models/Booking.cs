@@ -18,8 +18,8 @@ namespace Hotel.Data.Models
         public string? Note { get; set; }
         public int? TotalPerson { get; set; }
         public decimal? TotalPrice { get; set; }
-        public DateTime? FromDate { get; set; }
-        public DateTime? ToDate { get; set; }
+        public DateOnly? FromDate { get; set; }
+        public DateOnly? ToDate { get; set; }
         public string? PaymentMethod { get; set; }
         public string? PaymentStatus { get; set; }
         public DateTime? CreatedDate { get; set; }

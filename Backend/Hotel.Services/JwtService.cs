@@ -38,17 +38,17 @@ namespace Hotel.Services
                 {
                     claims.Remove(claims.First(c => c.Type == JwtRegisteredClaimNames.Jti));
                 }
-
-                var authKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:AccessTokenSecret"])
-                                                         ?? throw new InvalidOperationException("Không tìm thấy access token"));
+                claims.Add(new Claim(JwtRegisteredClaimNames.Jti, idToken));
+                var authKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:AccessTokenSecret"]!)
+                                              ?? throw new InvalidOperationException("Không tìm thấy access token")); ;
                 var creds = new SigningCredentials(authKey, SecurityAlgorithms.HmacSha256Signature);
-                var expiry = DateTime.UtcNow.AddMinutes(int.Parse(_configuration["JWT:AccessTokenExpireMinutes"]));
+                var expiry = DateTime.UtcNow.AddMinutes(int.Parse(_configuration["JWT:AccessTokenExpireMinutes"]!));
                 var token = new JwtSecurityToken(
                   issuer: _configuration["JWT:Issuer"],
                   audience: _configuration["JWT:Audience"],
                   expires: expiry,
                   claims: claims,
-                  signingCredentials: creds
+                  signingCredentials: creds    
                  );
                 return new TokenResponse
                 {
@@ -73,11 +73,11 @@ namespace Hotel.Services
                 {
                     claims.Remove(claims.First(c => c.Type == JwtRegisteredClaimNames.Jti));
                 }
-
-                var authKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:RefreshTokenSecret"])
-                                                         ?? throw new InvalidOperationException("Không tìm thấy access token"));
+                claims.Add(new Claim(JwtRegisteredClaimNames.Jti, idToken));
+                var authKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:RefreshTokenSecret"]!)
+                                                         ?? throw new InvalidOperationException("Không tìm thấy refresh token"));
                 var creds = new SigningCredentials(authKey, SecurityAlgorithms.HmacSha256Signature);
-                var expiry = DateTime.UtcNow.AddMinutes(int.Parse(_configuration["JWT:RefreshTokenExpireMinutes"]));
+                var expiry = DateTime.UtcNow.AddMinutes(int.Parse(_configuration["JWT:RefreshTokenExpireMinutes"]!));
                 var token = new JwtSecurityToken(
                   issuer: _configuration["JWT:Issuer"],
                   audience: _configuration["JWT:Audience"],
@@ -109,14 +109,17 @@ namespace Hotel.Services
         {
             var issues = _configuration["JWT:Issuer"];
             var audience = _configuration["JWT:Audience"];
-            var secret = _configuration[op];
-
+            var tokenSecret = op;
+            if (string.IsNullOrEmpty(tokenSecret))
+            {
+                throw new InvalidOperationException("Access token secret invalid.");
+            }
             var tokenHandler = new JwtSecurityTokenHandler();
 
             var validationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret ?? "")),
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenSecret ?? "")),
                 ValidateIssuer = true,
                 ValidIssuer = issues,
                 ValidateAudience = true,

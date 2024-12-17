@@ -1,7 +1,7 @@
 ﻿using Azure.Core;
 using Hotel.Data;
 using Hotel.Data.Models;
-using Hotel.Data.ViewModels;
+using Hotel.Data.ViewModels.Menus;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Hotel.Data.Models
 {
-    public class BookingRoom
+    public class BookingDetail
     {
         [Key]
         public int Id { get; set; }

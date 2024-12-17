@@ -107,8 +107,8 @@ namespace Hotel.Data.Migrations
                     b.Property<string>("ConfirmBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateOnly?>("CreatedDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -148,7 +148,7 @@ namespace Hotel.Data.Migrations
                     b.ToTable("Bookings");
                 });
 
-            modelBuilder.Entity("Hotel.Data.Models.BookingRoom", b =>
+            modelBuilder.Entity("Hotel.Data.Models.BookingDetail", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -168,7 +168,7 @@ namespace Hotel.Data.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("BookingRooms");
+                    b.ToTable("BookingDetails");
                 });
 
             modelBuilder.Entity("Hotel.Data.Models.InvalidatedToken", b =>
@@ -176,7 +176,7 @@ namespace Hotel.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("expiryTime")
+                    b.Property<DateTime?>("expiryTime")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -257,6 +257,9 @@ namespace Hotel.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("RoomNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoomStatus")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("RoomTypeId")
@@ -496,7 +499,7 @@ namespace Hotel.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Hotel.Data.Models.BookingRoom", b =>
+            modelBuilder.Entity("Hotel.Data.Models.BookingDetail", b =>
                 {
                     b.HasOne("Hotel.Data.Models.Booking", "Booking")
                         .WithMany()

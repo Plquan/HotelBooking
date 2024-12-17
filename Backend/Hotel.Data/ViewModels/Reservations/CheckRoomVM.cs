@@ -1,11 +1,12 @@
 ﻿using Hotel.Data.Dtos;
+using Hotel.Data.ViewModels.RoomTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hotel.Data.ViewModels
+namespace Hotel.Data.ViewModels.Reservations
 {
     public class CheckRoomVM
     {
@@ -20,6 +21,6 @@ namespace Hotel.Data.ViewModels
         public string? Size { get; set; }
         public string? Thumb { set; get; }
         public List<RoomDTO>? Rooms { get; set; }
-        public List<RoomImageDTO>? RoomImages { get; set; }
+        public List<RoomImageModel>? RoomImages { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 using Hotel.Data.Dtos;
 using Hotel.Data.Models;
 using Hotel.Data.Ultils;
-using Hotel.Data.ViewModels;
+using Hotel.Data.ViewModels.Reservations;
 using Hotel.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -25,6 +25,21 @@ namespace Hotel.BackendApi.Controllers
         {
             return await _bookingService.CheckRoom(date);
            
+        }
+        [HttpPost]
+        [Route("CheckRoomById")]
+        public async Task<IActionResult> CheckRoomById(CheckDate date)
+        {          
+            try
+            {
+                var availableRoom = await _bookingService.CheckRoomById(date);
+                return Ok(new { message = "Lấy dữ liệu thành công", data = availableRoom });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { statusCode = 500, message = "Lỗi thực thi", error = ex.Message });
+            }
+
         }
         [HttpGet]
         [Route("GetAll")]
@@ -54,6 +69,7 @@ namespace Hotel.BackendApi.Controllers
                 return BadRequest(new { message = "Lỗi thực thi", error = ex.Message });
             }
         }
+
 
     }
 }

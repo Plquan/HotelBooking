@@ -3,6 +3,7 @@ using Google.Apis.Auth.OAuth2;
 using Hotel.BackendApi.Helpers;
 using Hotel.Data;
 using Hotel.Data.Models;
+using Hotel.Data.Ultils;
 using Hotel.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -23,53 +24,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(opt =>
-{
-
-    opt.SwaggerDoc("v1", new OpenApiInfo
+builder.Services.AddSwaggerGen(
+    options =>
     {
-        Title = "My API",
-        Version = "v1",
-        Description = "This is a sample API for demonstration purposes.",
-        Contact = new OpenApiContact
-        {
-            Name = "John Doe",
-            Email = "john.doe@example.com",
-            Url = new Uri("https://example.com/contact")
-        },
-        License = new OpenApiLicense
-        {
-            Name = "MIT",
-            Url = new Uri("https://opensource.org/licenses/MIT")
-        }
+        options.SwaggerDoc("v1", new OpenApiInfo { Title = "Vinh Hotel API", Version = "v1" });
     }
-    );
+);
 
-    opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        In = ParameterLocation.Header,
-        Description = "Please enter token",
-        Name = "Authorization",
-        Type = SecuritySchemeType.Http,
-        BearerFormat = "JWT",
-        Scheme = "bearer"
-    });
-
-    opt.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type=ReferenceType.SecurityScheme,
-                    Id="Bearer"
-                }
-            },
-            new string[]{}
-        }
-    });
-});
 builder.Services.AddScoped<IRoomService, RoomService>();
 builder.Services.AddScoped<IRoomTypeService, RoomTypeService>();
 builder.Services.AddScoped<IFileServices, FileServices>();
@@ -77,7 +38,9 @@ builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<IMenuServices,MenuService>();
 builder.Services.AddScoped<IPagingService, PagingService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IVnPayService, VnPayService>();
 builder.Services.AddHostedService<ScheduleService>();
 
 
@@ -89,14 +52,29 @@ builder.Services.AddDbContext<HotelContext>(options =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(policy =>
-    {
-        policy.AllowAnyOrigin()
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
+    options.AddPolicy("AllowAllOrigins",
+        policy =>
+        {
+            policy.WithOrigins(builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() ?? throw new InvalidOperationException("Allowed origins invalid"))
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
+        });
 });
+//entity 
+// đặt trước addAuth
+builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequiredLength = 1;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireLowercase = false;
+})
+.AddEntityFrameworkStores<HotelContext>()
+.AddDefaultTokenProviders();
 
+// authen
 builder.Services.AddAuthentication(options => {
 
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -106,7 +84,7 @@ builder.Services.AddAuthentication(options => {
 {
     options.SaveToken = true;
     options.RequireHttpsMetadata = false;
-    options.TokenValidationParameters = new TokenValidationParameters
+    options.TokenValidationParameters = new TokenValidationParameters()
     {
         ValidateIssuer = true,
         ValidateAudience = true,
@@ -115,22 +93,28 @@ builder.Services.AddAuthentication(options => {
         ClockSkew = TimeSpan.Zero,
         ValidAudience = builder.Configuration["JWT:Audience"],
         ValidIssuer = builder.Configuration["JWT:Issuer"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:AccessTokenSecret"]))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:AccessTokenSecret"]!))
+    };
+    options.Events = new JwtBearerEvents
+    {
+        OnChallenge = async context =>
+        {        
+            context.HandleResponse();
+            context.Response.StatusCode = 401;
+            await context.Response.WriteAsJsonAsync(
+                new ApiResponse
+                {
+                    StatusCode = 401,
+                    IsSuccess = false,
+                    Message = "Bạn chưa được xác thực, làm ơn đăng nhập để lấy quyền."
+                }
+            );
+        }
     };
 });
 
-
-builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
-{
-    options.Password.RequireDigit = false; 
-    options.Password.RequiredLength = 1;  
-    options.Password.RequireNonAlphanumeric = false; 
-    options.Password.RequireUppercase = false;
-    options.Password.RequireLowercase = false; 
-})
-.AddEntityFrameworkStores<HotelContext>()
-.AddDefaultTokenProviders();
-
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpClient();
 builder.Services.AddAutoMapper(typeof(Program));
 var app = builder.Build();
 
@@ -140,9 +124,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseCors();
-
+app.UseCors("AllowAllOrigins");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAuthentication();

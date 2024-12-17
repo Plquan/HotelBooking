@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hotel.Data.ViewModels
+namespace Hotel.Data.ViewModels.Menus
 {
     public class MenuVM
     {

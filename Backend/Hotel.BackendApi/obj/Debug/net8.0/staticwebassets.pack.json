@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\images\\1f6ffe66-2a54-44d3-ad1c-da46e01621a3.jpeg"
     },
     {
+      "Id": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Backend\\Hotel.BackendApi\\wwwroot\\images\\1f7bdbff-d779-4e48-b4ed-52e4821bb302.jpeg",
+      "PackagePath": "staticwebassets\\images\\1f7bdbff-d779-4e48-b4ed-52e4821bb302.jpeg"
+    },
+    {
       "Id": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Backend\\Hotel.BackendApi\\wwwroot\\images\\266b3a1b-e728-465b-b9d1-d111654635e4.jpeg",
       "PackagePath": "staticwebassets\\images\\266b3a1b-e728-465b-b9d1-d111654635e4.jpeg"
     },
@@ -31,6 +35,10 @@
     {
       "Id": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Backend\\Hotel.BackendApi\\wwwroot\\images\\3f8cca53-2823-41a8-9e58-ae8ba95d84e6.jpeg",
       "PackagePath": "staticwebassets\\images\\3f8cca53-2823-41a8-9e58-ae8ba95d84e6.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Backend\\Hotel.BackendApi\\wwwroot\\images\\4e289fb6-ee70-4158-a0a8-5b3ac98cb396.jpeg",
+      "PackagePath": "staticwebassets\\images\\4e289fb6-ee70-4158-a0a8-5b3ac98cb396.jpeg"
     },
     {
       "Id": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Backend\\Hotel.BackendApi\\wwwroot\\images\\51f5939d-2bcb-453f-9b70-67c7311aef3d.jpeg",
@@ -49,12 +57,20 @@
       "PackagePath": "staticwebassets\\images\\8aa263da-7912-4533-abcc-51cc184f56bf.jpeg"
     },
     {
+      "Id": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Backend\\Hotel.BackendApi\\wwwroot\\images\\91c64e00-13c0-4c1c-80ad-70b658a8d659.jpeg",
+      "PackagePath": "staticwebassets\\images\\91c64e00-13c0-4c1c-80ad-70b658a8d659.jpeg"
+    },
+    {
       "Id": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Backend\\Hotel.BackendApi\\wwwroot\\images\\96fa8534-ffae-4cc1-b6c9-f2d13173d47a.jpeg",
       "PackagePath": "staticwebassets\\images\\96fa8534-ffae-4cc1-b6c9-f2d13173d47a.jpeg"
     },
     {
       "Id": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Backend\\Hotel.BackendApi\\wwwroot\\images\\a5031ec3-6841-4f03-9339-f15e26d4377c.jpeg",
       "PackagePath": "staticwebassets\\images\\a5031ec3-6841-4f03-9339-f15e26d4377c.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Backend\\Hotel.BackendApi\\wwwroot\\images\\a7106f10-bfef-48e7-bd84-44c903b4b0f3.jpeg",
+      "PackagePath": "staticwebassets\\images\\a7106f10-bfef-48e7-bd84-44c903b4b0f3.jpeg"
     },
     {
       "Id": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Backend\\Hotel.BackendApi\\wwwroot\\images\\a8ca79bb-3d70-4f27-92b9-c62134dcf6dc.jpeg",
@@ -91,6 +107,10 @@
     {
       "Id": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Backend\\Hotel.BackendApi\\wwwroot\\images\\f0a8cac8-9cb0-4735-a341-896f4c1eda42.jpeg",
       "PackagePath": "staticwebassets\\images\\f0a8cac8-9cb0-4735-a341-896f4c1eda42.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Backend\\Hotel.BackendApi\\wwwroot\\images\\fa4cfc70-b87a-42af-8fd2-50e4a38d66a8.jpeg",
+      "PackagePath": "staticwebassets\\images\\fa4cfc70-b87a-42af-8fd2-50e4a38d66a8.jpeg"
     },
     {
       "Id": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Backend\\Hotel.BackendApi\\wwwroot\\images\\fc789c5f-be22-4382-a129-e93f92728f0c.jpeg",

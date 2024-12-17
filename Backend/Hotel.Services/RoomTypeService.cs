@@ -2,7 +2,7 @@
 using Hotel.Data;
 using Hotel.Data.Dtos;
 using Hotel.Data.Models;
-using Hotel.Data.ViewModels;
+using Hotel.Data.ViewModels.RoomTypes;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -116,8 +116,8 @@ namespace Hotel.Services
                                   Status = rt.Status,
                                   Content = rt.Content,
                                   Size = rt.Size,
-                                  RoomImages = _mapper.Map<List<RoomImageDTO>>(rt.RoomImages),
-                                  RoomFacilitys = _mapper.Map<List<RoomFacilityDTO>>(rt.RoomFacilitys)
+                                  RoomImages = _mapper.Map<List<RoomImageModel>>(rt.RoomImages),
+                                  RoomFacilitys = _mapper.Map<List<RoomFacilityModel>>(rt.RoomFacilitys)
                               }).ToListAsync();
       
             return roomTypes;
@@ -144,8 +144,8 @@ namespace Hotel.Services
                 Status = room.Status,
                 Content = room.Content,
                 Size = room.Size,
-                RoomImages = _mapper.Map<List<RoomImageDTO>>(image),
-                RoomFacilitys = _mapper.Map<List<RoomFacilityDTO>>(facility)
+                RoomImages = _mapper.Map<List<RoomImageModel>>(image),
+                RoomFacilitys = _mapper.Map<List<RoomFacilityModel>>(facility)
 			};
             return roomtype;
 		}
@@ -153,7 +153,6 @@ namespace Hotel.Services
         public async Task Update(RoomTypeDTO roomTypeDTO)
         {
             var roomtype = _context.RoomTypes.FirstOrDefault(x => x.Id == roomTypeDTO.Id);
-
             if (roomtype != null)
             { 
                 roomtype.Name = roomTypeDTO.Name;
@@ -186,7 +185,6 @@ namespace Hotel.Services
                             Url = imgUpload
 						};
                         _context.RoomImages.Add(newImg);
-
                     }
                 }
 
@@ -241,11 +239,13 @@ namespace Hotel.Services
                                      Status = rt.Status,
                                      Content = rt.Content,
                                      Size = rt.Size,
-                                     RoomImages = _mapper.Map<List<RoomImageDTO>>(rt.RoomImages),
-                                     RoomFacilitys = _mapper.Map<List<RoomFacilityDTO>>(rt.RoomFacilitys)
+                                     RoomImages = _mapper.Map<List<RoomImageModel>>(rt.RoomImages),
+                                     RoomFacilitys = _mapper.Map<List<RoomFacilityModel>>(rt.RoomFacilitys)
                                  };
             return await _pagingService.GetPagedAsync<RoomTypeVM>(query, pageIndex, pageSize);
         }
+   
+    
     }
 
   }

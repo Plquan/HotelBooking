@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using Hotel.Data;
 using Hotel.Data.Dtos;
+using Hotel.Data.Enum;
 using Hotel.Data.Models;
-using Hotel.Data.Ultils;
-using Hotel.Data.ViewModels;
+using Hotel.Data.ViewModels.Reservations;
+using Hotel.Data.ViewModels.RoomTypes;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,14 +19,18 @@ namespace Hotel.Services
     public interface IBookingService
     {
         Task<List<CheckRoomVM>> CheckRoom(CheckDate date);
-        Task<List<BookingDTO>> GetAll();
-        Task PlaceOrder(BookingVM bookingVM);
+        Task<CheckRoomVM> CheckRoomById(CheckDate date);
+        Task<List<BookingVM>> GetAll();
+        Task<int> PlaceOrder(BookingVM bookingVM);
+        Task<int> ConfirmBooking(int bookingId);
+        Task<bool> PaymentSuccess(int BookingId);
     }
 
     public class CheckDate
     {
-        public DateTime? FromDate {  get; set; }
-        public DateTime? ToDate { get; set; }
+        public int? RoomTypeId { get; set; }
+        public DateOnly? FromDate {  get; set; }
+        public DateOnly? ToDate { get; set; }
     }
     public class BookingService : IBookingService
     {
@@ -36,7 +41,6 @@ namespace Hotel.Services
             _context = context;
             _mapper = mapper;
         }
-
         public async Task<List<CheckRoomVM>> CheckRoom(CheckDate date)
         {
 
@@ -56,36 +60,23 @@ namespace Hotel.Services
                                        BedType = rt.BedType,
                                        Capacity = rt.Capacity,
                                        Price = rt.Price,
-                                       RoomImages = _mapper.Map<List<RoomImageDTO>>(rt.RoomImages.ToList()),
+                                       RoomImages = _mapper.Map<List<RoomImageModel>>(rt.RoomImages.ToList()),
                                        Rooms = (from r in _context.Rooms
-                                                where r.RoomTypeId == rt.Id &&
-                                                      !_context.Bookings.Any(b =>  
-                                                          _context.BookingRooms.Any(br =>  
-                                                              br.RoomId == r.Id &&        
-                                                              br.BookingId == b.Id &&      
-                                                              (
-                                                                  (b.FromDate <= date.FromDate && date.FromDate <= b.ToDate) || 
-                                                                  (b.FromDate <= date.ToDate && date.ToDate <= b.ToDate) ||     
-                                                                  (b.FromDate >= date.FromDate && date.ToDate >= b.ToDate)  
-                                                              )
-                                                          )
-                                                      )
+                                                where r.RoomTypeId == rt.Id && r.Status == RoomStatus.Active
                                                 select new RoomDTO()
                                                 {
                                                     Id = r.Id,
-                                                    RoomNumber = r.RoomNumber,
+                                                    RoomNumber = r.RoomNumber!,
                                                 }).ToList()
                                    }).ToListAsync();
-            return roomTypes;
-                        
+            return roomTypes;                  
         }
 
-        public async Task<List<BookingDTO>> GetAll()
+        public async Task<List<BookingVM>> GetAll()
         {
             var bookings = await _context.Bookings.ToListAsync();
-            return _mapper.Map<List<BookingDTO>>(bookings);
+            return _mapper.Map<List<BookingVM>>(bookings);
         }
-
         public  string GenerateCode()
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -99,44 +90,35 @@ namespace Hotel.Services
             string generatedCode = code.ToString();         
             return generatedCode; 
         }
-    public int CreateBooking(BookingVM bookingVM)
+        public int CreateBooking(BookingVM bookingVM)
         {
             var newBooking = new Booking()
             {
-                UserName = bookingVM.Name,
+                UserName = bookingVM.UserName,
                 Email = bookingVM.Email,
                 Phone = bookingVM.Phone,
                 Note = bookingVM.Note,
                 Code = GenerateCode(),
-                TotalPrice = bookingVM.Totalprice,
+                TotalPrice = bookingVM.TotalPrice,
                 TotalPerson = bookingVM.TotalPerson,
                 FromDate = bookingVM.FromDate,
                 ToDate = bookingVM.ToDate,
                 CreatedDate = DateTime.Now,
-                Status = Status.PlaceOrder
+                PaymentMethod = bookingVM.PaymentMethod,
+                PaymentStatus = bookingVM.PaymentMethod == PaymentStatus.CheckedIn ? PaymentStatus.Unpaid : PaymentStatus.PaymentPending,
+                Status = PaymentStatus.Pending
             };
-            _context.Bookings.Add(newBooking);
+             _context.Bookings.Add(newBooking);
              _context.SaveChanges();
             return newBooking.Id;
         }
-        public async Task PlaceOrder(BookingVM bookingVM)
+        public async Task<int> PlaceOrder(BookingVM bookingVM)
         {
             var BookingId = CreateBooking(bookingVM);
-            foreach (var book in bookingVM.ChooseRooms) {
+            foreach (var book in bookingVM.ChooseRooms!) {
 
                 var rooms = (from r in _context.Rooms
-                             where r.RoomTypeId == book.Id &&
-                                   !_context.Bookings.Any(b =>
-                                       _context.BookingRooms.Any(br =>
-                                           br.RoomId == r.Id &&
-                                           br.BookingId == b.Id &&
-                                           (
-                                               (b.FromDate <= bookingVM.FromDate && bookingVM.FromDate <= b.ToDate) ||
-                                               (b.FromDate <= bookingVM.ToDate && bookingVM.ToDate <= b.ToDate) ||
-                                               (b.FromDate >= bookingVM.FromDate && bookingVM.ToDate >= b.ToDate)
-                                           )
-                                       )
-                                   )
+                             where r.RoomTypeId == book.RoomTypeId && r.Status == RoomStatus.Active                                                                
                              select new RoomDTO()
                              {
                                  Id = r.Id,
@@ -144,15 +126,58 @@ namespace Hotel.Services
                              }).Take(book.Number).ToList();
 
                     foreach (var room in rooms) {
-                    var bookingRoom = new BookingRoom()
+                    var bookingRoom = new BookingDetail()
                     {
                         BookingId = BookingId,
                         RoomId = room.Id
                     };
-                    _context.BookingRooms.Add(bookingRoom);
+                    _context.BookingDetails.Add(bookingRoom);
                 }
             }
+             await _context.SaveChangesAsync();
+            return BookingId;
+        }
+
+        public async Task<CheckRoomVM> CheckRoomById(CheckDate date)
+        {
+            var roomTypes = await (from rt in _context.RoomTypes
+                                   select new CheckRoomVM()
+                                   {
+                                       Id = rt.Id,
+                                       Name = rt.Name,
+                                       Content = rt.Content,
+                                       Slug = rt.Slug,
+                                       View = rt.View,
+                                       Size = rt.Size,
+                                       BedType = rt.BedType,
+                                       Capacity = rt.Capacity,
+                                       Price = rt.Price,
+                                       RoomImages = _mapper.Map<List<RoomImageModel>>(rt.RoomImages.ToList()),
+                                       Rooms = (from r in _context.Rooms
+                                                where r.RoomTypeId == rt.Id && r.Status == RoomStatus.Active
+                                                select new RoomDTO()
+                                                {
+                                                    Id = r.Id,
+                                                    RoomNumber = r.RoomNumber!,
+                                                }).ToList()
+                                   }).FirstOrDefaultAsync(r => r.Id == date.RoomTypeId);
+            return roomTypes;
+        }
+
+        public Task<int> ConfirmBooking(int bookingId)
+        {
+            throw new NotImplementedException();
+        }
+        public async Task<bool> PaymentSuccess(int BookingId)
+        {
+            var booking  = await _context.Bookings.Where(r => r.Id == BookingId).FirstOrDefaultAsync();
+           if (booking == null)
+            {
+                return false;
+            }
+            booking.PaymentStatus = PaymentStatus.Paid;
             await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

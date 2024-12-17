@@ -70,7 +70,7 @@ namespace Hotel.Services
 
         public async Task<ApiResponse> LoginAsync(LoginRequest login)
         {
-            var user = await _userManager.FindByEmailAsync(login.UserName);
+            var user = await _userManager.FindByEmailAsync(login.UserName) ?? await _userManager.FindByNameAsync(login.UserName);
             if (user == null)
             {
                 return new ApiResponse
@@ -79,8 +79,8 @@ namespace Hotel.Services
                     Message = "Sai tên đăng nhập hoặc mật khẩu"
                 };
             }
-            var loginResult = await _signInManager.PasswordSignInAsync(login.UserName, login.Password, false, false);
-            if (!loginResult.Succeeded)
+            var checkPass = await _userManager.CheckPasswordAsync(user, login.Password!);
+            if (!checkPass)
             {
                 return new ApiResponse
                 {
@@ -107,7 +107,6 @@ namespace Hotel.Services
                 {
                     throw new InvalidOperationException("Access token or refresh tooken invalid");
                 }
-
                 var userRefreshToken = new RefreshToken()
                 {
                     JwtId = refreshToken.TokenId,
@@ -125,7 +124,7 @@ namespace Hotel.Services
                 {
                     HttpOnly = true,
                     Secure = true,
-                    SameSite = SameSiteMode.Lax,
+                    SameSite = SameSiteMode.None,
                     Expires = refreshToken?.Expiration
                 });
 
@@ -139,12 +138,11 @@ namespace Hotel.Services
                         accessToken = accessToken?.Token,
                         refreshToken = refreshToken?.Token,
                     }
-
                 };
             }
             catch (Exception ex)
             {
-
+                _logger.LogError($"Error occurred while logging in: {ex.Message} at {DateTime.UtcNow}");
                 return new ApiResponse
                 {
                     StatusCode = 500,
@@ -161,14 +159,14 @@ namespace Hotel.Services
                 var refreshTokenId = partsClaim.FirstOrDefault(r => r.Type == JwtRegisteredClaimNames.Jti)?.Value;
                 var userId = partsClaim.FirstOrDefault(r => r.Type == ClaimTypes.NameIdentifier)?.Value;
 
-                if (!_jwtService.CheckValidateToken(refreshToken, _configuration["JWT:RefreshTokenSecret"]) || userId == null || refreshTokenId == null)
+                if (!_jwtService.CheckValidateToken(refreshToken, _configuration["JWT:RefreshTokenSecret"]!) || userId == null || refreshTokenId == null)
                 {
                     throw new InvalidOperationException("Token invalid");
                 }
                 var refreshTokenDb = _context.RefreshTokens.FirstOrDefault(r => r.JwtId == refreshTokenId);
                 var partClaimsDb = _jwtService.GetTokenClaims(refreshTokenDb?.TokenRefresh);
                 var isClaimValid = partClaimsDb.All(c => partsClaim.Any(r => r.Type == c.Type && r.Value == c.Value));
-                if (refreshTokenDb.IsUsed || !isClaimValid || !_jwtService.CheckValidateToken(refreshTokenDb.TokenRefresh, _configuration["JWT:AccessTokenSecret"]))
+                if (refreshTokenDb.IsUsed || !isClaimValid || !_jwtService.CheckValidateToken(refreshTokenDb.TokenRefresh, _configuration["JWT:AccessTokenSecret"]!))
                 {
                     throw new InvalidOperationException("Token invalid");
                 }
@@ -191,6 +189,13 @@ namespace Hotel.Services
                 _context.RefreshTokens.Remove(refreshTokenDb);
                 _context.RefreshTokens.Add(NewRefreshToken);
                 await _context.SaveChangesAsync();
+                _httpContextAccessor?.HttpContext?.Response.Cookies.Append("refreshToken", newRefreshTokenResponse.Token!, new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.None,
+                    Expires = newRefreshTokenResponse.Expiration
+                });
 
                 return new ApiResponse
                 {
@@ -245,7 +250,7 @@ namespace Hotel.Services
             return result;
         }
         public async Task<ApiResponse> LogoutAsync(string? accessToken, string? refreshToken)
-        {
+        {        
             try
             {
                 var accessTokenClaims = new List<Claim>();
@@ -271,7 +276,7 @@ namespace Hotel.Services
                     };
                 }
                 _httpContextAccessor?.HttpContext?.Response.Cookies.Delete("refreshToken");
-                _context.RefreshTokens.RemoveRange(_context.RefreshTokens.Where(r => r.JwtId == accessTokenId));
+                _context.RefreshTokens.RemoveRange(_context.RefreshTokens.Where(r => r.JwtId == refreshTokenId));
                 await _context.SaveChangesAsync();
 
                 return new ApiResponse()

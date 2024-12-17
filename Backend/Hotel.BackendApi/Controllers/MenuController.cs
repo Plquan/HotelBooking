@@ -12,7 +12,7 @@ namespace Hotel.BackendApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+
     public class MenuController : ControllerBase
     {
         private readonly IMenuServices _menuServices;
@@ -22,7 +22,6 @@ namespace Hotel.BackendApi.Controllers
         }
         [HttpGet]
         [Route("GetAll")]
-        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             try

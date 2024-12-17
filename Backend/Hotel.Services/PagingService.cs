@@ -15,7 +15,7 @@ namespace Hotel.Services
         public int TotalPages => (int)Math.Ceiling(TotalCount / (double)PageSize);
         public bool HasPreviousPage => PageIndex > 1;
         public bool HasNextPage => PageIndex < TotalPages;
-        public List<T> Items { get; set; }
+        public List<T> Items { get; set; } = [];
 
         public Paging(List<T> items, int count, int pageIndex, int pageSize)
         {
