@@ -29,7 +29,6 @@ namespace Hotel.Services
         Task<ApiResponse> DeleteBooking(int bookingId);
         Task<ApiResponse> UpdatePaymentStatus(int BookingId,string status);
         Task <ApiResponse> GetBookingDetail(int bookingId);
-        Task<ApiResponse> AddTransaction(TransactionModel transaction);
 
     }
 
@@ -233,7 +232,6 @@ namespace Hotel.Services
 
         }
 
-
         public async Task<ApiResponse> DeleteBooking(int bookingId)
         {
            var booking = await _context.Bookings.FirstOrDefaultAsync(r => r.Id == bookingId);
@@ -322,32 +320,7 @@ namespace Hotel.Services
             };
         }
 
-        public async Task<ApiResponse> AddTransaction(TransactionModel transaction)
-        {
-            var newTran = _mapper.Map<Transaction>(transaction);
-            _context.Transactions.Add(newTran);
-           int result = await  _context.SaveChangesAsync();
-            if (result > 0)
-            {
-                return new ApiResponse
-                {
-                    StatusCode = 200,
-                    IsSuccess = true,
-                    Message = "Thêm thành công",
-                    Data = newTran
-                };
-            }
-            else
-            {
-                return new ApiResponse
-                {
-                    StatusCode = 400,
-                    IsSuccess = false,
-                    Message = "Thêm thất bại"
-                };
-            }
-        }
-
+      
       
     }
 }

@@ -25,7 +25,6 @@ namespace Hotel.Data
         public DbSet<Menu> Menus { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<InvalidatedToken> InvalidatedTokens { get; set; }
-        public DbSet<Transaction> Transactions { get; set; }
     }
 
     

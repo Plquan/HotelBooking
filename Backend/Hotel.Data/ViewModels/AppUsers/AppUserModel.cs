@@ -10,9 +10,11 @@ namespace Hotel.Data.ViewModels.AppUsers
     {
         public string? UserName { get; set; }    
         public string? Email { get; set; }
-        public string? Password { get; set; }
+        public string? PhoneNumber { get; set; }
         public string? Avatar { get; set; }
+        public string? Status { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdateAt { get; set; }
+        public List<string>? Roles { get; set; }
     }
 }

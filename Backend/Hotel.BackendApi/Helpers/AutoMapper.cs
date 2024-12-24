@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Hotel.Data.Dtos;
 using Hotel.Data.Models;
+using Hotel.Data.ViewModels.AppUsers;
 using Hotel.Data.ViewModels.Auth;
 using Hotel.Data.ViewModels.Reservations;
 using Hotel.Data.ViewModels.RoomTypes;
@@ -22,7 +23,8 @@ namespace Hotel.BackendApi.Helpers
 			CreateMap<RoomFacility, RoomFacilityModel>().ReverseMap();
             CreateMap<Booking, BookingModel>().ReverseMap();
             CreateMap<AppUser, PublicUserVM>().ReverseMap();
-            CreateMap<Transaction, TransactionModel>().ReverseMap();
+            CreateMap<AppUser, AppUserModel>().ReverseMap();
+
         }
 	}
 }
