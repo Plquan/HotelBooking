@@ -29,7 +29,6 @@ namespace Hotel.Services
 
         public async Task<string> CreatePaymentUrl(PaymentInformationModel model, HttpContext context)
         {
-
             var bookingId = await _bookingService.PlaceOrder(model.Booking);
 
             var timeZoneById = TimeZoneInfo.FindSystemTimeZoneById(_configuration["TimeZoneId"]!);
@@ -44,11 +43,10 @@ namespace Hotel.Services
             pay.AddRequestData("vnp_CurrCode", _configuration["Vnpay:CurrCode"]!);
             pay.AddRequestData("vnp_IpAddr", pay.GetIpAddress(context));
             pay.AddRequestData("vnp_Locale", _configuration["Vnpay:Locale"]!);
-            pay.AddRequestData("vnp_OrderInfo", $"{bookingId}");
+            pay.AddRequestData("vnp_OrderInfo", $"{model.Name} {model.Amount} {model.OrderDescription}");
             pay.AddRequestData("vnp_OrderType", model.OrderType!);
-            pay.AddRequestData("vnp_ReturnUrl", model.ReturnUrl!);
-            pay.AddRequestData("vnp_TxnRef", tick);
-
+            pay.AddRequestData("vnp_ReturnUrl", _configuration["Vnpay:ReturnUrl"]!);
+            pay.AddRequestData("vnp_TxnRef", bookingId.ToString());
             var paymentUrl =
                 pay.CreateRequestUrl(_configuration["Vnpay:BaseUrl"]!, _configuration["Vnpay:HashSecret"]!);
 

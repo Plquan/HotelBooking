@@ -105,8 +105,71 @@
   },
   {
     "ContainingType": "Hotel.BackendApi.Controllers.BookingController",
+    "Method": "Delete",
+    "RelativePath": "api/Booking/del",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.BookingController",
     "Method": "GetAll",
     "RelativePath": "api/Booking/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.BookingController",
+    "Method": "GetBookingDetail",
+    "RelativePath": "api/Booking/GetBookingDetail/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.BookingController",
+    "Method": "GetListPaging",
+    "RelativePath": "api/Booking/GetListPaging",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageIndex",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.BookingController",
+    "Method": "PaymentCallbackVnpay",
+    "RelativePath": "api/Booking/PaymentExecute",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -123,8 +186,29 @@
     "Parameters": [
       {
         "Name": "bookingVM",
-        "Type": "Hotel.Data.ViewModels.Reservations.BookingVM",
+        "Type": "Hotel.Data.ViewModels.Reservations.BookingModel",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.BookingController",
+    "Method": "SendMail",
+    "RelativePath": "api/Booking/SendMail",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "code",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -249,16 +333,6 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Hotel.BackendApi.Controllers.PaymentController",
-    "Method": "PaymentCallbackVnpay",
-    "RelativePath": "api/Payment/PaymentCallbackVnpay",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": []
   },
   {

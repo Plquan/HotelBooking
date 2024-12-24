@@ -13,7 +13,6 @@ namespace Hotel.Data.ViewModels.Vnpay
         public double? Amount { get; set; }
         public string? OrderDescription { get; set; }
         public string? Name { get; set; }
-        public string? ReturnUrl { get; set; }
-        public BookingVM? Booking {  get; set; }
+        public BookingModel? Booking {  get; set; }
     }
 }

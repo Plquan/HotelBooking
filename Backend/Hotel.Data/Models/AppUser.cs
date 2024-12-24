@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace Hotel.Data.Models
 {
-      public class AppUser : IdentityUser{
+      public class AppUser : IdentityUser 
+      {
+        public string? Avatar {  get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdateAt { get; set; }
-    }
+      }
 }

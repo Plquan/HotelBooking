@@ -14,6 +14,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Hotel.Services
 {
@@ -34,7 +35,7 @@ namespace Hotel.Services
     {
         Task<ApiResponse> LoginAsync(LoginRequest login);
         Task<ApiResponse> RefreshTokenAsync(string refreshToken);
-        Task<IdentityResult> RegisterAsync(RegisterRequest register);
+        Task<ApiResponse> RegisterAsync(RegisterRequest register);
         Task<ApiResponse> LogoutAsync(string? accessToken, string? refreshToken);
 
     }
@@ -230,8 +231,11 @@ namespace Hotel.Services
                 };
             }
         }
-        public async Task<IdentityResult> RegisterAsync(RegisterRequest register)
+        public async Task<ApiResponse> RegisterAsync(RegisterRequest register)
         {
+            if (await _userManager.FindByEmailAsync(register.Email ?? "") != null)
+                return new ApiResponse() { StatusCode = 409, Message = "Email này đã được đăng ký" };
+
             var user = new AppUser
             {
                 UserName = register.UserName,
@@ -239,16 +243,24 @@ namespace Hotel.Services
                 PhoneNumber = register.Phone,
             };
             var result = await _userManager.CreateAsync(user, register.Password);
-            if (result.Succeeded)
+
+            if (!result.Succeeded)
             {
-                if (!await _roleManager.RoleExistsAsync(AppRole.Customer))
+                foreach (var item in result.Errors)
                 {
-                    await _roleManager.CreateAsync(new IdentityRole(AppRole.Customer));
+                    _logger.LogError($"There are an error for userManager: {item.Description} at {DateTime.UtcNow}");
                 }
-                await _userManager.AddToRoleAsync(user, AppRole.Customer);
+
             }
-            return result;
+            return new ApiResponse
+            {
+                StatusCode = 200,
+                IsSuccess = true,
+                Message = "Đăng kí thành công"
+            };
+            
         }
+
         public async Task<ApiResponse> LogoutAsync(string? accessToken, string? refreshToken)
         {        
             try

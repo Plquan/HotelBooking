@@ -1,16 +1,13 @@
-﻿using System;
+﻿using Hotel.Data.ViewModels.Rooms;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Hotel.Data.ViewModels.Reservations
 {
-    public class ChooseRoom
-    {
-        public int RoomTypeId { get; set; }
-        public int Number { get; set; }
-    }
     public class BookingVM
     {
         public int Id { get; set; }
@@ -20,6 +17,7 @@ namespace Hotel.Data.ViewModels.Reservations
         public string? Code { get; set; }
         public string? Note { get; set; }
         public int? TotalPerson { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
         public decimal? TotalPrice { get; set; }
         public DateOnly? FromDate { get; set; }
         public DateOnly? ToDate { get; set; }
@@ -28,6 +26,6 @@ namespace Hotel.Data.ViewModels.Reservations
         public DateTime? CreatedDate { get; set; }
         public string? ConfirmBy { get; set; }
         public string? Status { get; set; }
-        public List<ChooseRoom>? ChooseRooms { get; set; }
+        public List<RoomVM>? Rooms { get; set; }
     }
 }

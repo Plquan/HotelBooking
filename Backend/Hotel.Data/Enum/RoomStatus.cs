@@ -10,8 +10,5 @@ namespace Hotel.Data.Enum
     {
         public const string Active = "Active";
         public const string InActive = "InActive";
-        public const string Hold = "Hold";
-
-
     }
 }

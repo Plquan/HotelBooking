@@ -40,7 +40,7 @@ namespace Hotel.Services
             var room = new Room() { 
             RoomNumber = roomDTO.RoomNumber,
             RoomTypeId = roomDTO.RoomTypeId,
-            Status = "inActive"
+            Status = roomDTO.Status
             };
             _context.Rooms.Add(room);
           await _context.SaveChangesAsync();

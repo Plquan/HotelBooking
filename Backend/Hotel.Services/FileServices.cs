@@ -24,7 +24,6 @@ namespace Hotel.Services
                 {
                     return base64Image;
                 }
-
                    byte[] imageBytes = Convert.FromBase64String(base64Image);
                     var fileName = $"{Guid.NewGuid()}.jpeg";
                     var imagesFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
@@ -43,9 +42,7 @@ namespace Hotel.Services
         public bool ImageExist(string fileName)
         {
             var imagesFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
-            var filePath = Path.Combine(imagesFolder, fileName);
-
-           
+            var filePath = Path.Combine(imagesFolder, fileName);          
             return File.Exists(filePath);
         }
 

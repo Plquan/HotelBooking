@@ -30,21 +30,6 @@ namespace Hotel.BackendApi.Controllers
                 return BadRequest(new { message = "Lỗi thực thi", error = ex.Message });
             }
         }
-        [HttpGet]
-        [Route("PaymentCallbackVnpay")]
-        public IActionResult PaymentCallbackVnpay()
-        {
-            try
-            {
-                var response = _vnPayService.PaymentExecute(Request.Query);
-                return Ok(new { message = "Update successful", data = response });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = "Lỗi thực thi", error = ex.Message });
-            }
-        }
-
 
     }
 }

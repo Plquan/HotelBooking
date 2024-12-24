@@ -44,6 +44,9 @@ builder.Services.AddScoped<IVnPayService, VnPayService>();
 builder.Services.AddHostedService<ScheduleService>();
 
 
+var maisetting = builder.Configuration.GetSection("MailSettings");
+builder.Services.Configure<MailSettings>(maisetting);
+builder.Services.AddScoped<IMailService, MailService>();
 
 builder.Services.AddDbContext<HotelContext>(options =>
 {
@@ -119,11 +122,13 @@ builder.Services.AddAutoMapper(typeof(Program));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+ app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        //c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+        //c.RoutePrefix = string.Empty;  // Swagger UI sẽ xuất hiện tại gốc URL
+    });
+
 app.UseCors("AllowAllOrigins");
 app.UseHttpsRedirection();
 app.UseStaticFiles();

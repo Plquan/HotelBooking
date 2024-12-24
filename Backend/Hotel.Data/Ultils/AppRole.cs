@@ -8,8 +8,7 @@ namespace Hotel.Data.Ultils
 {
     public static class AppRole
     {
-        public const string Admin = "Admin";
-        public const string Customer = "Customer";
-        public const string Manager = "Manager";
+        public const string Staff = "Nhân viên";
+        public const string Manager = "Quản lí";
     }
 }

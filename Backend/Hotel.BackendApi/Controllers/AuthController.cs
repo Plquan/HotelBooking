@@ -2,7 +2,6 @@
 using Hotel.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-
 namespace Hotel.BackendApi.Controllers
 {
     [Route("api/[controller]")]
@@ -55,6 +54,7 @@ namespace Hotel.BackendApi.Controllers
         {          
             try
             {
+                
                 var refreshToken = Request.Cookies["refreshToken"];
                 if (string.IsNullOrEmpty(refreshToken)){
                     return StatusCode(401, "Người dùng chưa xác thực");

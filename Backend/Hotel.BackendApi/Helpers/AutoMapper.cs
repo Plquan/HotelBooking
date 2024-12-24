@@ -20,8 +20,9 @@ namespace Hotel.BackendApi.Helpers
 			CreateMap<RoomType, RoomType>().ReverseMap();
 			CreateMap<RoomImage, RoomImageModel>().ReverseMap();
 			CreateMap<RoomFacility, RoomFacilityModel>().ReverseMap();
-            CreateMap<Booking, BookingVM>().ReverseMap();
+            CreateMap<Booking, BookingModel>().ReverseMap();
             CreateMap<AppUser, PublicUserVM>().ReverseMap();
+            CreateMap<Transaction, TransactionModel>().ReverseMap();
         }
 	}
 }
