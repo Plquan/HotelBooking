@@ -39,7 +39,7 @@ function refreshToken() {
     })
         .catch(function (error) {
           if(error.response.status === 401){
-            window.location.href = "/admin/auth/login/html"
+            window.location.href = "/admin/auth/login.html"
           }
         });
 }

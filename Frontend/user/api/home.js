@@ -34,7 +34,7 @@ function getAllRoom(){
                                 <div class="box-img">
                                     <img src="${baseUrl}/${room.roomImages[0].url}" class="img-responsive" alt="${room.name}" title="${room.name}">
                                 </div>
-                                   <a href="https://localhost:7060/Room/RoomDetail">
+                                   <a>
                                     <div class="rooms-content">
                                         <h4 class="sky-h4">${room.name}</h4>
                                         <p class="price">${room.price}Đ / NGÀY</p>

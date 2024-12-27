@@ -13,66 +13,76 @@ document.addEventListener('DOMContentLoaded', function () {
         fromDate: fromDate,
         toDate: toDate
     }
-
-    axios.post('https://localhost:7197/api/Booking/CheckRoom', data)
-        .then(function (respone) {
-            const respData = respone.data
-            console.log(respData);
-
-            const container = document.getElementById('roomTypeContainer')
-            container.innerHTML = ''
-            if (respData.length > 0) {
-                respData.forEach(roomType => {
-
-                    const fromDateFormatted = new Date(fromDate);
-                    const toDateFormatted = new Date(toDate);
-                    const night = (toDateFormatted - fromDateFormatted) / (1000 * 60 * 60 * 24);
-
-                    let options = '';
-                    for (let i = 1; i <= roomType.roomCount; i++) {
-                        const VNDprice = (i * roomType.price * night).toLocaleString('vi-VN');
-                        options += `<option value="${i}">${i} (VND ${VNDprice})</option>`;
-                    }
-                    //content
-                    if (roomType.content.length > 150) {
-                        roomType.content = roomType.content.slice(0, 150) + "...";
-                    }
-                    const itemDiv = document.createElement('div')
-                    itemDiv.classList.add('reservation-room_item')
-                    const roomHTML = ` 
-                                            <h2 class="reservation-room_name"><a href="#">${roomType.name}</a></h2>
-                                            <div class="reservation-room_img">
-                                                <a href="#"><img src="images/Reservation/luxury.jpg" alt="#" class="img-responsive"></a>
-                                            </div>
-                                            <div class="reservation-room_text">
-                                                <div class="reservation-room_desc">
-                                                    ${roomType.content}
-                                                    <ul>
-                                                        <li>Giá cho ${night} đêm: (VND ${(roomType.price * night).toLocaleString('vi-VN')})</li>
-                                                        <li>Số lượng: ${roomType.capacity} khách</li>
-                                                         <li>Đánh giá</li>
-                                                    </ul>
-                                                </div>
-                                                <a href="#" class="reservation-room_view-more">View More Infomation</a>
-                                                <div class="clear"></div>
-
-                                               <div>
-                                                 <label>Chọn phòng</label>
-                                                <select data-room-id = "${roomType.id}" class="btn btn-room"> 
-                                                     <option value="0" selected>0</option>                                        
-                                                  ${options}
-                                                </select></div>                               
-                                        </div>`;
-                    itemDiv.innerHTML += roomHTML;
-                    container.appendChild(itemDiv)
-                });
-            }
-            else {
-                container.innerHTML = '<h4 style="text-align: center; font-family: Poppins, sans-serif;">Không có phòng trống !</h4>'
-            }
-
-        });
+    checkRoom(data)
 });
+function checkRoom(data){
+    axios.post('https://localhost:7197/api/Booking/CheckRoom', data)
+    .then(function (respone) {
+        const respData = respone.data
+        console.log(respData);
+
+        const container = document.getElementById('roomTypeContainer')
+        container.innerHTML = ''
+        if (respData.length > 0) {
+            respData.forEach(roomType => {
+                 if(roomType.rooms.length === 0){                      
+                    return
+                 }
+                const fromDateFormatted = new Date(fromDate);
+                const toDateFormatted = new Date(toDate);
+                const night = (toDateFormatted - fromDateFormatted) / (1000 * 60 * 60 * 24);
+
+                let options = '';
+                for (let i = 1; i <= roomType.rooms.length; i++) {
+                    const VNDprice = (i * roomType.price * night).toLocaleString('vi-VN');
+                    options += `<option value="${i}">${i} (VND ${VNDprice})</option>`;
+                }
+                //content
+                if (roomType.content.length > 150) {
+                    roomType.content = roomType.content.slice(0, 150) + "...";
+                }
+                const itemDiv = document.createElement('div')
+                itemDiv.classList.add('reservation-room_item')
+                const roomHTML = ` 
+                                        <h2 class="reservation-room_name"><a href="#">${roomType.name}</a></h2>
+                                        <div class="reservation-room_img">
+                                            <a href="#"><img src="${baseUrl}/${roomType.roomImages[0].url}" alt="Ảnh bìa" class="img-responsive"></a>
+                                        </div>
+                                        <div class="reservation-room_text">
+                                            <div class="reservation-room_desc">
+                                                ${roomType.content}
+                                                <ul>
+                                                    <li>Giá cho ${night} đêm: (VND ${(roomType.price * night).toLocaleString('vi-VN')})</li>
+                                                    <li>Số lượng: ${roomType.capacity} khách 1 phòng</li>
+                                                    <li>Đánh giá</li>
+                                                </ul>
+                                            </div>
+                                            <a href="#" class="reservation-room_view-more">View More Infomation</a>
+                                            <div class="clear"></div>
+
+                                           <div>
+                                             <span>Chọn phòng</span>
+                                            <select data-roomType-id = "${roomType.id}" data-number="${roomType.capacity}" 
+                                            data-room-name = ${roomType.name} data-room-price = ${roomType.price}
+                                            class="btn btn-room form-select"> 
+                                                 <option value="0" selected>0</option>                                        
+                                              ${options}
+                                            </select></div>            
+                                    </div>
+                                  `
+                itemDiv.innerHTML += roomHTML;
+                container.appendChild(itemDiv)
+            });
+            if(container.textContent.trim() === ""){
+                toastr.info("Không có phòng trống")
+            }
+        }
+        else {
+            container.innerHTML = '<h4 style="text-align: center; font-family: Poppins, sans-serif;">Không có phòng trống !</h4>'
+        }
+
+    });
+}
 
 function checkDate() {
     const fromDate = document.getElementById('fromDate').value || null;
@@ -87,72 +97,7 @@ function checkDate() {
         fromDate: fromDate,
         toDate: toDate
     }
-    axios.post('https://localhost:7197/api/Booking/CheckRoom', data)
-        .then(function (respone) {
-            const respData = respone.data
-            console.log(respData);
-
-            const container = document.getElementById('roomTypeContainer')
-            container.innerHTML = ''
-            if (respData.length > 0) {
-                respData.forEach(roomType => {
-                     if(roomType.rooms.length === 0){                      
-                        return
-                     }
-                    const fromDateFormatted = new Date(fromDate);
-                    const toDateFormatted = new Date(toDate);
-                    const night = (toDateFormatted - fromDateFormatted) / (1000 * 60 * 60 * 24);
-
-                    let options = '';
-                    for (let i = 1; i <= roomType.rooms.length; i++) {
-                        const VNDprice = (i * roomType.price * night).toLocaleString('vi-VN');
-                        options += `<option value="${i}">${i} (VND ${VNDprice})</option>`;
-                    }
-                    //content
-                    if (roomType.content.length > 150) {
-                        roomType.content = roomType.content.slice(0, 150) + "...";
-                    }
-                    const itemDiv = document.createElement('div')
-                    itemDiv.classList.add('reservation-room_item')
-                    const roomHTML = ` 
-                                            <h2 class="reservation-room_name"><a href="#">${roomType.name}</a></h2>
-                                            <div class="reservation-room_img">
-                                                <a href="#"><img src="${baseUrl}/${roomType.roomImages[0].url}" alt="Ảnh bìa" class="img-responsive"></a>
-                                            </div>
-                                            <div class="reservation-room_text">
-                                                <div class="reservation-room_desc">
-                                                    ${roomType.content}
-                                                    <ul>
-                                                        <li>Giá cho ${night} đêm: (VND ${(roomType.price * night).toLocaleString('vi-VN')})</li>
-                                                        <li>Số lượng: ${roomType.capacity} khách 1 phòng</li>
-                                                        <li>Đánh giá</li>
-                                                    </ul>
-                                                </div>
-                                                <a href="#" class="reservation-room_view-more">View More Infomation</a>
-                                                <div class="clear"></div>
-
-                                               <div>
-                                                 <span>Chọn phòng</span>
-                                                <select data-roomType-id = "${roomType.id}" data-number="${roomType.capacity}" 
-                                                data-room-name = ${roomType.name} data-room-price = ${roomType.price}
-                                                class="btn btn-room form-select"> 
-                                                     <option value="0" selected>0</option>                                        
-                                                  ${options}
-                                                </select></div>            
-                                        </div>
-                                      `
-                    itemDiv.innerHTML += roomHTML;
-                    container.appendChild(itemDiv)
-                });
-                if(container.textContent.trim() === ""){
-                    toastr.info("Không có phòng trống")
-                }
-            }
-            else {
-                container.innerHTML = '<h4 style="text-align: center; font-family: Poppins, sans-serif;">Không có phòng trống !</h4>'
-            }
-
-        });
+    checkRoom(data)
 }
 
 function confirm() {

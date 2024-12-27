@@ -18,20 +18,63 @@
 </head>
 
 </head>
+<style>
+    .preview-container {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .preview {
+        position: relative;
+        width: 150px;
+        height: 100px;
+        border: 2px solid #d3d3d3;
+        padding: 5px;
+        background-color: #f0f0f0;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .remove-btn {
+        background-color: transparent;
+        color: rgb(231, 45, 45);
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: bold;
+        padding: 0;
+        text-align: center;
+        border: 2px solid #d3d3d3;
+        width: 100%;
+        background-color: white;
+    }
+
+    .tagify {
+        width: 100%;
+        font-family: 'Times New Roman', serif !important;
+    }
+
+    .tagify__input {
+        height: 150px;
+    }
+
+    input::placeholder {
+        font-style: italic;
+
+    }
+</style>
 
 <body>
 
     <div class="main-wrapper">
-      <div id="headerP"></div>
+        <div id="headerP"></div>
         <div id="navP"></div>
-
-        <style>
-            input::placeholder {
-                font-style: italic;
-
-            }
-        </style>
-
         <div class="page-wrapper">
             <div class="content container-fluid">
                 <div class="page-header mt-5">
@@ -55,8 +98,6 @@
                                             data-toggle="tab">Thông tin</a></li>
                                     <li class="nav-item"><a class="nav-link" href="#basictab2" data-toggle="tab">Chi
                                             tiết</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#basictab4" data-toggle="tab">Tiện
-                                            nghi</a></li>
                                     <li class="nav-item"><a class="nav-link" href="#basictab3" data-toggle="tab">Hình
                                             ảnh</a></li>
                                 </ul>
@@ -105,7 +146,7 @@
                                                                         class="form-control"
                                                                         placeholder="Nhập mô tả"></textarea>
                                                                 </div>
-                                                            </div>                                                       
+                                                            </div>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -133,7 +174,8 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
-                                                                <label class="col-form-label col-md-2">Quang cảnh</label>
+                                                                <label class="col-form-label col-md-2">Quang
+                                                                    cảnh</label>
                                                                 <div class="col-md-10">
                                                                     <input type="text" id="view" class="form-control"
                                                                         placeholder="Biển, Thành phố,..">
@@ -145,6 +187,14 @@
                                                                 <div class="col-md-10">
                                                                     <input type="text" id="bedType" class="form-control"
                                                                         placeholder="Giường đôi, đơn,..">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-form-label col-md-2">Tiện nghi
+                                                                    </label>
+                                                                <div class="col-md-10">
+                                                                    <input id="tags-input"
+                                                                    placeholder="Tv, tủ lạnh,...">
                                                                 </div>
                                                             </div>
                                                         </form>
@@ -159,52 +209,7 @@
                                                 <div class="card">
 
                                                     <div class="card-body">
-                                                        <style>
-                                                            .preview-container {
-                                                                display: flex;
-                                                                gap: 10px;
-                                                                flex-wrap: wrap;
-                                                            }
 
-                                                            .preview {
-                                                                position: relative;
-                                                                width: 150px;
-                                                                height: 100px;
-                                                                border: 2px solid #d3d3d3;
-                                                                padding: 5px;
-                                                                background-color: #f0f0f0;
-                                                                overflow: hidden;
-                                                                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                                                            }
-
-                                                            .preview img {
-                                                                width: 100%;
-                                                                height: 100%;
-                                                                object-fit: cover;
-                                                            }
-
-                                                            .remove-btn {
-                                                                background-color: transparent;
-                                                                color: rgb(231, 45, 45);
-                                                                cursor: pointer;
-                                                                font-size: 12px;
-                                                                font-weight: bold;
-                                                                padding: 0;
-                                                                text-align: center;
-                                                                border: 2px solid #d3d3d3;
-                                                                width: 100%;
-                                                                background-color: white;
-                                                            }
-
-                                                            .tagify {
-                                                                width: 100%;
-                                                                font-family: 'Times New Roman', serif !important;
-                                                            }
-
-                                                            .tagify__input {
-                                                                height: 150px;
-                                                            }
-                                                        </style>
                                                         <form>
                                                             <div class="form-group row">
                                                                 <label class="col-form-label col-md-2">Ảnh đính
@@ -228,24 +233,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane" id="basictab4">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <form>
-                                                            <div class="form-group row">
-                                                                <div class="col-md-12">
-                                                                    <input id="tags-input"
-                                                                        placeholder="Tv, tủ lạnh,...">
-                                                                </div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                   
                                 </div>
                             </div>
                         </div>

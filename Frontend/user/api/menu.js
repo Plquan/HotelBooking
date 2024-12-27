@@ -1,7 +1,6 @@
 
-document.addEventListener('DOMContentLoaded', function () {
   getAllMenu()
-})
+
 function getAllMenu() {
   axios.get('https://localhost:7197/api/Menu/GetAll')
     .then(function (response) {

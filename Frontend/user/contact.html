@@ -15,11 +15,12 @@
     <link rel="stylesheet" type="text/css" href="css/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="css/ionicons-2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" type="text/css" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" type="text/css" href="css/toastr.min.css">
     <link rel="stylesheet" type="text/css" href="css/gallery.css">
     <link rel="stylesheet" type="text/css" href="css/vit-gallery.css">
     <link rel="shortcut icon" type="text/css" href="images/favicon.png" />
     <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css" />
+  
     <!-- MAIN STYLE -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -61,67 +62,89 @@
        <div id="navP"></div>
     </header>
     <!-- END-HEADER -->
-    <!-- BANNER -->
-    <style>
-
-        .room-item-1 .img {
-            width: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều rộng thẻ cha */
-            height: 300px; /* Đặt chiều cao cố định */
-            overflow: hidden; /* Cắt phần ảnh vượt quá kích thước */
-        }
-    
-            .room-item-1 .img img {
-                width: 100%; /* Ảnh luôn đầy đủ chiều rộng thẻ cha */
-                height: 100%; /* Ảnh đầy đủ chiều cao thẻ cha */
-                object-fit: cover; /* Phóng to ảnh để vừa kích thước và cắt phần dư */
-            }
-    
-    </style>
-        <!-- BANNER -->
     <section class="banner-tems text-center">
         <div class="container">
             <div class="banner-content">
-                <h2>ROOMS &  RATES</h2>
+                <h2>Liên hệ chúng tôi</h2>
                 <p>Lorem Ipsum is simply dummy text of the printing</p>
             </div>
         </div>
     </section>
-    <!-- END-BANNER -->
-    <!-- BODY-ROOM-1 -->
-    <section class="body-room-1 ">
+    <!-- CONTACT -->
+    <section class="section-contact">
         <div class="container">
-            <div class="room-wrap-1" id="roomTypeContainer">
-            <!-- element -->
-    
+            <div class="contact">
+                <div class="row">
+                    <div class="col-md-6 col-lg-5">
+                        <div class="text">
+                            <h2>Liên hệ chúng tôi</h2>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.</p>
+                            <ul>
+                                <li><i class=" fa ion-ios-location-outline"></i> 121 King Str, Melbourne Victoria</li>
+                                <li><i class="fa fa-phone" aria-hidden="true"></i> 1-548-854-8898</li>
+                                <li><i class="fa fa-envelope-o" aria-hidden="true"></i>hello@skylinehotel.com</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-lg-offset-1">
+                        <div class="contact-form">
+                          
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <input type="text" class="field-text" required id="userName" placeholder="Họ tên">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="field-text" required id="email" placeholder="Email">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <input type="text" class="field-text" required id="phone" placeholder="Số điện thoại">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <textarea cols="30" rows="10" id="message" required class="field-textarea" placeholder="Viết phản hồi của bạn.."></textarea>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button type="submit" onclick="sendContact()" class="btn btn-room">GỬI</button>
+                                    </div>
+                                </div>
+                         
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-    <!-- END-BANNER -->
-
+    <!-- END / CONTACT -->
+    <!-- MAP -->
+    <div class="section-map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6124.155496132579!2d144.95267262759506!3d-37.81807247133261!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d4dd58ef1f9%3A0x924c91f561a4fd11!2s121+King+St%2C+Melbourne+VIC+3000%2C+%C3%9Ac!5e0!3m2!1svi!2s!4v1510819444662" height="470" allowfullscreen></iframe>
+    </div>
    <div id="footerP"></div>
     <!--SCOLL TOP-->
     <a href="#" title="sroll" class="scrollToTop"><i class="fa fa-angle-up"></i></a>
     <!--END / SROLL TOP-->
     <!-- LOAD JQUERY -->
     <script type="text/javascript" src="js/axios.min.js"></script>
+   
     <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="js/owl.carousel.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/vit-gallery.js"></script>
     <script type="text/javascript" src="js/jquery.countTo.js"></script>
     <script type="text/javascript" src="js/jquery.appear.min.js"></script>
     <script type="text/javascript" src="js/isotope.pkgd.min.js"></script>
     <script type="text/javascript" src="js/bootstrap-select.js"></script>
-    <script type="text/javascript" src="js/jquery.littlelightbox.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDyCxHyc8z9gMA5IlipXpt0c33Ajzqix4"></script>
+    <script type="text/javascript" src="js/jquery.littlelightbox.js"></script> 
+    <script type="text/javascript" src="js/toastr.min.js"></script>
     <script type="text/javascript" src="js/sky.js"></script>
-    <script src="api/allRoom.js"></script>
+    <script src="api/contact.js"></script>
+
+
 </body>
 <script>
     $(function () {
         $("#navP").load("template/nav.html");
         $("#footerP").load("template/footer.html");
       }); 
+
+      
   </script>
 </html>

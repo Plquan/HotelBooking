@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function roomDetail(id) {
-    localStorage.setItem('roomDetailId', id);
+    localStorage.setItem('roomTypeId', id);
     window.location.href = 'http://127.0.0.1:5500/user/roomDetail.html';
 }
 

@@ -2,7 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', async function () {
 
-    const roomId = localStorage.getItem('roomDetailId');
+    const roomId = localStorage.getItem('roomTypeId');
     if (roomId == null) {
         window.location.href = 'http://127.0.0.1:5500/user/allRoom.html';
     }
@@ -116,6 +116,10 @@ function preview() {
         document.getElementById('totalDay').textContent = ``
         document.getElementById('totalPrice').textContent = ``
     }
-
+    localStorage.setItem('fromDate', fromDate);
+    localStorage.setItem('toDate', toDate);
+    localStorage.setItem('numberPerson', numberPerson);
+    localStorage.setItem('selectedRooms', JSON.stringify(selectedRooms));
+    window.location.href = 'http://127.0.0.1:5500/user/booking.html';
 
 }

@@ -45,19 +45,29 @@
                                     <div class="col-md-6 mr-auto"> 
                                         <div>
                                             <button type="button" id="allBtn" class="btn btn-danger">Tất cả <span class="badge bg-white" style="color: red;">0</span></button>
-                                            <button type="button" id="activeBtn" class="btn btn-primary">Kích hoạt <span class="badge bg-white" style="color: #009688;">0</span></button>
-                                            <button type="button" id="inActiveBtn" class="btn btn-primary">Chưa kích hoạt <span class="badge bg-white" style="color: #009688;">0</span></button>
+                                            <select onchange="updateEntries(this.value)" class="form-select" style="width: auto; min-width: 50px; height: 27px; border-radius: 2px;">
+                                                <option value="5">5 </option>
+                                                <option value="10">10 </option>
+                                                <option value="15">15 </option>
+                                            </select>
+                                            
                                         </div>
                                     </div>
                                     <div class="col-md-6 ml-auto">
                                         <div class="input-group">
-                                            <div >
-                                                <select class="form-control" style="border-radius: 3px 0px 0px 3px;">
-                                                    <option>Tất cả</option> 
-                                                    <option>Tìm kiếm theo tên</option>                                            
+                                            <div>
+                                                <select class="form-control" style="border-radius: 3px 0px 0px 3px;" onchange="filterBooking(this.value)">
+                                                    <option value="All">--- Tất cả ---</option>        
+                                                    <option value="Pending">Chưa xác nhận</option>
+                                                    <option value="Hold">Giữ phòng</option>
+                                                    <option value="CheckIn">Nhận phòng</option>
+                                                    <option value="CheckOut">Trả phòng</option>
+                                                    <option value="Cancelled">Đã hủy</option>
+                                                    <option value="Paid">Đã thanh toán</option>
+                                                    <option value="UnPaid">Chưa thanh toán</option>                                           
                                                 </select>
                                             </div>
-                                                <input class="form-control" type="text" style="width: 80px;border: 1px solid #ced4da">     
+                                                <input class="form-control" type="text" id="searchInput" style="width: 80px;border: 1px solid #ced4da">     
                                                 <button type="button" class="btn btn-primary"
                                                 style="border-radius: 0;border: 1px solid green;"" >Xóa tìm kiếm</button>                                                                      
                                                 <button type="button" class="btn btn-primary" 
@@ -72,15 +82,32 @@
 											<tr>
 												<th>#</th>
 												<th>Mã đặt phòng</th>
-												<th>Họ tên</th>
-                                                <th>Số điện thoại</th>
-												<th>Trạng thái</th>
+												<th>Khách hàng</th>
+                                                <th>PT Thanh toán</th>
+												<th>TT Thanh toán</th>
+                                                <th>Ngày đặt</th>
+                                                <th>Trạng thái</th>
 												<th class="text-right">Chức năng</th>
 											</tr>
 										</thead>
 										<tbody id="showBooking">
 										</tbody>
 									</table>
+                                    <div>
+                                        <ul class="pagination" id="pagination">
+                                            <!-- <li class="page-item disabled">
+                                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item active">
+                                                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">Next</a> -->
+                                            </li>
+                                        </ul>
+                                    </div>
 								</div>
 							</div>
 						</div>
@@ -108,36 +135,42 @@
         <div class="modal-dialog">
             <div class="modal-content modal-md">
                 <div class="modal-header">
-                    <h4 class="modal-title">Add Event</h4>
+                    <h4 class="modal-title">Thông tin hóa đơn</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label>Event Name <span class="text-danger">*</span></label>
-                            <input class="form-control" type="text">
+                            <label style="font-weight: 500;">Họ tên:</label><span class="text-center" style="margin-left: 10px;" id="userName"></span>                         
                         </div>
                         <div class="form-group">
-                            <label>Event Name <span class="text-danger">*</span></label>
-                            <input class="form-control" type="text">
+                            <label style="font-weight: 500;">Só điện thoại:</label><span class="text-center" style="margin-left: 10px;" id="phone"></span>                         
                         </div>
                         <div class="form-group">
-                            <label>Event Name <span class="text-danger">*</span></label>
-                            <input class="form-control" type="text">
+                            <label style="font-weight: 500;">Email:</label><span class="text-center" style="margin-left: 10px;" id="email"></span>                         
                         </div>
                         <div class="form-group">
-                            <label>Event Name <span class="text-danger">*</span></label>
-                            <input class="form-control" type="text">
+                            <label style="font-weight: 500;">Ngày nhận phòng:</label><span class="text-center" style="margin-left: 10px;" id="fromDate"></span>                         
                         </div>
                         <div class="form-group">
-                            <label>Event Date <span class="text-danger">*</span></label>
-                            <div class="cal-icon">
-                                <input class="form-control datetimepicker" type="text">
-                            </div>
+                            <label style="font-weight: 500;">Ngày trả phòng:</label><span class="text-center" style="margin-left: 10px;" id="toDate"></span>                         
                         </div>
-                        <div class="m-t-20 text-center">
+                        <div class="form-group">
+                            <label style="font-weight: 500;">Số người:</label><span class="text-center" style="margin-left: 10px;" id="totalPerson"></span>                         
+                        </div>
+                        <div class="form-group">
+                            <label style="font-weight: 500;">Số phòng:</label><span class="text-center" style="margin-left: 10px;" id="totalRoom"></span>                         
+                        </div>
+                        <div class="form-group">
+                            <label style="font-weight: 500;">Tổng tiền:</label><span class="text-center" style="margin-left: 10px;" id="totalPrice"></span>                         
+                        </div>
+                        <div class="form-group">
+                            <label  style="font-weight: 500;">Ghi chú:</label>                         
+                                <textarea style="height: 80px;" class="form-control" readonly type="text" id="note"> </textarea>                        
+                        </div>
+                        <!-- <div class="m-t-20 text-center">
                             <button class="btn btn-primary submit-btn">Create Event</button>
-                        </div>
+                        </div> -->
                     </form>
                 </div>
             </div>
@@ -154,7 +187,6 @@
     <script src="../assets/js/toastr.min.js"></script>
     <script src="../assets/js/chart.morris.js"></script>
     <script src="../assets/js/script.js"></script>
-    <script src="../api/auth/checkAuth.js"></script>
     <script src="../api/booking/index.js"></script>
 </body>
 <script>

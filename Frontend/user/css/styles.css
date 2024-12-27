@@ -14321,5 +14321,28 @@ a {
   .section-blog,
   .blog-detail {
     padding-bottom: 55px !important; } }
-
+    .loader {
+      width: 48px;
+      height: 48px;
+      border: 5px solid #040404;
+      border-bottom-color: transparent;
+      border-radius: 50%;
+      display: inline-block;
+      box-sizing: border-box;
+      animation: rotation 1s linear infinite;
+    
+      /* Căn giữa màn hình */
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    @keyframes rotation {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
 /*# sourceMappingURL=styles.css.map */
