@@ -23,12 +23,13 @@ namespace Hotel.Services
     {
         Task<List<CheckRoomVM>> CheckRoom(CheckDate date);
         Task<CheckRoomVM> CheckRoomById(CheckDate date);
-        Task<List<BookingModel>> GetAll();
-        Task<Paging<BookingVM>> GetListPaging(int pageIndex, int pageSize);
+        Task<ApiResponse> GetAll();
+        Task<Paging<BookingVM>> GetListPaging(PagingModel model);
         Task<int> PlaceOrder(BookingModel bookingVM);
         Task<ApiResponse> DeleteBooking(int bookingId);
         Task<ApiResponse> UpdatePaymentStatus(int BookingId,string status);
         Task <ApiResponse> GetBookingDetail(int bookingId);
+        Task <ApiResponse> UpdateStatus(int bookingId,string status);
 
     }
 
@@ -93,10 +94,44 @@ namespace Hotel.Services
                                    }).ToListAsync();
             return roomTypes;                  
         }
-        public async Task<List<BookingModel>> GetAll()
+        public async Task<ApiResponse> GetAll()
         {
-            var bookings = await _context.Bookings.ToListAsync();
-            return _mapper.Map<List<BookingModel>>(bookings);
+            var bookings = await ( from b in _context.Bookings.Where(s => s.Status != BookingStatus.CheckOut && s.Status != BookingStatus.Cancelled)
+                           select new BookingVM
+                           {
+                               Id = b.Id,
+                               UserName = b.UserName,
+                               Email = b.Email,
+                               Phone = b.Phone,
+                               Code = b.Code,
+                               Note = b.Note,
+                               TotalPerson = b.TotalPerson,
+                               TotalPrice = b.TotalPrice,
+                               FromDate = b.FromDate,
+                               ToDate = b.ToDate,
+                               PaymentMethod = b.PaymentMethod,
+                               PaymentStatus = b.PaymentStatus,
+                               CreatedDate = b.CreatedDate,
+                               ConfirmBy = b.ConfirmBy,
+                               Status = b.Status,
+                               Rooms = (from r in _context.Rooms
+                                        join
+                                            bd in _context.BookingDetails on r.Id equals bd.RoomId
+                                        where bd.BookingId == b.Id
+                                        select new RoomVM
+                                        {
+                                            Id = r.Id,
+                                            RoomNumber = r.RoomNumber
+                                        }).ToList()
+                           }).ToListAsync();
+
+            return new ApiResponse { 
+            StatusCode = 200,
+            IsSuccess = true,
+            Data = bookings,
+            Message = "Lấy dữ liệu thành công"
+            };
+
         }
         public  string GenerateCode()
         {
@@ -203,10 +238,6 @@ namespace Hotel.Services
                                                     RoomNumber = r.RoomNumber!,
                                                 }).ToList()
                                    }).FirstOrDefaultAsync(r => r.Id == date.RoomTypeId);
-            if(roomTypes == null)
-            {
-                throw new Exception("Không tìm thấy phòng");
-            }
             return roomTypes;
         }
         public async Task<ApiResponse> UpdatePaymentStatus(int BookingId, string status)
@@ -217,7 +248,7 @@ namespace Hotel.Services
                 return new ApiResponse { 
                  StatusCode = 400,
                  IsSuccess = false,
-                 Message = "Cập nhật trạng thái đơn không thành công"
+                 Message = "Cập nhật trạng thái thanh toán không thành công"
                 };
 
             }
@@ -249,7 +280,7 @@ namespace Hotel.Services
             };
         }
 
-        public async Task<Paging<BookingVM>> GetListPaging(int pageIndex, int pageSize)
+        public async Task<Paging<BookingVM>> GetListPaging(PagingModel model)
         {
             var query = from b in _context.Bookings
                         select new BookingVM
@@ -270,7 +301,7 @@ namespace Hotel.Services
                             ConfirmBy = b.ConfirmBy,
                             Status = b.Status                       
                         };
-            return await _pagingService.GetPagedAsync<BookingVM>(query, pageIndex, pageSize);
+            return await _pagingService.GetPagedAsync<BookingVM>(query, model.PageIndex,model.PageSize);
         }
 
         public async Task<ApiResponse> GetBookingDetail(int bookingId)
@@ -320,7 +351,28 @@ namespace Hotel.Services
             };
         }
 
-      
-      
+        public async Task<ApiResponse> UpdateStatus(int bookingId, string status)
+        {
+            var booking = await _context.Bookings.FirstOrDefaultAsync(r => r.Id == bookingId);
+            if (booking == null)
+            {
+                return new ApiResponse
+                {
+                    StatusCode = 400,
+                    IsSuccess = false,
+                    Message = "Cập nhật trạng thái đơn không thành công"
+                };
+
+            }
+            booking.Status = status;
+            await _context.SaveChangesAsync();
+            return new ApiResponse
+            {
+                StatusCode = 200,
+                IsSuccess = true,
+                Message = "Cập nhật thành công"
+            };
+        }
+
     }
 }

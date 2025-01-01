@@ -1,4 +1,5 @@
 ﻿using Hotel.Data.Ultils;
+using Hotel.Data.ViewModels.AppUsers;
 using Hotel.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
@@ -35,9 +36,6 @@ namespace Hotel.BackendApi.Controllers
         [HttpPost]
         [Route("Register")]
         public async Task<IActionResult> Register(RegisterRequest register) {
-            if (!ModelState.IsValid) { 
-            return BadRequest("Vui lòng nhập đầy đủ thông tin");
-            }
             try
             {
                 var respone = await _authService.RegisterAsync(register);
@@ -69,7 +67,6 @@ namespace Hotel.BackendApi.Controllers
         }
         [HttpPost]
         [Route("Logout")]
-
         public async Task<IActionResult> Logout()
         {
             var accessToken = await Request.HttpContext.GetTokenAsync("access_token");
@@ -77,6 +74,35 @@ namespace Hotel.BackendApi.Controllers
             var response = await _authService.LogoutAsync(accessToken, refreshToken);
             return StatusCode(response.StatusCode, response);
 
+        }
+        [HttpPost]
+        [Route("ConfirmEmailAsync")]
+        public async Task<IActionResult> ConfirmEmailAsync(ConfirmEmailModel model)
+        {
+            try
+            {
+                var respone = await _authService.ConfirmEmailAsync(model);              
+                return Ok(respone);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Lỗi thực thi", error = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        [Route("ResendCodeConfirmEmailAsync")]
+        public async Task<IActionResult> ResendCodeConfirmEmailAsync(string email)
+        {
+            try
+            {
+                var respone = await _authService.ResendCodeConfirmEmailAsync(email);
+                return Ok(respone);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Lỗi thực thi", error = ex.Message });
+            }
         }
     }
 }

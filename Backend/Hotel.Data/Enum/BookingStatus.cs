@@ -13,6 +13,5 @@ namespace Hotel.Data.Enum
         public const string Pending = "Pending";
         public const string Confirmed = "Confirmed";
         public const string Cancelled = "Cancelled";
-        public const string Noshow = "NoShow";
     }
 }

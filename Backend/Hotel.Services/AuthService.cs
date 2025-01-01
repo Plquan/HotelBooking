@@ -1,6 +1,8 @@
 ﻿using Hotel.Data;
 using Hotel.Data.Models;
 using Hotel.Data.Ultils;
+using Hotel.Data.Ultils.Email;
+using Hotel.Data.ViewModels.AppUsers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -15,6 +17,8 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace Hotel.Services
 {
@@ -28,7 +32,6 @@ namespace Hotel.Services
         public string? Email { get; set; }
         public string? Phone {  get; set; }
         public string? Password { get; set; }
-        public string? ConfirmPassword { get; set; }
     }
 
     public interface IAuthService 
@@ -37,6 +40,8 @@ namespace Hotel.Services
         Task<ApiResponse> RefreshTokenAsync(string refreshToken);
         Task<ApiResponse> RegisterAsync(RegisterRequest register);
         Task<ApiResponse> LogoutAsync(string? accessToken, string? refreshToken);
+        Task<ApiResponse> ConfirmEmailAsync(ConfirmEmailModel model);
+        Task<ApiResponse> ResendCodeConfirmEmailAsync(string email);
 
     }
 
@@ -50,6 +55,7 @@ namespace Hotel.Services
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly HotelContext _context;
         private readonly ILogger<AuthService> _logger;
+        private readonly IMailService _mailService;
         public AuthService(UserManager<AppUser> userManager,
                                 SignInManager<AppUser> signInManager,
                                 IConfiguration configuration,
@@ -57,7 +63,8 @@ namespace Hotel.Services
                                 IJwtService jwtService,
                                 IHttpContextAccessor httpContextAccessor,
                                 HotelContext context,
-                                ILogger<AuthService> logger)
+                                ILogger<AuthService> logger,
+                                IMailService mailService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -67,6 +74,7 @@ namespace Hotel.Services
             _httpContextAccessor = httpContextAccessor;
             _context = context;
             _logger = logger;
+            _mailService = mailService;
         }
 
         public async Task<ApiResponse> LoginAsync(LoginRequest login)
@@ -236,13 +244,17 @@ namespace Hotel.Services
             if (await _userManager.FindByEmailAsync(register.Email ?? "") != null)
                 return new ApiResponse() { StatusCode = 409, Message = "Email này đã được đăng ký" };
 
+            string code = GenerateVerificationCode();
             var user = new AppUser
             {
                 UserName = register.UserName,
                 Email = register.Email,
                 PhoneNumber = register.Phone,
+                VerifyCode = code,
+                CodeExpireTime = DateTime.UtcNow.AddMinutes(2),
             };
             var result = await _userManager.CreateAsync(user, register.Password);
+
 
             if (!result.Succeeded)
             {
@@ -252,6 +264,9 @@ namespace Hotel.Services
                 }
 
             }
+            string title = "Xác thực email của bạn";        
+            string html = AuthCodeMessage.EmailBody(code, title, 2);
+            await _mailService.SendEmailAsync(register.Email ?? "", title, html);
             return new ApiResponse
             {
                 StatusCode = 200,
@@ -260,7 +275,6 @@ namespace Hotel.Services
             };
             
         }
-
         public async Task<ApiResponse> LogoutAsync(string? accessToken, string? refreshToken)
         {        
             try
@@ -312,7 +326,86 @@ namespace Hotel.Services
 
         }
 
+        public async Task<ApiResponse> ConfirmEmailAsync(ConfirmEmailModel model)
+        {
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                return new ApiResponse()
+                {
+                    StatusCode = 404,
+                    IsSuccess = false,
+                    Message = "Không tìm thấy email này"
+                };
+            }
+            if (user.VerifyCode != model.Code || user.CodeExpireTime < DateTime.UtcNow)
+            {
+                return new ApiResponse()
+                {
+                    StatusCode = 400,
+                    IsSuccess = false,
+                    Message = "Mã xác thực không hợp lệ"
+                };
+            }
+            user.EmailConfirmed = true;
+            user.CodeExpireTime = null;
+            user.VerifyCode = null;
 
+            var roleExists = await _roleManager.RoleExistsAsync(AppRole.Member);
+            if (!roleExists)
+            {
+                await _roleManager.CreateAsync(new IdentityRole(AppRole.Member));
+            }
+
+            await _userManager.AddToRoleAsync(user, AppRole.Member);
+
+            await _userManager.UpdateAsync(user);
+
+            return new ApiResponse()
+            {
+                StatusCode = 200,
+                Message = "Xác thực tài khoản thành công",
+                IsSuccess = true
+            };
+        }
+
+        private static string GenerateVerificationCode()
+        {
+            return new Random().Next(1000, 9999).ToString();
+        }
+
+        public async Task<ApiResponse> ResendCodeConfirmEmailAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return new ApiResponse()
+                {
+                    StatusCode = 404,
+                    IsSuccess = false,
+                    Message = "Không tìm thấy email"
+                };
+            }
+
+            string code = GenerateVerificationCode();
+
+            user.CodeExpireTime = DateTime.UtcNow.AddMinutes(2);
+            user.VerifyCode = code;
+
+            string title = "Xác thực email của bạn";
+         
+            string html = AuthCodeMessage.EmailBody(code, title, 2);
+            await _mailService.SendEmailAsync(email ?? "", title, html);
+
+            await _userManager.UpdateAsync(user);
+
+            return new ApiResponse()
+            {
+                IsSuccess = true,
+                StatusCode = 200,
+                Message = "Gửi lại mã code thành công",
+            };
+        }
     }
 
 

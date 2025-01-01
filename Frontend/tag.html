@@ -1,68 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Spinner with Spin.js</title>
-  <script src="https://cdn.jsdelivr.net/npm/spin.js@2.3.2/spin.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
+<style>
+    /* Overlay che toàn bộ trang */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Màu đen mờ */
+    display: none; /* Mặc định ẩn */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Che các phần tử khác */
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #f3f3f3; /* Màu nền và độ mỏng viền */
+    border-top: 2px solid rgb(172, 169, 169); /* Màu chuyển động và độ mỏng viền */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+
+/* Hiệu ứng quay của spinner */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+</style>
 <body>
-
-  <button onclick="fetchData()">Fetch Data</button>
-
-  <div id="spinner"></div> <!-- Spinner container -->
-
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script>
-    // Tạo spinner với Spin.js
-    var opts = {
-      lines: 12, // Số lượng vòng quay
-      length: 10, // Chiều dài của vòng quay
-      width: 4, // Độ dày của vòng quay
-      radius: 15, // Bán kính của vòng quay
-      scale: 1, // Tỉ lệ của spinner
-      corners: 1, // Góc cạnh
-      color: '#3498db', // Màu của spinner
-      opacity: 0.25, // Độ mờ của vòng quay
-      rotate: 0, // Góc quay
-      direction: 1, // Hướng quay
-      speed: 1, // Tốc độ quay
-      trail: 60, // Độ dài dấu vết
-      fps: 20, // Khung hình mỗi giây
-      zIndex: 2e9, // Chỉ số z để đảm bảo spinner ở trên các phần tử khác
-      className: 'spinner', // Tên class cho spinner
-      top: '50%', // Vị trí của spinner trên trục y
-      left: '50%' // Vị trí của spinner trên trục x
-    };
-
-    var spinner = new Spinner(opts);
-
-    function toggleLoader(show) {
-      const loaderElement = document.getElementById('spinner');
-      if (show) {
-        spinner.spin(loaderElement); // Hiển thị spinner
-      } else {
-        spinner.stop(); // Dừng spinner
-      }
-    }
-    toggleLoader(true);
-    function fetchData() {
-      // Hiển thị spinner khi bắt đầu gọi API
-     
-
-      axios.get('https://jsonplaceholder.typicode.com/posts')
-        .then(response => {
-          console.log(response.data); // Hiển thị dữ liệu từ API
-          // Ẩn spinner sau khi nhận dữ liệu từ API
-          toggleLoader(false);
-        })
-        .catch(error => {
-          console.error('Error fetching data:', error);
-          // Ẩn spinner nếu có lỗi
-          toggleLoader(false);
-        });
-    }
-  </script>
-
+    <div id="overlay" class="overlay">
+        <div class="spinner"></div>
+    </div>
+    <button onclick="simulateLoading()">Click me</button>
+    <p>Some content here...</p>
+    
 </body>
+<script>
+    function simulateLoading() {
+    const overlay = document.getElementById("overlay");
+
+    // Hiển thị overlay và spinner
+    overlay.style.display = "flex";
+
+    // Giả lập thời gian xử lý (3 giây)
+    setTimeout(() => {
+        // Ẩn overlay và spinner
+        overlay.style.display = "none";
+    }, 3000);
+}
+
+</script>
 </html>

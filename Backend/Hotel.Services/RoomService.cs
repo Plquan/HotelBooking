@@ -2,6 +2,7 @@
 using Hotel.Data;
 using Hotel.Data.Dtos;
 using Hotel.Data.Models;
+using Hotel.Data.Ultils;
 using Hotel.Data.ViewModels.Rooms;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,7 +21,7 @@ namespace Hotel.Services
         Task<List<RoomVM>> GetAll();
         Task<Room> GetById(int id);
         Task<string> ChangeStatus(int id);
-        Task<Paging<RoomVM>> GetListPaging(int pageIndex, int pageSize);
+        Task<Paging<RoomVM>> GetListPaging(PagingModel model);
     }
 
     public class RoomService : IRoomService
@@ -108,7 +109,7 @@ namespace Hotel.Services
 
         }
 
-        public async Task<Paging<RoomVM>> GetListPaging(int pageIndex, int pageSize)
+        public async Task<Paging<RoomVM>> GetListPaging(PagingModel model)
         {
             var query = from r in _context.Rooms
                               join t in _context.RoomTypes on r.RoomTypeId equals t.Id
@@ -119,7 +120,7 @@ namespace Hotel.Services
                                   Status = r.Status,
                                   TypeName = t.Name
                               };
-            return await _pagingService.GetPagedAsync<RoomVM>(query, pageIndex, pageSize);
+            return await _pagingService.GetPagedAsync<RoomVM>(query, model.PageIndex,model.PageSize);
         }
     }
 

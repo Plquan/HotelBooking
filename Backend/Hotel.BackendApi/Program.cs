@@ -41,6 +41,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IVnPayService, VnPayService>();
+builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddHostedService<ScheduleService>();
 
 
@@ -68,14 +69,24 @@ builder.Services.AddCors(options =>
 // đặt trước addAuth
 builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 {
+   
+})
+.AddEntityFrameworkStores<HotelContext>()
+.AddDefaultTokenProviders();
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
     options.Password.RequireDigit = false;
     options.Password.RequiredLength = 1;
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
     options.Password.RequireLowercase = false;
-})
-.AddEntityFrameworkStores<HotelContext>()
-.AddDefaultTokenProviders();
+
+    options.SignIn.RequireConfirmedEmail = true;
+    options.SignIn.RequireConfirmedPhoneNumber = false;
+    options.SignIn.RequireConfirmedAccount = true;
+    options.User.RequireUniqueEmail = true;
+});
 
 // authen
 builder.Services.AddAuthentication(options => {

@@ -11,6 +11,22 @@
   },
   {
     "ContainingType": "Hotel.BackendApi.Controllers.AuthController",
+    "Method": "ConfirmEmailAsync",
+    "RelativePath": "api/Auth/ConfirmEmailAsync",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "Hotel.Data.ViewModels.AppUsers.ConfirmEmailModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.AuthController",
     "Method": "LoginAsync",
     "RelativePath": "api/Auth/Login",
     "HttpMethod": "POST",
@@ -62,6 +78,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Hotel.BackendApi.Controllers.AuthController",
+    "Method": "ResendCodeConfirmEmailAsync",
+    "RelativePath": "api/Auth/ResendCodeConfirmEmailAsync",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Hotel.BackendApi.Controllers.BookingController",
     "Method": "CheckRoom",
     "RelativePath": "api/Booking/CheckRoom",
@@ -106,7 +138,7 @@
   {
     "ContainingType": "Hotel.BackendApi.Controllers.BookingController",
     "Method": "Delete",
-    "RelativePath": "api/Booking/del",
+    "RelativePath": "api/Booking/deleteBooking",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -149,19 +181,14 @@
     "ContainingType": "Hotel.BackendApi.Controllers.BookingController",
     "Method": "GetListPaging",
     "RelativePath": "api/Booking/GetListPaging",
-    "HttpMethod": "GET",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "pageIndex",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "pageSize",
-        "Type": "System.Int32",
-        "IsRequired": false
+        "Name": "model",
+        "Type": "Hotel.Data.Ultils.PagingModel",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -209,6 +236,91 @@
         "Name": "code",
         "Type": "System.String",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.BookingController",
+    "Method": "UpdateStatus",
+    "RelativePath": "api/Booking/UpdateStatus",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "bookingId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "status",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.ContactController",
+    "Method": "CreateContact",
+    "RelativePath": "api/Contact/CreateContact",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "contact",
+        "Type": "Hotel.Data.ViewModels.Contacts.ContactVM",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.ContactController",
+    "Method": "DeleteContact",
+    "RelativePath": "api/Contact/DeleteContact/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.ContactController",
+    "Method": "GetListPaging",
+    "RelativePath": "api/Contact/GetListPaging",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "Hotel.Data.Ultils.PagingModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.ContactController",
+    "Method": "ReplyEmail",
+    "RelativePath": "api/Contact/ReplyEmail",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "Hotel.Services.ReplyModel",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -460,14 +572,9 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "pageIndex",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "pageSize",
-        "Type": "System.Int32",
-        "IsRequired": false
+        "Name": "model",
+        "Type": "Hotel.Data.Ultils.PagingModel",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Room 1</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- GOOGLE FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900"
+        rel="stylesheet">
+    <!-- CSS LIBRARY -->
+    <link rel="stylesheet" type="text/css" href="css/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="css/ionicons-2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" type="text/css" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" type="text/css" href="css/gallery.css">
+    <link rel="stylesheet" type="text/css" href="css/vit-gallery.css">
+    <link rel="shortcut icon" type="text/css" href="images/favicon.png" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
+
+    <!-- MAIN STYLE -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!-- HEADER -->
+    <div id="overlay" class="overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="navP"></div>
+
+    <!-- BODY-LOGIN -->
+    <section class="body-page page-v1">
+        <div class="container">
+            <div class="content">
+                <h2 class="sky-h3">ĐĂNG NHẬP</h2>
+                <br>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control"  id="userName" placeholder="Tên đăng nhập">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="password" class="form-control"  placeholder="Mật khẩu">
+                        <span class="fa fa-fw fa-eye field-icon toggle-password " data-toggle="#password-field"></span>
+                    </div>
+                    <button type="button" onclick="login()" class="btn btn-default">ĐĂNG NHẬP</button>
+                </form>
+                <p>I don’t have an account &nbsp;- &nbsp; Forgot Password</p>
+            </div>
+        </div>
+    </section>
+    <!-- END/BODY-LOGIN-->
+
+    <div id="footerP"></div>
+    <!--SCOLL TOP-->
+    <a href="#" title="sroll" class="scrollToTop"><i class="fa fa-angle-up"></i></a>
+    <!--END / SROLL TOP-->
+    <!-- LOAD JQUERY -->
+    <script type="text/javascript" src="js/axios.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="js/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/jquery.countTo.js"></script>
+    <script type="text/javascript" src="js/jquery.appear.min.js"></script>
+    <script type="text/javascript" src="js/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-select.js"></script>
+    <script type="text/javascript" src="js/jquery.littlelightbox.js"></script>
+    <script type="text/javascript" src="js/sky.js"></script>
+    <script src="api/auth.js"></script>
+
+</body>
+<script>
+    $(function () {
+        $("#navP").load("template/nav.html");
+        $("#footerP").load("template/footer.html");
+    });
+</script>
+
+</html>

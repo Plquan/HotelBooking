@@ -5,6 +5,7 @@ using Hotel.Data.Enum;
 using Hotel.Data.Libraries;
 using Hotel.Data.Models;
 using Hotel.Data.Ultils;
+using Hotel.Data.Ultils.Email;
 using Hotel.Data.ViewModels.Reservations;
 using Hotel.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -25,8 +26,6 @@ namespace Hotel.BackendApi.Controllers
         private readonly IMailService _mailService;
         private readonly HotelContext _hotelContext;
         private readonly ILogger<BookingController> _logger;
-        private const int DEFAULT_PAGE_INDEX = 1;
-        private const int DEFAULT_PAGE_SIZE = 1;
 
         public BookingController(IBookingService bookingService, IVnPayService vnPayService, IConfiguration configuration, IMailService mailService, HotelContext hotelContext, ILogger<BookingController> logger)
         {
@@ -74,13 +73,28 @@ namespace Hotel.BackendApi.Controllers
                 return BadRequest(new { message = "Lỗi thực thi", error = ex.Message });
             }
         }
-        [HttpGet]
+        [HttpPost]
         [Route("GetListPaging")]
-        public async Task<IActionResult> GetListPaging(int pageIndex = DEFAULT_PAGE_INDEX, int pageSize = DEFAULT_PAGE_SIZE)
+        public async Task<IActionResult> GetListPaging(PagingModel model)
         {
             try
             {
-                var bookings = await _bookingService.GetListPaging(pageIndex,pageSize);
+                var bookings = await _bookingService.GetListPaging(model);
+                return Ok(new { message = "Lấy thành công", data = bookings });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Lỗi thực thi", error = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        [Route("UpdateStatus")]
+        public async Task<IActionResult> UpdateStatus(int bookingId,string status)
+        {
+            try
+            {
+                var bookings = await _bookingService.UpdateStatus(bookingId, status);
                 return Ok(new { message = "Lấy thành công", data = bookings });
             }
             catch (Exception ex)
@@ -116,7 +130,7 @@ namespace Hotel.BackendApi.Controllers
             }
         }
         [HttpGet]
-        [Route("del")]
+        [Route("deleteBooking")]
         public IActionResult Delete(int id) {
             try
             {
@@ -138,7 +152,7 @@ namespace Hotel.BackendApi.Controllers
                 var bodyHtml  = EmailMessage.EmailBody(code);
                 var Title = "Mã hóa đơn";
                 _mailService.SendEmailAsync(email,Title,bodyHtml);
-                return Ok(new { message = "Lấy thành công", });
+                return Ok(new { message = "Gửi thành công", });
             }
             catch (Exception ex)
             {

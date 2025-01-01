@@ -4,10 +4,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const toDate = localStorage.getItem('toDate');
     const numberPerson = localStorage.getItem('numberPerson');
 
-    document.getElementById('fromDate').value = fromDate;
-    document.getElementById('toDate').value = toDate;
+    document.getElementById('fromDate').value = fromDate
+    document.getElementById('toDate').value = toDate
     document.getElementById('numberPerson').value = numberPerson
-    localStorage.clear();
+    localStorage.removeItem('fromDate');
+    localStorage.removeItem('toDate');
+    localStorage.removeItem('numberPerson');
 
     const data = {
         fromDate: fromDate,
@@ -108,8 +110,8 @@ function confirm() {
         toastr.warning("Chưa nhập ngày tháng !")
         return;
     }
-    if (!numberPerson) {
-        toastr.warning("Chưa nhập số lượng !")
+    if (!numberPerson || numberPerson < 1) {
+        toastr.warning("Số lượng người phải lớn hơn 1")
         return;
     }
     const container = document.getElementById('roomTypeContainer');

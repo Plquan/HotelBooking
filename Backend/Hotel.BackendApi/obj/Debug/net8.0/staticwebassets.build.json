@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "PzcpTl1Caj3iVYk4YFKEDegf9LBOi3ChKEP0Pcka06s=",
+  "Hash": "ki+kyvOAsmWbzQnwB3pQZHlJfVILxhlhQVoJBZWl02U=",
   "Source": "Hotel.BackendApi",
   "BasePath": "_content/Hotel.BackendApi",
   "Mode": "Default",
@@ -224,6 +224,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\51f5939d-2bcb-453f-9b70-67c7311aef3d.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Backend\\Hotel.BackendApi\\wwwroot\\images\\581ef976-dd55-425f-9c5d-79da72946ea4.jpeg",
+      "SourceId": "Hotel.BackendApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Backend\\Hotel.BackendApi\\wwwroot\\",
+      "BasePath": "_content/Hotel.BackendApi",
+      "RelativePath": "images/581ef976-dd55-425f-9c5d-79da72946ea4.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\581ef976-dd55-425f-9c5d-79da72946ea4.jpeg"
     },
     {
       "Identity": "C:\\Users\\phaml\\source\\repos\\HotelBooking\\Backend\\Hotel.BackendApi\\wwwroot\\images\\59b185ee-709d-4118-8145-335e810ac52d.jpeg",

@@ -3,6 +3,7 @@ let DEFAULT_PAGE_SIZE = 5;
 let MAX_PAGE = 3;
 let KEYWORD = null
 let FILTER_TYPE = null
+
 getListPaging()
 
 function getListPaging(keyWord = KEYWORD, filterType = FILTER_TYPE) {
@@ -55,8 +56,8 @@ function getListPaging(keyWord = KEYWORD, filterType = FILTER_TYPE) {
         .catch(function (error) {
             console.error('Lỗi khi lấy dữ liệu:', error);
         })
-
 }
+
 function replyStatus(status){
     let iclass = ''
     switch(status){
@@ -107,17 +108,22 @@ function contentModal(message) {
 }
 function sendReply(cid, email) {
     document.getElementById('email').textContent = email
+
     document.getElementById('myButton').addEventListener('click', function () {
-        $('#replyContact').modal('hide');
+        this.disabled = true
+       
         const replyMessage = document.getElementById('replyMessage').value
         const data = {
             id: cid,
             email: email,
             message: replyMessage
         }
+
         axios.post('https://localhost:7197/api/Contact/ReplyEmail', data)
             .then(function (response) {
                 if (response.data.data.isSuccess) {
+                    this.disabled = false
+                    $('#replyContact').modal('hide');      
                     document.getElementById('replyMessage').value = ''
                     toastr.info('Đã gửi phản hồi')
                     getListPaging()
@@ -125,6 +131,7 @@ function sendReply(cid, email) {
             })
             .catch(function (error) {
                 console.error('Lỗi khi lấy dữ liệu:', error);
+                this.disabled = false
             });
 
     });

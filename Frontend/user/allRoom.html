@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +9,8 @@
     <!-- GOOGLE FONT -->
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900"
+        rel="stylesheet">
     <!-- CSS LIBRARY -->
     <link rel="stylesheet" type="text/css" href="css/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="css/ionicons-2.0.1/css/ionicons.min.css">
@@ -19,69 +19,35 @@
     <link rel="stylesheet" type="text/css" href="css/vit-gallery.css">
     <link rel="shortcut icon" type="text/css" href="images/favicon.png" />
     <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css" />
     <!-- MAIN STYLE -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
     <!-- HEADER -->
-    <header class="header-sky">
-        <div class="container">
-            <!--HEADER-TOP-->
-            <div class="header-top no-border">
-                <div class="header-top-left">
-                    <span><i class="ion-android-cloud-outline"></i>18 °C</span>
-                    <span><i class="ion-ios-location-outline"></i> 121 King Str, Melbourne Victoria</span>
-                    <span><i class="fa fa-phone" aria-hidden="true"></i> 1-548-854-8898</span>
-                </div>
-                <div class="header-top-right">
-                    <ul>
-                        <li class="dropdown"><a href="login.html" title="Login" class="dropdown-toggle">LOGIN</a></li>
-                        <li class="dropdown"><a href="register.html" title="Register" class="dropdown-toggle">REGISTER</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">USD <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li class="active"><a href="#">USD</a></li>
-                                <li><a href="#">EUR</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">ENG <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li class="active"><a href="#">ENG</a></li>
-                                <li><a href="#">JP</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- END/HEADER-TOP -->
-        </div>
-       <div id="navP"></div>
-    </header>
+    <div id="navP"></div>
     <!-- END-HEADER -->
     <!-- BANNER -->
     <style>
-
         .room-item-1 .img {
-            width: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều rộng thẻ cha */
-            height: 300px; /* Đặt chiều cao cố định */
-            overflow: hidden; /* Cắt phần ảnh vượt quá kích thước */
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
         }
-    
-            .room-item-1 .img img {
-                width: 100%; /* Ảnh luôn đầy đủ chiều rộng thẻ cha */
-                height: 100%; /* Ảnh đầy đủ chiều cao thẻ cha */
-                object-fit: cover; /* Phóng to ảnh để vừa kích thước và cắt phần dư */
-            }
-    
+
+        .room-item-1 .img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     </style>
-        <!-- BANNER -->
+    <!-- BANNER -->
     <section class="banner-tems text-center">
         <div class="container">
             <div class="banner-content">
-                <h2>ROOMS &  RATES</h2>
+                <h2>ROOMS & RATES</h2>
                 <p>Lorem Ipsum is simply dummy text of the printing</p>
             </div>
         </div>
@@ -91,14 +57,14 @@
     <section class="body-room-1 ">
         <div class="container">
             <div class="room-wrap-1" id="roomTypeContainer">
-            <!-- element -->
-    
+                <!-- element -->
+
             </div>
         </div>
     </section>
     <!-- END-BANNER -->
 
-   <div id="footerP"></div>
+    <div id="footerP"></div>
     <!--SCOLL TOP-->
     <a href="#" title="sroll" class="scrollToTop"><i class="fa fa-angle-up"></i></a>
     <!--END / SROLL TOP-->
@@ -113,7 +79,8 @@
     <script type="text/javascript" src="js/isotope.pkgd.min.js"></script>
     <script type="text/javascript" src="js/bootstrap-select.js"></script>
     <script type="text/javascript" src="js/jquery.littlelightbox.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDyCxHyc8z9gMA5IlipXpt0c33Ajzqix4"></script>
     <script type="text/javascript" src="js/sky.js"></script>
     <script src="api/allRoom.js"></script>
@@ -122,6 +89,7 @@
     $(function () {
         $("#navP").load("template/nav.html");
         $("#footerP").load("template/footer.html");
-      }); 
-  </script>
+    }); 
+</script>
+
 </html>

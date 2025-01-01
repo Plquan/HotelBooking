@@ -3,6 +3,7 @@
 using Hotel.Data;
 using Hotel.Data.Dtos;
 using Hotel.Data.Models;
+using Hotel.Data.Ultils;
 using Hotel.Data.ViewModels.Rooms;
 using Hotel.Services;
 using Microsoft.AspNetCore.Http;
@@ -16,8 +17,6 @@ namespace Hotel.BackendApi.Controllers
     [ApiController]
     public class RoomController : ControllerBase
     {
-        private const int DEFAULT_PAGE_INDEX = 1;
-        private const int DEFAULT_PAGE_SIZE = 1;
         private readonly IRoomService _roomService;
         private readonly IMapper _mapper;
         public RoomController(IRoomService roomService, IMapper mapper) { 
@@ -65,11 +64,11 @@ namespace Hotel.BackendApi.Controllers
         }
         [HttpGet]
         [Route("GetListPaging")]
-        public async Task<IActionResult> GetListPaging(int pageIndex = DEFAULT_PAGE_INDEX, int pageSize = DEFAULT_PAGE_SIZE)
+        public async Task<IActionResult> GetListPaging(PagingModel model)
         {
             try
             {
-                var roomTypes = await _roomService.GetListPaging(pageIndex, pageSize);
+                var roomTypes = await _roomService.GetListPaging(model);
                 return Ok(new { message = "Lấy thành công", data = roomTypes });
             }
             catch (Exception ex)

@@ -62,7 +62,7 @@ function placeOrder(){
     const phone = document.getElementById('phone').value 
     const note = document.getElementById('note').value 
     const totalPrice = document.getElementById('totalPrice').getAttribute("data-totalPrice")
-    const selectedPayment = document.querySelector('input[name="payment"]:checked');
+    const selectedPayment = document.querySelector('input[name="payment"]:checked').value
 
     const chooseRoom = []
     selectedRooms.forEach(room => {
@@ -84,17 +84,62 @@ function placeOrder(){
         chooseRooms: chooseRoom
     }
     console.log(data)
+    
+    if(selectedPayment === 'COD'){
+        paymentCOD(data)
+    }
+    if(selectedPayment === 'OP'){
+        paymentOP(data)
+    }
+    else{
+        toastr.warning('Chưa chọn phương thức')
+    }
+
+}
+
+function paymentOP(data){
+const paymentdata = {
+    orderType: 'other',
+    amount: data.totalPrice,
+    orderDescription: 'test 1234',
+    name: 'quan',
+    booking: data
+}
+  axios.post('https://localhost:7197/api/Payment/CreatePaymentUrlVnpay',paymentdata)
+  .then(function(response){
+    const respData = response.data
+    console.log(respData)
+    if(respData.data){
+        window.location.href = respData.data
+    }
+     
+  })
+  .catch(function (error) {
+    console.error('Lỗi:', error);
+});
+}
+
+function paymentCOD(data){
     axios.post('https://localhost:7197/api/Booking/PlaceOrder',data)
     .then(function(respone){
         console.log(respone.data.data)
         window.location.href = 'http://127.0.0.1:5500/user/checkRoom.html'
     })
-
 }
 
-function paymentOP(data){
+function getCurrentUser() {
+    axios.get('https://localhost:7197/api/Account/MyInfo', {
+        headers: {
+            'Authorization': `Bearer ${accessToken}`
+        }
+    })
+        .then(function (response) {
+            console.log(response.data.data.userName)
 
-}
-function paymentCOD(data){
-
+            data = response.data.data
+            console.log(data)
+        })
+        .catch(function (error) {
+            console.log(error)
+        });
 }

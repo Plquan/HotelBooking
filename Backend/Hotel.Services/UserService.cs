@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Hotel.Data;
 using Hotel.Data.Models;
 using Hotel.Data.Ultils;
 using Hotel.Data.ViewModels.AppUsers;
@@ -17,7 +18,7 @@ namespace Hotel.Services
 {
     public interface IUserService 
     {
-        Task<Paging<AppUser>> GetListPaging(int pageIndex, int pageSize);
+        Task<Paging<AppUserVM>> GetListPaging(PagingModel model);
         Task<ApiResponse> CreateUser(AppUserModel model);
       //Task<ApiResponse> UpdateUser(AppUserModel model);
       //  Task<ApiResponse> DeleteUser(AppUserModel model);
@@ -30,13 +31,15 @@ namespace Hotel.Services
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IMapper _mapper;
         private readonly IPagingService _pagingService;
+        private readonly HotelContext _context;
 
-        public UserService(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper, IPagingService pagingService)
+        public UserService(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper, IPagingService pagingService, HotelContext context)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _mapper = mapper;
             _pagingService = pagingService;
+            _context = context;
         }
 
         public async Task<ApiResponse> CreateUser(AppUserModel model)
@@ -80,10 +83,19 @@ namespace Hotel.Services
             };
         }
 
-        public async Task<Paging<AppUser>> GetListPaging(int pageIndex, int pageSize)
+        public async Task<Paging<AppUserVM>> GetListPaging(PagingModel model)
         {
-            var query = _userManager.Users;
-            return await _pagingService.GetPagedAsync<AppUser>(query, pageIndex, pageSize);
+            var query = from u in _userManager.Users
+                        select new AppUserVM { 
+                         UserName=u.UserName,
+                         Email=u.Email,
+                         PhoneNumber=u.PhoneNumber,
+                         Status = u.Status,
+                         CreatedAt = DateTime.Now,
+                         UpdateAt = DateTime.Now,
+                         Avatar = u.Avatar
+                        };
+            return await _pagingService.GetPagedAsync<AppUserVM>(query, model.PageIndex, model.PageSize);
         }
     }
 }

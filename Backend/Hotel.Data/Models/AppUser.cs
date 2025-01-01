@@ -11,6 +11,8 @@ namespace Hotel.Data.Models
       public class AppUser : IdentityUser 
       {
         public string? Status { get; set; }
+        public string? VerifyCode { get; set; }
+        public DateTime? CodeExpireTime { get; set; }
         public string? Avatar {  get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdateAt { get; set; }

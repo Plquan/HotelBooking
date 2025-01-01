@@ -13,6 +13,8 @@ namespace Hotel.Data.ViewModels.AppUsers
         public string? PhoneNumber { get; set; }
         public string? Avatar { get; set; }
         public string? Status { get; set; }
+        public string? VerifyCode { get; set; }
+        public DateTime? CodeExpireTime { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdateAt { get; set; }
         public List<string>? Roles { get; set; }

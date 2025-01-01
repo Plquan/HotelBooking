@@ -182,16 +182,7 @@ $(document).ready(function() {
 
     /*end/select*/
 
-    /*scroll-header*/
-    var stickyNav = $('header').offset().top;
-    $(window).scroll(function() {
-        if ($(window).scrollTop() > stickyNav) {
-            $('header').addClass('header-top-sky');
-        } else {
-            $('header').removeClass('header-top-sky');
-        }
-    });
-    /*end/scroll-header*/
+
 
     function convertDate(inputFormat) {
         function pad(s) { return (s < 10) ? '0' + s : s; }

@@ -11,14 +11,15 @@ function checkDate() {
 
 const baseUrl = "https://localhost:7197/images";
 
-document.addEventListener('DOMContentLoaded', function () {
-    getAllRoom()
+ getAllRoom()
 
-});
+
 
 function getAllRoom(){
+    toggleLoading(true)
         axios.get('https://localhost:7197/api/RoomType/GetAll')
         .then(function (response) {
+            toggleLoading(false)
             const rooms = response.data;
             console.log(rooms);
 
@@ -78,6 +79,12 @@ function getAllRoom(){
 
         })
         .catch(function (error) {
+            toggleLoading(false)
             console.error('Error fetching room data:', error);
         });
+}
+
+function toggleLoading(show) {
+    const overlay = document.getElementById("overlay");
+    overlay.style.display = show ? "flex" : "none";
 }

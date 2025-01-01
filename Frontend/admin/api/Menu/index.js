@@ -2,9 +2,9 @@ const accessToken = localStorage.getItem('accessToken');
 
 axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
-document.addEventListener('DOMContentLoaded', function () {
-    getAll()
-});
+
+getAll()
+
 function getAll() {
     axios.get('https://localhost:7197/api/Menu/GetAll')
         .then(function (response) {

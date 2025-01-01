@@ -3,6 +3,7 @@ using Hotel.Data.Dtos;
 using Hotel.Data.Models;
 using Hotel.Data.ViewModels.AppUsers;
 using Hotel.Data.ViewModels.Auth;
+using Hotel.Data.ViewModels.Contacts;
 using Hotel.Data.ViewModels.Reservations;
 using Hotel.Data.ViewModels.RoomTypes;
 using System;
@@ -24,6 +25,7 @@ namespace Hotel.BackendApi.Helpers
             CreateMap<Booking, BookingModel>().ReverseMap();
             CreateMap<AppUser, PublicUserVM>().ReverseMap();
             CreateMap<AppUser, AppUserModel>().ReverseMap();
+            CreateMap<Contact, ContactVM>().ReverseMap();
 
         }
 	}

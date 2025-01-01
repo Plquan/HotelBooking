@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Room 1</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- GOOGLE FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900"
+        rel="stylesheet">
+    <!-- CSS LIBRARY -->
+    <link rel="stylesheet" type="text/css" href="css/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="css/ionicons-2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" type="text/css" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" type="text/css" href="css/gallery.css">
+    <link rel="stylesheet" type="text/css" href="css/vit-gallery.css">
+    <link rel="shortcut icon" type="text/css" href="images/favicon.png" />
+    <link rel="stylesheet" type="text/css" href="css/toastr.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
+
+    <!-- MAIN STYLE -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<style>
+    .code-input-container {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .code-input {
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        font-size: 24px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .code-input:focus {
+        border-color: #007bff;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    #resend-btn.disabled {
+            color: #B0B0B0; /* Màu xám */
+            pointer-events: none; /* Vô hiệu hóa sự kiện click */
+        }
+</style>
+<body>
+    <!-- HEADER -->
+    <div id="overlay" class="overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="navP"></div>
+
+  <!-- BODY-LOGIN -->
+  <section class="body-page page-v1 page-v2">
+    <div class="container">
+        <div class="content">
+            <h2 class="sky-h3">ĐĂNG KÍ TÀI KHOẢN</h2>
+            <!-- <h5 class="p-v1">If you no have account in The Lotus Hotel! Register and feeling</h5> -->
+            <br>
+               <form id="register-form" style="display: block;">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="userName" value="" placeholder="Tên đăng nhập *">
+                </div>
+                <div class="form-group">
+                    <input type="email"  id="email" class="form-control" value="" required="required" title="" placeholder="Email *">
+                </div>
+                <div class="form-group">
+                    <input type="text"  id="phone" class="form-control" value="" required="required" title="" placeholder="Số điện thoại *">
+                </div>
+                <div class="form-group">
+                    <input  id="password" type="password" class="form-control"  placeholder="Mật khẩu *">
+                    <span data-toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                </div>
+                <div class="form-group">
+                    <input  id="confirmPassword" type="password" class="form-control"  placeholder="Nhập lại mật khẩu *">
+                    <span data-toggle="#password-field1" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                </div>
+                <button type="button" onclick="register()" class="btn btn-default">ĐĂNG KÍ</button>
+               </form>
+                <form id="verify-form" style="display:none;">
+                    <div class="form-group">
+                        <h5 class="p-v1">Nhập mã xác nhận</h5>
+                        <div class="code-input-container" id="code">
+                            <input type="text" maxlength="1" required name="verifyCode" class="code-input" id="code-1">
+                            <input type="text" maxlength="1" required name="verifyCode" class="code-input" id="code-2">
+                            <input type="text" maxlength="1" required name="verifyCode" class="code-input" id="code-3">
+                            <input type="text" maxlength="1" required name="verifyCode" class="code-input" id="code-4">      
+                        </div>
+                     </br>
+                     <a type="button" onclick="resendCode()" id="resend-btn" style="color: white; cursor: pointer;">Gửi lại mã</a>
+                     <a id="timer" style="color: white; margin-left: 10px;"></a>
+                    </div>
+                      </br>
+                    <button type="button" onclick="confirmRegister()" class="btn btn-default">XÁC NHẬN</button>
+                </form>                   
+        </div>
+    </div>
+</section>
+<!-- END/BODY-LOGIN-->
+
+    <div id="footerP"></div>
+    <!--SCOLL TOP-->
+    <a href="#" title="sroll" class="scrollToTop"><i class="fa fa-angle-up"></i></a>
+    <!--END / SROLL TOP-->
+    <!-- LOAD JQUERY -->
+    <script type="text/javascript" src="js/axios.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="js/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/jquery.countTo.js"></script>
+    <script type="text/javascript" src="js/jquery.appear.min.js"></script>
+    <script type="text/javascript" src="js/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-select.js"></script>
+    <script type="text/javascript" src="js/jquery.littlelightbox.js"></script>
+    <script type="text/javascript" src="js/toastr.min.js"></script>
+    <script type="text/javascript" src="js/sky.js"></script>
+    <script type="text/javascript" src="api/register.js"></script>
+
+</body>
+<script>
+    $(function () {
+        $("#navP").load("template/nav.html");
+        $("#footerP").load("template/footer.html");
+    });
+
+const inputs = document.querySelectorAll('.code-input');
+
+inputs.forEach((input, index) => {
+    input.addEventListener('input', (e) => {
+        const value = e.target.value;
+        
+        if (!/^[0-9]$/.test(value)) {
+            e.target.value = '';
+            return;
+        }
+        if (value.length === 1 && index < inputs.length - 1) {
+            inputs[index + 1].focus();
+        }
+    });
+
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !e.target.value && index > 0) {
+            inputs[index - 1].focus();
+        }
+    });
+})
+
+</script>
+
+</html>

@@ -10,5 +10,6 @@ namespace Hotel.Data.Ultils
     {
         public const string Staff = "Nhân viên";
         public const string Manager = "Quản lí";
+        public const string Member = "Thành viên";
     }
 }
