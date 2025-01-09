@@ -178,19 +178,18 @@
     <script src="../assets/js/popper.min.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
     <script src="../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="../assets/plugins/raphael/raphael.min.js"></script>
-    <script src="../assets/plugins/morris/morris.min.js"></script>
     <script src="../assets/js/toastr.min.js"></script>
-    <script src="../assets/js/chart.morris.js"></script>
     <script src="../assets/js/script.js"></script>
     <script src="../api/contact/index.js"></script>
 </body>
 <script>
-
-    $(function () {
-        $("#navP").load("../template/nav.html");
-        $("#headerP").load("../template/header.html");
+$(function () {
+    $("#headerP").load("../template/header.html", function () {
+        $.getScript("../api/auth/checkAuth.js")
+        $.getScript("../api/auth/auth.js");
     });
+    $("#navP").load("../template/nav.html");
+});
 </script>
 
 </html>

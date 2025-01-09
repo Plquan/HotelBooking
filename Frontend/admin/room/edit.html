@@ -20,79 +20,60 @@
 </head>
 
 <body>
-
+    <div id="overlay" class="overlayLoading">
+        <div class="spinner"></div>
+    </div>
+    
     <div class="main-wrapper">
-        <div id="headerP"></div>
+       <div id="headerP"> </div>
         <div id="navP"></div>
 
         <div class="page-wrapper">
             <div class="content container-fluid">
-                <div class="page-header">
-                    <div class="row align-items-center">
+        
+                <div class="page-header mt-5">
+                    
+                    <div class="row">
                         <div class="col">
-                            <h3 class="page-title mt-5">Sửa phòng</h3>
+                            <h3 class="page-title">Chỉnh sửa</h3>
                         </div>
                     </div>
                 </div>
+                <style>
+                    .row{
+                        justify-content:center;
+                    }
+                </style>
                 <div class="row">
-                    <div class="col-lg-12">
-                        <form id="AddRoomForm">
-        
-                            <div class="row formtype">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Mã số</label>
-                                        <input class="form-control" type="text" id="roomId" required>
-                                    </div>
-                                </div>
-        
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Số phòng</label>
-                                        <input class="form-control" type="text" id="roomNumber">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Loại phòng</label>
-                                        <select class="form-control" id="roomTypeId" name="sellist1" required>
-                                            <option value="">Chọn</option>
-                                            <option value="2">Single</option>
-                                            <option value="3">Villa</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Trạng thái</label>
-                                        <select class="form-control" id="status" name="sellist1" required>
-                                            <option>Chọn</option>
-                                            <option value="1">Hoạt động</option>
-                                            <option value="0">Tạm dừng</option>
-                                        </select>
-                                    </div>
-                                </div>
-        
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Số lượng người</label>
-                                        <input type="text" class="form-control" id="capacity" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Giá</label>
-                                        <input type="text" class="form-control" id="price" required>
-                                    </div>
-                                </div>
-        
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Thông tin</h4>
                             </div>
-                            <button type="submit" onclick="editRoom()" class="btn btn-primary buttonedit ml-2">lưu</button>
-                            <button type="button" onclick="Cancel()" class="btn btn-primary buttonedit">Hủy</button>
-                        </form>
+                            <div class="card-body">
+                                <form enctype="multipart/form-data">
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-2">Mã số phòng</label>
+                                        <div class="col-md-10">
+                                            <input type="text" id="roomNumber" class="form-control" autofocus placeholder="K01...">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-2">Loại phòng</label>
+                                        <div class="col-md-10">
+                                            <select required class="form-control" id="roomTypeId" name="sellist1">
+                                                <option value="">Chọn</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                             
+                              <button type="button"  style="background-color: #4682B4;" onclick="editRoom()" class="btn btn-primary buttonedit ml-2">Lưu và quay lại</button>
+                              <button type="button"  onclick="cancel()" class="btn btn-primary buttonedit ">Quay lại</button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                
+                </div>      
             </div>
         </div>
 
@@ -113,12 +94,14 @@
     <script src="../api/room/edit.js"></script>
 </body>
 <script>
-
-    $(function () {
-        $("#navP").load("../template/nav.html");
-        $("#headerP").load("../template/header.html");
+$(function () {
+    $("#headerP").load("../template/header.html", function () {
+        $.getScript("../api/auth/checkAuth.js")
+        $.getScript("../api/auth/auth.js");
     });
-
+    $("#navP").load("../template/nav.html");
+});
+  
 </script>
 
 </html>

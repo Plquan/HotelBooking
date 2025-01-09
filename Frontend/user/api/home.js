@@ -78,13 +78,21 @@ function getAllRoom(){
             }
 
         })
-        .catch(function (error) {
-            toggleLoading(false)
+        .catch(function (error) {         
             console.error('Error fetching room data:', error);
-        });
+        }).finally(function(){
+            toggleLoading(false)     
+        })
 }
 
 function toggleLoading(show) {
     const overlay = document.getElementById("overlay");
-    overlay.style.display = show ? "flex" : "none";
+
+    if (show) {
+        overlay.style.display = "flex";
+    } else {
+        setTimeout(() => {
+            overlay.style.display = "none"; 
+        }, 300); 
+    }
 }

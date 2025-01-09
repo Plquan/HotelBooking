@@ -62,8 +62,9 @@ function register() {
                 verifyform.style.display = "block"
             }
         }).catch(function (error) {
-            toggleLoading(false)
             console.error('Lỗi máy chủ', error);
+        }).finally(function(){
+            toggleLoading(false)     
         })
 }
 
@@ -89,8 +90,9 @@ function confirmRegister() {
            window.location.href = 'http://127.0.0.1:5500/user/login.html'
         }
     }).catch(function (error) {
-        toggleLoading(false)
         console.error('Lỗi máy chủ', error);
+    }).finally(function(){
+        toggleLoading(false)     
     })
 }
 
@@ -103,12 +105,20 @@ function resendCode() {
           toastr.info('Đã gửi thành công')
         }
     }).catch(function (error) {
-        toggleLoading(false)
         console.error('Lỗi máy chủ', error);
+    }).finally(function(){
+        toggleLoading(false)     
     })
 }
 
 function toggleLoading(show) {
     const overlay = document.getElementById("overlay");
-    overlay.style.display = show ? "flex" : "none";
+
+    if (show) {
+        overlay.style.display = "flex";
+    } else {
+        setTimeout(() => {
+            overlay.style.display = "none"; 
+        }, 300); 
+    }
 }

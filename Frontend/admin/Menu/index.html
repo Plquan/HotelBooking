@@ -117,10 +117,12 @@
     <script src="../api/menu/index.js"></script>
 </body>
 <script>
-
 $(function () {
-        $("#navP").load("../template/nav.html");
-        $("#headerP").load("../template/header.html");
+    $("#headerP").load("../template/header.html", function () {
+        $.getScript("../api/auth/checkAuth.js")
+        $.getScript("../api/auth/auth.js");
     });
+    $("#navP").load("../template/nav.html");
+});
 </script>
 </html>

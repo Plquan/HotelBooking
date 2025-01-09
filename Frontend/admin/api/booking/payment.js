@@ -18,7 +18,7 @@ function getListPaging(keyWord,filterType){
         keyWord: keyWord,
         filterType: filterType
     }
-    axios.post(`https://localhost:7197/api/Booking/GetListPaging`,pagingModel)
+    axios.post(`https://localhost:7197/api/Booking/GetPaymentHistory`,pagingModel)
     .then(function (response) {
         console.log(response)
         const respData = response.data.data
@@ -33,30 +33,25 @@ function getListPaging(keyWord,filterType){
             row.innerHTML = `
                                     <td>${counter}</td>
                                     <td>${booking.code}</td>
-                                    <td>${booking.paymentMethod === 'COD'? 'Online':'Trực tiếp'}</td>
-                                     <td title = ""><button type="button" class="btn ${paymentClass(booking.paymentStatus)} ">${paymentStatus(booking.paymentStatus)}</button></td>
-                                    <td>  
-                                    <p><i class="fa fa-user"></i> ${booking.userName}</p>                                 
-                                    <p><i class="fa fa-clock"></i> ${new Date(booking.createdDate).toLocaleString()}</p>
-                                    </td>
-                                    <td>  
-                                    <p><i class="fa fa-user"></i> ${booking.confirmBy === null ? '':booking.confirmBy}</p>                                 
-                                    <p><i class="fa fa-clock"></i> ${booking.confirmDate === null ? '':new Date(booking.createdDate).toLocaleString()}</p>
-                                    </td>
-                                    <td>                                
-                                    <select class="form-control" onchange="updateStatus(${booking.id},this.value)" >
-                                    ${bookingStatus(booking.status)}                                                                      
-                                    </select>
-                                    </td>
+                                    <td>${booking.paymentMethod}</td>
+                                    <td><button type="button" class="btn btn-warning btn-sm">Warning</button></td>
+                                    <td> 
+                                       <p><i class="fa fa-user"></i> ${booking.userName}</p>                                         
+                                    <p><i class="fa fa-clock"></i> ${new Date(booking.createdDate).toLocaleString()}</p></td>
+                                      <td>
+                               <select class="form-control" onchange="updateStatus(${booking.id},this.value)" >
+                                  ${bookingStatus(booking.status)}                                                                      
+                               </select>
+                                  </td>
                                     <td class="text-right">                        
-                                    <a onclick="showBookingDetail(${booking.id})" type="button" data-toggle="modal" data-target="#booking_detail" class="btn btn-icon btn-success">
-                                    <i class="fa fa-search"></i>
-                                    </a>
-                                    <a onclick="deleteBooking(${booking.id})" type="button" class="btn btn-icon btn-danger" data-toggle="modal"
-                                   data-target="#delete_asset">
-                                   <i class="fa fa-trash"></i>
-                                   </a>    
-                                   </td>`;
+                                <a onclick="showBookingDetail(${booking.id})" type="button" data-toggle="modal" data-target="#booking_detail" class="btn btn-icon btn-success">
+                                 <i class="fa fa-search"></i>
+                                  </a>
+                                  <a onclick="deleteRoomType(${booking.id})" type="button" class="btn btn-icon btn-danger" data-toggle="modal"
+                                  data-target="#delete_asset">
+                                  <i class="fa fa-trash"></i>
+                                  </a>    
+                                  </td>`;
             tableBody.appendChild(row);
             counter++;
             renderPagination(respData)
@@ -66,67 +61,9 @@ function getListPaging(keyWord,filterType){
         console.error('Lỗi khi lấy dữ liệu:', error);
     });
 }
-function paymentClass(status){
-    let iclass = ''
-    switch(status){
-        case "Unpaid":
-            iclass = 'btn-warning'
-            break
-        case "Paid":
-            iclass = 'btn-primary'
-            break
-        default:
-             iclass = 'btn-info'
-            break;    
-    }
-    return iclass
-}
-function paymentStatus(status){
-    let iclass = ''
-    switch(status){
-        case "Unpaid":
-            iclass = '<i class="fas fa-circle-notch fa-spin"></i>'
-            break
-        case "Paid":
-            iclass = '<i class="fa fa-check "></i>'
-            break
-        default:
-             iclass = '<i class=""></i>'
-            break;    
-    }
-    return iclass
-}
-function deleteBooking(id) {
-    const button = document.getElementById('confirmDelete');
-    button.addEventListener('click', function () {
-        axios.delete(`https://localhost:7197/api/Booking/deleteBooking?id=${id}`)
-            .then(function () {
-                $('#delete_asset').modal('hide');
-                getListPaging()
-                toastr.success("Xóa thành công");
-            })
-            .catch(function (error) {
-                console.error("Error deleting roomtype:", error);
-                alert("Lỗi khi xóa : " + error.response.data.message);
-            });
-    }, { once: true });
-}
-document.getElementById('searchInput').addEventListener('input', function () {
-    const searchTerm = this.value.toLowerCase();  
-    const tableRows = document.querySelectorAll('#showBooking tr'); 
 
-    tableRows.forEach(function (row) {
-        const columns = row.querySelectorAll('td'); 
-        let isMatch = false; 
-      
-        columns.forEach(function (column) {
-            if (column.textContent.toLowerCase().includes(searchTerm)) {
-                isMatch = true;
-            }
-        });     
-        row.style.display = isMatch ? '' : 'none';
-    });
-});
+
+
 function showBookingDetail(id){
     axios.get(`https://localhost:7197/api/Booking/GetBookingDetail/${id}`)
     .then(function(response){
@@ -151,6 +88,7 @@ function showBookingDetail(id){
         console.error('Lỗi khi cập nhật dữ liệu:', error);
     });
 }
+
 function bookingStatus(status) {
     let options;
     switch (status) {
@@ -195,6 +133,7 @@ function bookingStatus(status) {
     }
     return options;
 }
+
 function updateStatus(bookingId,status){
     axios.get(`https://localhost:7197/api/Booking/UpdateStatus?bookingId=${bookingId}&status=${status}`)
     .then(function(response){
@@ -220,6 +159,7 @@ function filterBooking(keyWord){
    console.log(response.data)
  })
 }
+
 function renderPagination(data) {
     if(data === null || data.length === 0){
         return

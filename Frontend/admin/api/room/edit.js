@@ -11,17 +11,33 @@ document.addEventListener('DOMContentLoaded', function () {
             // Hiển thị dữ liệu vào form
             document.getElementById('roomId').value = roomData.id;
             document.getElementById('roomNumber').value = roomData.roomNumber;
-            document.getElementById('roomTypeId').value = roomData.roomTypeId;
-            document.getElementById('status').value = roomData.status;
-            document.getElementById('capacity').value = roomData.capacity;
-            document.getElementById('price').value = roomData.price;
-            localStorage.removeItem('editRoomId');
             
         })
         .catch(function (error) {
             console.error('Lỗi khi lấy thông tin phòng:', error);
         });
 });
+
+function getSelectRoomType(){
+    axios.get('https://localhost:7197/api/RoomType/GetAll')
+    .then(function (response) {
+        const roomTypes = response.data;  // Dữ liệu loại phòng từ API
+        const tableData = document.getElementById('roomTypeId');
+        tableData.innerHTML = '';				
+        tableData.innerHTML = '<option value="">Chọn</option>';
+    
+        roomTypes.forEach(roomType => {
+            const option = document.createElement('option');
+            option.value = roomType.id;    
+            option.text = roomType.name;   
+            tableData.appendChild(option); 
+        });
+    })
+    .catch(function (error) {
+        console.error('Lỗi khi lấy loại phòng:', error);
+    });
+}
+
 
 function editRoom() {
     const id = document.getElementById('roomId').value;

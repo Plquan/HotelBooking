@@ -24,25 +24,28 @@
     <!-- MAIN STYLE -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
+<style>
+    .room-item-1 .img {
+        width: 100%;
+        height: 300px;
+        overflow: hidden;
+    }
 
+    .room-item-1 .img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+</style>
 <body>
+    <div id="overlay" class="overlay">
+        <div class="spinner"></div>
+    </div>
     <!-- HEADER -->
     <div id="navP"></div>
     <!-- END-HEADER -->
     <!-- BANNER -->
-    <style>
-        .room-item-1 .img {
-            width: 100%;
-            height: 300px;
-            overflow: hidden;
-        }
 
-        .room-item-1 .img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    </style>
     <!-- BANNER -->
     <section class="banner-tems text-center">
         <div class="container">
@@ -79,16 +82,17 @@
     <script type="text/javascript" src="js/isotope.pkgd.min.js"></script>
     <script type="text/javascript" src="js/bootstrap-select.js"></script>
     <script type="text/javascript" src="js/jquery.littlelightbox.js"></script>
-    <script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDyCxHyc8z9gMA5IlipXpt0c33Ajzqix4"></script>
     <script type="text/javascript" src="js/sky.js"></script>
     <script src="api/allRoom.js"></script>
 </body>
 <script>
-    $(function () {
-        $("#navP").load("template/nav.html");
-        $("#footerP").load("template/footer.html");
+  $(function () {
+      $("#navP").load("template/nav.html", function(){
+        $.getScript("api/menu.js")
+        $.getScript("api/auth.js");
+        $.getScript("api/checkAuth.js");
+      })
+      $("#footerP").load("template/footer.html");
     }); 
 </script>
 

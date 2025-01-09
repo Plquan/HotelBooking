@@ -1,3 +1,6 @@
+const accessToken = localStorage.getItem('accessToken'); 
+
+axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
 var calendarEl = document.getElementById('calendar');
 var calendar = new FullCalendar.Calendar(calendarEl, {

@@ -255,7 +255,11 @@
 </body>
 <script>
   $(function () {
-      $("#navP").load("template/nav.html");
+      $("#navP").load("template/nav.html", function(){
+        $.getScript("api/menu.js")
+        $.getScript("api/auth.js");
+        $.getScript("api/checkAuth.js");
+      })
       $("#footerP").load("template/footer.html");
     }); 
 

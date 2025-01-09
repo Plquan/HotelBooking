@@ -113,15 +113,16 @@
     <script src="../assets/js/tagify.js"></script>
     <script src="../assets/js/chart.morris.js"></script>
     <script src="../assets/js/script.js"></script>
-    <script src="../api/auth/checkAuth.js"></script>
     <script src="../api/menu/add.js"></script>
 </body>
 <script>
-
-    $(function () {
-        $("#navP").load("../template/nav.html");
-        $("#headerP").load("../template/header.html");
+$(function () {
+    $("#headerP").load("../template/header.html", function () {
+        $.getScript("../api/auth/checkAuth.js")
+        $.getScript("../api/auth/auth.js");
     });
+    $("#navP").load("../template/nav.html");
+});
   
 </script>
 

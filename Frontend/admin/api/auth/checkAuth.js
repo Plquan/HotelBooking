@@ -1,6 +1,5 @@
-console.log('jauth')
-document.addEventListener('DOMContentLoaded', function () {
-
+check()
+function check(){
     const accessToken = localStorage.getItem('accessToken')
     if (accessToken === null) {
         refreshToken()
@@ -20,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 refreshToken()
             });
     }
-})
+}
 function refreshToken() {
     axios.post('https://localhost:7197/api/Auth/RefreshToken', {}, {
         withCredentials: true,
@@ -29,9 +28,7 @@ function refreshToken() {
         console.log(isSuccess)
         if (isSuccess) {
             const newAccessToken = response.data.data.accessToken
-            if (newAccessToken) {
-                localStorage.setItem("accessToken", newAccessToken)
-            }
+            localStorage.setItem("accessToken", newAccessToken)
         }
         else {
             window.location.href = '/admin/auth/login.html'

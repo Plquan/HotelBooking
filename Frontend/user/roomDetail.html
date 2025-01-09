@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="css/vit-gallery.css">
     <link rel="shortcut icon" type="text/css" href="images/favicon.png" />
     <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
+    <link rel="stylesheet" type="text/css" href="css/toastr.min.css">
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css" />
     <!-- MAIN STYLE -->
@@ -45,6 +46,9 @@
 </style>
 
 <body>
+    <div id="overlay" class="overlay">
+        <div class="spinner"></div>
+    </div>
     <!-- HEADER -->
    
         <div id="navP"></div>
@@ -54,7 +58,7 @@
     <section class="banner-tems text-center">
         <div class="container">
             <div class="banner-content">
-                <h2>LUXURY ROOM</h2>
+                <h2 id="name">LUXURY ROOM</h2>
                 <p>Lorem Ipsum is simply dummy text of the printing</p>
             </div>
         </div>
@@ -124,8 +128,9 @@
 
                                             </select>
                                         </div>
+                                        <input type="hidden" id="roomCapacity">
                                         <div class="check_availability-field">
-                                            <label>Số lượng</label>
+                                            <label>Số người</label>
                                             <div class="input-group date">
                                                 <input id="numberPerson" class="form-control wrap-box" type="number"
                                                     value="1">
@@ -136,7 +141,7 @@
                                 </div>
                                 <!-- END / WIDGET CHECK AVAILABILITY -->
                             </div>
-                            <button class="btn btn-room btn-product">Đặt ngay</button>
+                            <button type="button" onclick="confirmBooking()" class="btn btn-room btn-product">Đặt ngay</button>
                         </div>
                     </div>
                     <div class="reservation-date" style="margin-top:5px">
@@ -343,15 +348,19 @@
     <script type="text/javascript" src="js/bootstrap-select.js"></script>
     <script type="text/javascript" src="js/jquery.littlelightbox.js"></script>
     <script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
-
+    <script type="text/javascript" src="js/toastr.min.js"></script>
     <!-- Custom jQuery -->
     <script type="text/javascript" src="js/sky.js"></script>
     <script src="api/roomDetail.js"></script>
 </body>
 <script>
-    $(function () {
-        $("#navP").load("template/nav.html");
-        $("#footerP").load("template/footer.html");
+  $(function () {
+      $("#navP").load("template/nav.html", function(){
+        $.getScript("api/menu.js")
+        $.getScript("api/auth.js");
+        $.getScript("api/checkAuth.js");
+      })
+      $("#footerP").load("template/footer.html");
     }); 
 </script>
 

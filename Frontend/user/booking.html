@@ -28,46 +28,12 @@
 
 <body>
     <!-- HEADER -->
-    <header class="header-sky">
-        <div class="container">
-            <!--HEADER-TOP-->
-            <div class="header-top no-border">
-                <div class="header-top-left">
-                    <span><i class="ion-android-cloud-outline"></i>18 °C</span>
-                    <span><i class="ion-ios-location-outline"></i> 121 King Str, Melbourne Victoria</span>
-                    <span><i class="fa fa-phone" aria-hidden="true"></i> 1-548-854-8898</span>
-                </div>
-                <div class="header-top-right">
-                    <ul>
-                        <li class="dropdown"><a href="login.html" title="Login" class="dropdown-toggle">LOGIN</a></li>
-                        <li class="dropdown"><a href="register.html" title="Register"
-                                class="dropdown-toggle">REGISTER</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">USD <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li class="active"><a href="#">USD</a></li>
-                                <li><a href="#">EUR</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">ENG <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li class="active"><a href="#">ENG</a></li>
-                                <li><a href="#">JP</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-        <div id="navP"></div>
-    </header>
+    <div id="navP"></div>
 
     <section class="banner-tems text-center">
         <div class="container">
             <div class="banner-content">
-                <h2>RESERVATION</h2>
+                <h2>ĐẶT PHÒNG</h2>
                 <p>Lorem Ipsum is simply dummy text of the printing</p>
             </div>
         </div>
@@ -103,7 +69,7 @@
                                         <span id="toDate"></span>
                                     </li>
                                     <li>
-                                        <span>Tổng số đêm</span>
+                                        <span>Tổng số ngày & đêm</span>
                                         <span id="totalNight"></span>
                                     </li>
                                     <li>
@@ -140,41 +106,37 @@
                     <div class="col-md-8 col-lg-9">
                         <div class="reservation_content">
                             <div class="reservation-billing-detail">
-                                <p class="reservation-login">Returning customer? <a href="#">Click here to login</a></p>
+                                <p id="linkLogin" style="display: block;" class="reservation-login">Returning customer? <a href="#">Click here to login</a></p>
                                 <h4>CHI TIẾT ĐẶT PHÒNG</h4>
-                                <label>Họ tên<sup> *</sup></label>
-                                <input type="text" id="name" class="input-text">
-                                <div class="row">                                   
-                                    <div class="col-sm-6">
-                                        <label>Số điện thoại<sup> *</sup></label>
-                                        <input type="text" id="phone" class="input-text">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label>Email<sup> *</sup></label>
-                                        <input type="text" id="email" class="input-text">
-                                    </div>
-                                </div>                              
+                                <input type="hidden"  id="userId">
+                                <div id="userInfo" style="display: block;">
+                                    <label>Họ tên<sup> *</sup></label>
+                                    <input type="text" id="name" class="input-text">
+                                    <div class="row">                                   
+                                        <div class="col-sm-6">
+                                            <label>Số điện thoại<sup> *</sup></label>
+                                            <input type="text" id="phone" class="input-text">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>Email<sup> *</sup></label>
+                                            <input type="text" id="email" class="input-text">
+                                        </div>
+                                    </div>   
+                                </div>                           
                                 <br>
-                                <label>Order Notes</label>
-                                <textarea class="input-textarea" id="note" placeholder="Ghi chú"></textarea>
-                                <label class="label-radio">
-                                    <input type="checkbox" class="input-radio"> Create an account?
-                                </label>
-                                <p class="reservation-code">
-                                    You have a coupon? <a href="#">Click here to enter your code</a>
-                                </p>
+                                <label>Ghi chú</label>
+                                <textarea class="input-textarea" id="note" placeholder="Nhập nội dung..."></textarea>
                                 <ul class="option-bank">
                                     <li>
                                         <label class="label-radio">
-                                            <input type="radio" class="input-radio" value="COD" name="payment"> Thanh toán tại nơi
+                                            <input type="radio" class="input-radio" checked value="COD" name="payment"> Thanh toán trực tiếp
                                         </label>                                    
                                     </li>
                                     <li>
                                         <label class="label-radio">
                                             <input type="radio" class="input-radio" value="OP" name="payment"> Thanh toán online
                                         </label>
-                                        <a href="#" title=""><img src="images/Reservation/american.jpg" alt="#"></a>
-                                        <a href="#" title=""><img src="images/Reservation/mastercard.jpg" alt="#"> </a>                                  
+                                        <a href="#" title=""><img src="images/Reservation/mastercard.jpg" alt="#"></a>                                
                                     </li>
                                 </ul>
                                 <button onclick="placeOrder()" class="btn btn-room btn4">ĐẶT CHỖ</button>
@@ -213,9 +175,13 @@
     <script src="api/booking.js"></script>
 </body>
 <script>
-    $(function () {
-        $("#navP").load("template/nav.html");
-        $("#footerP").load("template/footer.html");
+  $(function () {
+      $("#navP").load("template/nav.html", function(){
+        $.getScript("api/menu.js")
+        $.getScript("api/auth.js");
+        $.getScript("api/checkAuth.js");
+      })
+      $("#footerP").load("template/footer.html");
     }); 
 </script>
 

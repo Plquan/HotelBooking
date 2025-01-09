@@ -30,7 +30,7 @@
 					<div class="row align-items-center">
 						<div class="col">
 							<div class="mt-5">
-								<h4 class="card-title float-left mt-2">Quản lí đặt phòng</h4>
+								<h4 class="card-title float-left mt-2">Lịch sử thanh toán</h4>
 							</div>
 						</div>
 					</div>
@@ -62,7 +62,9 @@
                                                     <option value="Hold">Giữ phòng</option>
                                                     <option value="CheckIn">Nhận phòng</option>
                                                     <option value="CheckOut">Trả phòng</option>
-                                                    <option value="Cancelled">Đã hủy</option>                                           
+                                                    <option value="Cancelled">Đã hủy</option>
+                                                    <option value="Paid">Đã thanh toán</option>
+                                                    <option value="UnPaid">Chưa thanh toán</option>                                           
                                                 </select>
                                             </div>
                                                 <input class="form-control" type="text" id="searchInput" style="width: 80px;border: 1px solid #ced4da">     
@@ -83,7 +85,6 @@
                                                 <th>PT Thanh toán</th>
 												<th>TT Thanh toán</th>
                                                 <th>Ngày đặt</th>
-                                                <th>Xác nhận bởi</th>
                                                 <th>Trạng thái</th>
 												<th class="text-right">Chức năng</th>
 											</tr>
@@ -180,13 +181,14 @@
     <script src="../assets/js/popper.min.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
     <script src="../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="../assets/plugins/raphael/raphael.min.js"></script>
+    <script src="../assets/plugins/morris/morris.min.js"></script>
     <script src="../assets/js/toastr.min.js"></script>
+    <script src="../assets/js/chart.morris.js"></script>
     <script src="../assets/js/script.js"></script>
-    <script src="../api/booking/index.js"></script>
-
+    <script src="../api/booking/payment.js"></script>
 </body>
 <script>
-
 $(function () {
     $("#headerP").load("../template/header.html", function () {
         $.getScript("../api/auth/checkAuth.js")
@@ -194,6 +196,5 @@ $(function () {
     });
     $("#navP").load("../template/nav.html");
 });
-
 </script>
 </html>

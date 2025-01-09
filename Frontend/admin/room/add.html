@@ -20,7 +20,10 @@
 </head>
 
 <body>
-
+    <div id="overlay" class="overlayLoading">
+        <div class="spinner"></div>
+    </div>
+    
     <div class="main-wrapper">
        <div id="headerP"> </div>
         <div id="navP"></div>
@@ -29,8 +32,7 @@
             <div class="content container-fluid">
         
                 <div class="page-header mt-5">
-                    <button type="button" onclick="cancel()" class="btn btn-primary buttonedit ml-2">Quay lại</button>
-                    <button type="button" onclick="addRoom()" class="btn btn-primary buttonedit">Thêm mới</button>
+                    
                     <div class="row">
                         <div class="col">
                             <h3 class="page-title">Thêm mới</h3>
@@ -65,6 +67,9 @@
                                         </div>
                                     </div>
                                 </form>
+                             
+                              <button type="button"  style="background-color: #4682B4;" onclick="addRoom()" class="btn btn-primary buttonedit ml-2">Thêm mới</button>
+                              <button type="button"  onclick="cancel()" class="btn btn-primary buttonedit ">Quay lại</button>
                             </div>
                         </div>
                     </div>
@@ -91,12 +96,13 @@
     <script src="../api/room/add.js"></script>
 </body>
 <script>
-
-    $(function () {
-        $("#navP").load("../template/nav.html");
-        $("#headerP").load("../template/header.html");
+$(function () {
+    $("#headerP").load("../template/header.html", function () {
+        $.getScript("../api/auth/checkAuth.js")
+        $.getScript("../api/auth/auth.js");
     });
-  
+    $("#navP").load("../template/nav.html");
+});
 </script>
 
 </html>

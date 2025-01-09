@@ -53,7 +53,7 @@
                 <div class="reservation_step">
                     <ul>
                         <li class="active"><a href="#"><span>1.</span> Chọn phòng</a></li>
-                        <li><a href="/user/booking.html"><span>2.</span> Xác nhận</a></li>
+                        <li><a><span>2.</span> Xác nhận</a></li>
                     </ul>
                 </div>
                 <!-- END / STEP -->
@@ -181,9 +181,13 @@
     <script src="api/checkRoom.js"></script>
 </body>
 <script>
-    $(function () {
-        $("#navP").load("template/nav.html");
-        $("#footerP").load("template/footer.html");
+  $(function () {
+      $("#navP").load("template/nav.html", function(){
+        $.getScript("api/menu.js")
+        $.getScript("api/auth.js");
+        $.getScript("api/checkAuth.js");
+      })
+      $("#footerP").load("template/footer.html");
     }); 
 </script>
 

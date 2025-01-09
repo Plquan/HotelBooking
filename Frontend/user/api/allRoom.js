@@ -1,5 +1,6 @@
 ﻿const baseUrl = "https://localhost:7197/images";
 document.addEventListener('DOMContentLoaded', function () {
+    toggleLoading(true)
     axios.get('https://localhost:7197/api/RoomType/GetAll')
         .then(function (respone) {
             const data = respone.data;
@@ -37,12 +38,26 @@ document.addEventListener('DOMContentLoaded', function () {
               
             });
             container.appendChild(itemDiv);
-
+        })   .catch(function (error) {         
+            console.error('Error fetching room data:', error);
+        }).finally(function(){
+            toggleLoading(false)     
         })
 });
 
 function roomDetail(id) {
     localStorage.setItem('roomTypeId', id);
     window.location.href = 'http://127.0.0.1:5500/user/roomDetail.html';
+}
+function toggleLoading(show) {
+    const overlay = document.getElementById("overlay");
+
+    if (show) {
+        overlay.style.display = "flex";
+    } else {
+        setTimeout(() => {
+            overlay.style.display = "none"; 
+        }, 300); 
+    }
 }
 

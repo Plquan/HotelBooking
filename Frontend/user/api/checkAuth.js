@@ -1,12 +1,12 @@
 
 const accessToken = localStorage.getItem('accessToken')
-if (!accessToken) {
-    refreshToken()
-} else {
-    getInfo()
-}
+ getInfo()
 
 function getInfo() {
+    if(!accessToken){
+        refreshToken()
+    }
+   else{
     axios.get('https://localhost:7197/api/Account/MyInfo', {
         headers: {
             'Authorization': `Bearer ${accessToken}`
@@ -22,7 +22,7 @@ function getInfo() {
                 ` <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="images/About/about-1.jpg" alt="" class="user-avatar-dropdown">
-                        ... <b class="caret"></b>
+                        ${data.userName} <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="active"><a href="#">Cài đặt</a></li>
@@ -35,6 +35,7 @@ function getInfo() {
         .catch(function (error) {
             refreshToken()
         });
+   }
 }
 function refreshToken() {
     axios.post('https://localhost:7197/api/Auth/RefreshToken', {}, {
@@ -52,3 +53,4 @@ function refreshToken() {
             console.error(error)
         });
 }
+

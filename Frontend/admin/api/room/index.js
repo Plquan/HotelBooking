@@ -8,13 +8,9 @@ document.addEventListener('DOMContentLoaded', function () {
             tableBody.innerHTML = '';
 
             const totalCount = rooms.length;
-            const activeCount = rooms.filter(item => item.status === "active").length;
-            const inActiveCount = rooms.filter(item => item.status === "inActive").length;
-
+            
             document.getElementById('allBtn').textContent = `${totalCount}`;
-            document.getElementById('activeBtn').textContent = `${activeCount}`;
-            document.getElementById('inActiveBtn').textContent = `${inActiveCount}`;
-
+            
             let counter = 1;
             rooms.forEach(room => {
                 const row = document.createElement('tr');
@@ -29,23 +25,15 @@ document.addEventListener('DOMContentLoaded', function () {
 													${room.status === "active" ? "Kích hoạt" : "Chưa kích hoạt"}
 											   </button>						
 									</td>
-                                                <td class="text-right">
-                                                    <div class="dropdown dropdown-action">
-                                                        <a href="#" class="action-icon dropdown-toggle"
-                                                           data-toggle="dropdown" aria-expanded="false">
-                                                            <i class="fas fa-ellipsis-v ellipse_color"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-right">
-                                                                    <a onclick="roomTypeId(${room.id})" class="dropdown-item">
-                                                                <i class="fas fa-pencil-alt m-r-5"></i> Edit
-                                                            </a>
-                                                                <a onclick="deleteRoom(${room.id})" class="dropdown-item" href="#" data-toggle="modal"
-                                                               data-target="#delete_asset">
-                                                                <i class="fas fa-trash-alt m-r-5"></i> Delete
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </td>`;
+                                    <td class="text-right">
+                                      <a onclick="redirectEditPage(${room.id})" type="button" class="btn btn-icon btn-success">
+                                      <i class="fa fa-pencil-alt"></i>
+                                      </a>
+                                      <a onclick="deleteRoom(${room.id})" type="button" class="btn btn-icon btn-danger" data-toggle="modal"
+                                      data-target="#delete_asset">
+                                      <i class="fa fa-trash"></i>
+                                      </a>
+									</td>`;
                 tableBody.appendChild(row);
                 counter++;
             });
@@ -55,12 +43,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 });
 
-
-function editRoomId(id) {
+function redirectEditPage(id) {
     localStorage.setItem('editRoomId', id);
-    window.location.href = 'https://localhost:7060/Admin/Room/Edit';
+    window.location.href = 'http://127.0.0.1:5500/admin/room/edit.html';
 }
-
 
 function deleteRoom(id) {
     const button = document.getElementById('confirmDelete');
@@ -80,7 +66,7 @@ function deleteRoom(id) {
                 console.error("Error deleting room:", error);
                 alert("Lỗi khi xóa phòng: " + error.response.data.message);
             });
-    });
+    }, { once: true });
 }
 
 function changeStatus(id) {

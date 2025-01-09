@@ -6,20 +6,23 @@ function login(){
         userName: userName,
         password: password
     }
-    axios.post('https://localhost:7197/api/Auth/Login',data,{
-        withCredentials: true
-    })
+    axios.post('https://localhost:7197/api/Auth/Login',data)
     .then(function (response) {
-        toggleLoading(false)
+        
       const accessToken  = response.data.data.accessToken
       localStorage.setItem("accessToken",accessToken)
+      window.location.href = 'http://127.0.0.1:5500/user/home.html'
+
     })
     .catch(function (error) {
         console.error('Lỗi khi lấy dữ liệu:', error);
-    });
+    }).finally(function(){
+        toggleLoading(false)
+    })
 }
 
 function logout() {
+    toggleLoading(true)
     const accessToken = localStorage.getItem('accessToken');
     axios.post('https://localhost:7197/api/Auth/Logout',{},{
         withCredentials: true,
@@ -28,16 +31,23 @@ function logout() {
         }
     })
     .then(function (response) {
-        console.log('Đăng xuất thành công:', response.data);
         localStorage.removeItem('accessToken'); 
-     
-        
+        window.location.reload()
     })
     .catch(function (error) {
         console.error('Lỗi khi đăng xuất:', error);
-    });
+    }).finally(function(){
+        toggleLoading(false)
+    })
 }
 function toggleLoading(show) {
     const overlay = document.getElementById("overlay");
-    overlay.style.display = show ? "flex" : "none";
+
+    if (show) {
+        overlay.style.display = "flex";
+    } else {
+        setTimeout(() => {
+            overlay.style.display = "none"; 
+        }, 300); 
+    }
 }

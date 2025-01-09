@@ -1,4 +1,10 @@
-document.addEventListener('DOMContentLoaded', function () {
+
+showBooking()
+
+function showBooking(){
+    getInfo()
+
+
     const fromDate = localStorage.getItem('fromDate') ;
     const toDate = localStorage.getItem('toDate');
     const numberPerson = localStorage.getItem('numberPerson');
@@ -7,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if(!fromDate || !toDate || !numberPerson){
         window.location.href = 'http://127.0.0.1:5500/user/checkRoom.html'
     }
-  console.log(numberPerson)
+    
     const fromDateFormatted = new Date(fromDate);
     const toDateFormatted = new Date(toDate);
     const totalNight = (toDateFormatted - fromDateFormatted) / (1000 * 60 * 60 * 24);
@@ -33,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                             <ul>
                                                 <li>
                                                     <span id="price">Giá phòng</span>
-                                                    <span>${room.price}Đ</span>
+                                                    <span>${room.price.toLocaleString('vi-VN')}Đ</span>
                                                 </li>
                                                 <li>
                                                     <span>Số lượng</span>
@@ -43,15 +49,16 @@ document.addEventListener('DOMContentLoaded', function () {
                                         </div>
                                         <div class="reservation-room-seleted_total-room">
                                             Tổng tiền
-                                            <span class="reservation-amout">${room.price * room.number}đ</span>
+                                            <span class="reservation-amout">${(room.price * room.number).toLocaleString('vi-VN')}đ</span>
                                     </div>`
         container.appendChild(itemDiv)
         count++
     });
-    document.getElementById('totalPrice').textContent = `${totalPrice}đ`
+    document.getElementById('totalPrice').textContent = `${totalPrice.toLocaleString('vi-VN')}đ`
     document.getElementById('totalPrice').setAttribute("data-totalPrice",totalPrice)
 
-})
+}
+
 function placeOrder(){
     const fromDate = localStorage.getItem('fromDate') ;
     const toDate = localStorage.getItem('toDate');
@@ -63,6 +70,7 @@ function placeOrder(){
     const note = document.getElementById('note').value 
     const totalPrice = document.getElementById('totalPrice').getAttribute("data-totalPrice")
     const selectedPayment = document.querySelector('input[name="payment"]:checked').value
+    const userId = document.getElementById('userId').value
 
     const chooseRoom = []
     selectedRooms.forEach(room => {
@@ -77,8 +85,10 @@ function placeOrder(){
         email:email,
         phone: phone,
         note: note,
+        appUserId:userId,
         fromDate: fromDate,
         toDate: toDate,
+        paymentMethod:selectedPayment,
         totalPrice: totalPrice,
         totalPerson: numberPerson,
         chooseRooms: chooseRoom
@@ -93,6 +103,7 @@ function placeOrder(){
     }
     else{
         toastr.warning('Chưa chọn phương thức')
+        return
     }
 
 }
@@ -108,7 +119,6 @@ const paymentdata = {
   axios.post('https://localhost:7197/api/Payment/CreatePaymentUrlVnpay',paymentdata)
   .then(function(response){
     const respData = response.data
-    console.log(respData)
     if(respData.data){
         window.location.href = respData.data
     }
@@ -121,25 +131,28 @@ const paymentdata = {
 
 function paymentCOD(data){
     axios.post('https://localhost:7197/api/Booking/PlaceOrder',data)
-    .then(function(respone){
-        console.log(respone.data.data)
+    .then(function(response){
         window.location.href = 'http://127.0.0.1:5500/user/checkRoom.html'
     })
 }
 
-function getCurrentUser() {
+function getInfo() {
+    const accessToken = localStorage.getItem('accessToken')
     axios.get('https://localhost:7197/api/Account/MyInfo', {
         headers: {
             'Authorization': `Bearer ${accessToken}`
         }
-    })
+     })
         .then(function (response) {
-            console.log(response.data.data.userName)
-
-            data = response.data.data
-            console.log(data)
+            const respData = response.data
+            const isSuccess = respData.isSuccess
+            if(isSuccess){
+              document.getElementById('userId').value = respData.data.id
+              document.getElementById('userInfo').style.display = 'none';
+              document.getElementById('linkLogin').style.display = 'none';
+            }
         })
         .catch(function (error) {
-            console.log(error)
+          console.error(error)
         });
 }

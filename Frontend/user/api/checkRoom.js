@@ -148,3 +148,14 @@ function confirm() {
     localStorage.setItem('selectedRooms', JSON.stringify(selectedRooms));
     window.location.href = 'http://127.0.0.1:5500/user/booking.html';
 }
+function toggleLoading(show) {
+    const overlay = document.getElementById("overlay");
+
+    if (show) {
+        overlay.style.display = "flex";
+    } else {
+        setTimeout(() => {
+            overlay.style.display = "none"; 
+        }, 300); 
+    }
+}
