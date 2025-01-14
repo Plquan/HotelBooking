@@ -25,6 +25,7 @@ namespace Hotel.Data.ViewModels.Reservations
         public string? PaymentStatus { get; set; }
         public DateTime? CreatedDate { get; set; }
         public string? ConfirmBy { get; set; }
+        public DateTime? ConfirmDate { get; set; }
         public string? Status { get; set; }
         public List<RoomVM>? Rooms { get; set; }
     }

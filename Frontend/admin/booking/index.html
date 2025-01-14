@@ -19,7 +19,13 @@
 </head>
 
 <body>
-
+    <div class="overlay" id="overlay">
+        <div class="spinner">
+          <span>.</span>
+          <span>.</span>
+          <span>.</span>
+        </div>
+      </div>   
     <div class="main-wrapper">
         <div id="headerP"></div>
         <div id="navP"></div>
@@ -82,8 +88,8 @@
 												<th>Mã đặt phòng</th>
                                                 <th>PT Thanh toán</th>
 												<th>TT Thanh toán</th>
-                                                <th>Ngày đặt</th>
-                                                <th>Xác nhận bởi</th>
+                                                <th>Ngày tạo</th>
+                                                <th>Phê duyệt</th>
                                                 <th>Trạng thái</th>
 												<th class="text-right">Chức năng</th>
 											</tr>
@@ -142,7 +148,7 @@
                             <label style="font-weight: 500;">Họ tên:</label><span class="text-center" style="margin-left: 10px;" id="userName"></span>                         
                         </div>
                         <div class="form-group">
-                            <label style="font-weight: 500;">Só điện thoại:</label><span class="text-center" style="margin-left: 10px;" id="phone"></span>                         
+                            <label style="font-weight: 500;">Số điện thoại:</label><span class="text-center" style="margin-left: 10px;" id="phone"></span>                         
                         </div>
                         <div class="form-group">
                             <label style="font-weight: 500;">Email:</label><span class="text-center" style="margin-left: 10px;" id="email"></span>                         
@@ -174,7 +180,82 @@
             </div>
         </div>
     </div>
+    <div id="refund_detail" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content modal-md">
+                <div class="modal-header">
+                    <h4 class="modal-title">Thông tin hoàn tiền</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label style="font-weight: 500;">Mã đơn:</label><span class="text-center" style="margin-left: 10px;" id="code"></span>     
+                        <input type="hidden" id="bookingId">                    
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: 500;">Tổng tiền:</label><span class="text-center" style="margin-left: 10px;" id="bookingPrice"></span>                         
+                    <input type="hidden" id="maxPrice">
+                    </div>
+                    <form>              
+                        <div class="form-group">
+                            <label style="font-weight: 500;">Kiểu hoàn tiền:</label><span class="text-center" style="margin-left: 10px;" id=""></span>                         
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" onchange="showInputPrice(false)" checked value="02" name="radio"> Hoàn tiền toàn phần
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" onchange="showInputPrice(true)" value="03" name="radio"> Hoàn tiền 1 phần
+                                </label>
+                                                  
+                                <input style="display: none;" id="amount" class="form-control" type="number" placeholder="Nhập số tiền">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  style="font-weight: 500;">Ghi chú:</label>                         
+                                <textarea style="height: 80px;" class="form-control" type="text" id="refundNote"></textarea>                        
+                        </div>
+                        <div class="m-t-20 text-center">
+                            <button type="button" onclick="confirmRefund()" class="btn btn-primary buttonedit ml-2">Xác nhận</button>
+                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div id="transaction_detail" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content modal-md">
+                <div class="modal-header">
+                    <h4 class="modal-title">Thông tin giao dịch</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label style="font-weight: 500;">Mã giao dịch:</label><span class="text-center" style="margin-left: 10px;" id="transactionId"></span>                         
+                        </div>                     
+                        <div class="form-group">
+                            <label style="font-weight: 500;">Tổng tiền:</label><span class="text-center" style="margin-left: 10px;" id="totalAmount"></span>                         
+                        </div>
+                        <div class="form-group">
+                            <label style="font-weight: 500;">Hoàn trả:</label><span class="text-center" style="margin-left: 10px;" id="refundAmount"></span>                         
+                        </div>
+                        <div class="form-group">
+                            <label style="font-weight: 500;">Ngày tạo:</label><span class="text-center" style="margin-left: 10px;" id="createdDate"></span>                         
+                        </div>
+
+                        <!-- <div class="m-t-20 text-center">
+                            <button class="btn btn-primary submit-btn">Create Event</button>
+                        </div> -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="../assets/js/axios.min.js"></script>
     <script src="../assets/js/jquery-3.5.1.min.js"></script>
     <script src="../assets/js/popper.min.js"></script>

@@ -12,6 +12,7 @@ namespace Hotel.Data.Models
     {
         [Key]
         public int Id { get; set; }
+        public string? AppUserId { get; set; }
         public string? UserName { get; set; }
         public string? Email { get; set; }
         public string? Phone { get; set; }
@@ -26,7 +27,8 @@ namespace Hotel.Data.Models
         public string? PaymentStatus { get; set; }
         public DateTime? CreatedDate { get; set; }
         public string? ConfirmBy { get; set; }
+        public DateTime? ConfirmDate { get; set; }
         public string? Status { get; set; }
-
+        public AppUser? AppUser { get; set; }
     }
 }

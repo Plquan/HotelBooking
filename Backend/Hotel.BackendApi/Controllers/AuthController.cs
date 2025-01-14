@@ -2,6 +2,7 @@
 using Hotel.Data.ViewModels.AppUsers;
 using Hotel.Services;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace Hotel.BackendApi.Controllers
 {
@@ -67,13 +68,13 @@ namespace Hotel.BackendApi.Controllers
         }
         [HttpPost]
         [Route("Logout")]
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             var accessToken = await Request.HttpContext.GetTokenAsync("access_token");
             var refreshToken = Request.Cookies["refreshToken"];
             var response = await _authService.LogoutAsync(accessToken, refreshToken);
             return StatusCode(response.StatusCode, response);
-
         }
         [HttpPost]
         [Route("ConfirmEmailAsync")]

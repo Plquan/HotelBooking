@@ -1,5 +1,6 @@
 ﻿using Hotel.Data.Dtos;
 using Hotel.Data.Libraries;
+using Hotel.Data.ViewModels.Reservations;
 using Hotel.Data.ViewModels.Vnpay;
 using Hotel.Services;
 using Microsoft.AspNetCore.Http;
@@ -30,6 +31,21 @@ namespace Hotel.BackendApi.Controllers
                 return BadRequest(new { message = "Lỗi thực thi", error = ex.Message });
             }
         }
+        [HttpPost]
+        [Route("RefundAsync")]
+        public async Task<IActionResult> RefundAsync(RefundModel model)
+        {
+            try
+            {
+                var url = await  _vnPayService.RefundAsync(model, HttpContext);
+                return Ok(new { message = "Hoàn tiền thành công", data = url });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Lỗi thực thi", error = ex.Message });
+            }
+        }
+      
 
     }
 }

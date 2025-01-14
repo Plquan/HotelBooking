@@ -1,6 +1,7 @@
 ﻿using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
 using Hotel.BackendApi.Helpers;
+using Hotel.BackendApi.Middlewares;
 using Hotel.Data;
 using Hotel.Data.Models;
 using Hotel.Data.Ultils;
@@ -139,7 +140,7 @@ var app = builder.Build();
         //c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
         //c.RoutePrefix = string.Empty;  // Swagger UI sẽ xuất hiện tại gốc URL
     });
-
+app.UseMiddleware<VerifyRevokedToken>();
 app.UseCors("AllowAllOrigins");
 app.UseHttpsRedirection();
 app.UseStaticFiles();

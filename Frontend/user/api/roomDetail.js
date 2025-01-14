@@ -166,6 +166,6 @@ function toggleLoading(show) {
     } else {
         setTimeout(() => {
             overlay.style.display = "none"; 
-        }, 300); 
+        }, 400); 
     }
 }

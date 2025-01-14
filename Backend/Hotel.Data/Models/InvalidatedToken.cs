@@ -10,7 +10,8 @@ namespace Hotel.Data.Models
     public class InvalidatedToken
     {
         [Key]
-        public string Id { get; set; }
+        public int Id { get; set; }
+        public string? TokenId { get; set; }
         public DateTime? expiryTime { get; set; }
     }
 }

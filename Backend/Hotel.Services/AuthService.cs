@@ -88,8 +88,8 @@ namespace Hotel.Services
                     Message = "Sai tên đăng nhập hoặc mật khẩu"
                 };
             }
-            var checkPass = await _userManager.CheckPasswordAsync(user, login.Password!);
-            if (!checkPass)
+            var result = await _signInManager.PasswordSignInAsync(user, login.Password ?? "", false, false);
+            if (!result.Succeeded)
             {
                 return new ApiResponse
                 {
@@ -239,10 +239,99 @@ namespace Hotel.Services
                 };
             }
         }
+        //public async Task<ApiResponse> RegisterAsync(RegisterRequest register)
+        //{
+        //    if (await _userManager.FindByEmailAsync(register.Email ?? "") != null)
+        //        return new ApiResponse() { StatusCode = 409, Message = "Email này đã được đăng ký" };
+
+        //    string code = GenerateVerificationCode();
+        //    var user = new AppUser
+        //    {
+        //        UserName = register.UserName,
+        //        Email = register.Email,
+        //        PhoneNumber = register.Phone,
+        //        VerifyCode = code,
+        //        CodeExpireTime = DateTime.UtcNow.AddMinutes(2),
+        //    };
+        //    var result = await _userManager.CreateAsync(user, register.Password);
+
+
+        //    if (!result.Succeeded)
+        //    {
+        //        foreach (var item in result.Errors)
+        //        {
+        //            _logger.LogError($"There are an error for userManager: {item.Description} at {DateTime.UtcNow}");
+        //        }
+
+        //    }
+        //    string title = "Xác thực email của bạn";        
+        //    string html = AuthCodeMessage.EmailBody(code, title, 2);
+        //    await _mailService.SendEmailAsync(register.Email ?? "", title, html);
+        //    return new ApiResponse
+        //    {
+        //        StatusCode = 200,
+        //        IsSuccess = true,
+        //        Message = "Đăng kí thành công"
+        //    };
+
+        //}
         public async Task<ApiResponse> RegisterAsync(RegisterRequest register)
         {
-            if (await _userManager.FindByEmailAsync(register.Email ?? "") != null)
-                return new ApiResponse() { StatusCode = 409, Message = "Email này đã được đăng ký" };
+            var existingUser = await _userManager.FindByEmailAsync(register.Email ?? "");
+
+            if (existingUser != null)
+            {
+
+                if (!await _userManager.IsEmailConfirmedAsync(existingUser))
+                {
+                    existingUser.UserName = register.UserName;
+                    existingUser.PhoneNumber = register.Phone;
+                    existingUser.VerifyCode = GenerateVerificationCode();
+                    existingUser.CodeExpireTime = DateTime.UtcNow.AddMinutes(2);
+
+                    var updateResult = await _userManager.UpdateAsync(existingUser);
+
+                    if (!updateResult.Succeeded)
+                    {
+                        foreach (var error in updateResult.Errors)
+                        {
+                            _logger.LogError($"Lỗi : {error.Description} at {DateTime.UtcNow}");
+                        }
+                        return new ApiResponse
+                        {
+                            StatusCode = 500,
+                            Message = "Có lỗi xảy ra khi đăng kí tài khoản."
+                        };
+                    }
+
+
+                    string title = "Xác thực email của bạn";
+                    string html = AuthCodeMessage.EmailBody(existingUser.VerifyCode, title, 2);
+                    await _mailService.SendEmailAsync(register.Email ?? "", title, html);
+
+                    return new ApiResponse
+                    {
+                        StatusCode = 200,
+                        IsSuccess = true,
+                        Message = "Vui lòng xác thực email"
+                    };
+                }
+
+                return new ApiResponse
+                {
+                    StatusCode = 409,
+                    Message = "Email này đã được đăng ký."
+                };
+            }
+            var userName = await _userManager.FindByNameAsync(register.UserName ?? "");
+            if (userName != null)
+            {
+                return new ApiResponse
+                {
+                    IsSuccess = false,
+                    Message = "Tên người dùng đã tồn tại"
+                };
+            }
 
             string code = GenerateVerificationCode();
             var user = new AppUser
@@ -253,8 +342,8 @@ namespace Hotel.Services
                 VerifyCode = code,
                 CodeExpireTime = DateTime.UtcNow.AddMinutes(2),
             };
-            var result = await _userManager.CreateAsync(user, register.Password);
 
+            var result = await _userManager.CreateAsync(user, register.Password);
 
             if (!result.Succeeded)
             {
@@ -262,19 +351,25 @@ namespace Hotel.Services
                 {
                     _logger.LogError($"There are an error for userManager: {item.Description} at {DateTime.UtcNow}");
                 }
-
+                return new ApiResponse
+                {
+                    StatusCode = 500,
+                    Message = "Có lỗi xảy ra khi tạo tài khoản."
+                };
             }
-            string title = "Xác thực email của bạn";        
-            string html = AuthCodeMessage.EmailBody(code, title, 2);
-            await _mailService.SendEmailAsync(register.Email ?? "", title, html);
+
+            string newTitle = "Xác thực email của bạn";
+            string newHtml = AuthCodeMessage.EmailBody(code, newTitle, 2);
+            await _mailService.SendEmailAsync(register.Email ?? "", newTitle, newHtml);
+
             return new ApiResponse
             {
                 StatusCode = 200,
                 IsSuccess = true,
-                Message = "Đăng kí thành công"
+                Message = "Vui lòng xác thực email"
             };
-            
         }
+
         public async Task<ApiResponse> LogoutAsync(string? accessToken, string? refreshToken)
         {        
             try
@@ -297,12 +392,14 @@ namespace Hotel.Services
                 {
                     var newInvalidToken = new InvalidatedToken()
                     {
-                        Id = accessTokenId,
+                        TokenId = accessTokenId,
                         expiryTime = _jwtService.GetTokenExpiration(accessToken)
                     };
+                    _context.InvalidatedTokens.Add(newInvalidToken);
                 }
                 _httpContextAccessor?.HttpContext?.Response.Cookies.Delete("refreshToken");
                 _context.RefreshTokens.RemoveRange(_context.RefreshTokens.Where(r => r.JwtId == refreshTokenId));
+             
                 await _context.SaveChangesAsync();
 
                 return new ApiResponse()

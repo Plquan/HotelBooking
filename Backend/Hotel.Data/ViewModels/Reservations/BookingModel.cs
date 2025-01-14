@@ -15,6 +15,7 @@ namespace Hotel.Data.ViewModels.Reservations
     public class BookingModel
     {
         public int Id { get; set; }
+        public string? AppUserId { get; set; }
         public string? UserName { get; set; }
         public string? Email { get; set; }
         public string? Phone { get; set; }

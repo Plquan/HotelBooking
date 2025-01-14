@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </ul>
                             </div>
                             <div class="bottom">
-                                <span class="price">Giá tiền <span class="amout">${room.price}Đ</span> / NGÀY</span>
+                                <span class="price">Giá tiền <span class="amout">${room.price.toLocaleString('vi-VN')}đ</span> / NGÀY</span>
                                 <a onclick="roomDetail(${room.id})" class="btn">CHI TIẾT</a>
                             </div>
                         </div>

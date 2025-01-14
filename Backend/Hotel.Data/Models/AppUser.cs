@@ -15,6 +15,6 @@ namespace Hotel.Data.Models
         public DateTime? CodeExpireTime { get; set; }
         public string? Avatar {  get; set; }
         public DateTime? CreatedAt { get; set; }
-        public DateTime? UpdateAt { get; set; }
-      }
+        public List<Booking>? Bookings { get; set; }
+    }
 }

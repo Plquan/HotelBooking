@@ -14,5 +14,8 @@ namespace Hotel.Data.Enum
         public const string Online = "Online";
         public const string PaymentPending = "PaymentPending";
         public const string Pending = "Pending";
+        public const string COD = "COD";
+        public const string OP = "OP";
+        public const string Refund = "Refund";
     }
 }

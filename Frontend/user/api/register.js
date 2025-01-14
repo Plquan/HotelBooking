@@ -60,6 +60,10 @@ function register() {
 
                 registerform.style.display = "none"
                 verifyform.style.display = "block"
+                startCountdown()
+            }
+            else{
+                toastr.warning(response.data.message)
             }
         }).catch(function (error) {
             console.error('Lỗi máy chủ', error);

@@ -41,8 +41,8 @@ function getListPaging(keyWord = KEYWORD, filterType = FILTER_TYPE) {
                                     <td title = "${replyTitle(contact.status)}"><button type="button" class="btn ${replyClass(contact.status)} ">${replyStatus(contact.status)}</button></td>
                                     <td class="text-right">                        
                                     <a onclick="sendReply(${contact.id},'${contact.email}')" type="button" data-toggle="modal" data-target="#replyContact" class="btn btn-icon btn-success">
-                                  <i class="fa fa-reply"></i>
-                                  </a>
+                                    <i class="fa fa-reply"></i>
+                                    </a>
                                   <a onclick="deleteRoomType(${contact.id})" type="button" class="btn btn-icon btn-danger" data-toggle="modal"
                                   data-target="#delete_asset">
                                   <i class="fa fa-trash"></i>

@@ -5,68 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+
+</style>
 <body>
-    <div class="col-md-12 col-lg-6">
-        <div class="card card-chart">
-            <div class="card-header">
-                <h4 class="card-title">ROOMS BOOKED</h4>
-            </div>
-            <div class="card-body">
-                <div id="donut-chart">
-                    <canvas id="donutChart" width="400" height="400"></canvas>
-                </div>
-            </div>
+    <div class="overlay" id="loadingOverlay">
+        <div class="spinner">
+          <span>.</span>
+          <span>.</span>
+          <span>.</span>
         </div>
-    </div>
-    
+      </div>
+      
 </body>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-    // Lấy phần tử canvas
-    const canvas = document.getElementById('donutChart');
-    const ctx = canvas.getContext('2d');
+    // Hàm để hiển thị spinner
+function showSpinner() {
+  document.getElementById('loadingOverlay').style.display = 'flex';
+}
 
-    // Dữ liệu của biểu đồ
-    const data = [
-        { label: 'Single Rooms', value: 40, color: '#FF6384' },
-        { label: 'Double Rooms', value: 30, color: '#36A2EB' },
-        { label: 'Suites', value: 20, color: '#FFCE56' },
-        { label: 'Deluxe Rooms', value: 10, color: '#4BC0C0' }
-    ];
+// Hàm để ẩn spinner
+function hideSpinner() {
+  document.getElementById('loadingOverlay').style.display = 'none';
+}
 
-    // Tính tổng giá trị
-    const total = data.reduce((sum, item) => sum + item.value, 0);
-
-    // Vẽ Donut Chart
-    let startAngle = 0;
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-    const radius = Math.min(canvas.width, canvas.height) / 2 - 20;
-    const innerRadius = radius / 2;
-
-    data.forEach(item => {
-        // Tính toán góc cho từng phần
-        const sliceAngle = (item.value / total) * 2 * Math.PI;
-
-        // Vẽ phần tròn bên ngoài
-        ctx.beginPath();
-        ctx.arc(centerX, centerY, radius, startAngle, startAngle + sliceAngle);
-        ctx.arc(centerX, centerY, innerRadius, startAngle + sliceAngle, startAngle, true);
-        ctx.closePath();
-        ctx.fillStyle = item.color;
-        ctx.fill();
-
-        // Cập nhật startAngle cho phần tiếp theo
-        startAngle += sliceAngle;
-    });
-
-    // Thêm văn bản vào trung tâm (nếu cần)
-    ctx.fillStyle = '#000';
-    ctx.font = '20px Arial';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText('Total: ' + total, centerX, centerY);
-});
+// Ví dụ sử dụng: Hiển thị spinner sau 1 giây và ẩn đi sau 3 giây
+setTimeout(showSpinner, 1000);
+setTimeout(hideSpinner, 3000);
 
 </script>
 </html>

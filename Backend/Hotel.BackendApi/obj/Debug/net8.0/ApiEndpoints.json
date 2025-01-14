@@ -137,9 +137,9 @@
   },
   {
     "ContainingType": "Hotel.BackendApi.Controllers.BookingController",
-    "Method": "Delete",
+    "Method": "DeleteBooking",
     "RelativePath": "api/Booking/deleteBooking",
-    "HttpMethod": "GET",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -195,6 +195,38 @@
   },
   {
     "ContainingType": "Hotel.BackendApi.Controllers.BookingController",
+    "Method": "GetPaymentHistory",
+    "RelativePath": "api/Booking/GetPaymentHistory",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "Hotel.Data.Ultils.PagingModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.BookingController",
+    "Method": "GetTransactionDetail",
+    "RelativePath": "api/Booking/GetTransactionDetail",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "BookingId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.BookingController",
     "Method": "PaymentCallbackVnpay",
     "RelativePath": "api/Booking/PaymentExecute",
     "HttpMethod": "GET",
@@ -221,42 +253,16 @@
   },
   {
     "ContainingType": "Hotel.BackendApi.Controllers.BookingController",
-    "Method": "SendMail",
-    "RelativePath": "api/Booking/SendMail",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "email",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "code",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Hotel.BackendApi.Controllers.BookingController",
     "Method": "UpdateStatus",
     "RelativePath": "api/Booking/UpdateStatus",
-    "HttpMethod": "GET",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "bookingId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "status",
-        "Type": "System.String",
-        "IsRequired": false
+        "Name": "model",
+        "Type": "Hotel.Services.UpdateBookingStatus",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -442,6 +448,22 @@
       {
         "Name": "model",
         "Type": "Hotel.Data.ViewModels.Vnpay.PaymentInformationModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.PaymentController",
+    "Method": "RefundAsync",
+    "RelativePath": "api/Payment/RefundAsync",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "Hotel.Data.ViewModels.Reservations.RefundModel",
         "IsRequired": true
       }
     ],

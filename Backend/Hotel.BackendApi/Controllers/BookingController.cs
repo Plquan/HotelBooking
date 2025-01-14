@@ -18,6 +18,7 @@ namespace Hotel.BackendApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class BookingController : ControllerBase
     {
         private readonly IBookingService _bookingService;
@@ -39,6 +40,7 @@ namespace Hotel.BackendApi.Controllers
 
         [HttpPost]
         [Route("CheckRoom")]
+        [AllowAnonymous]
         public async Task<List<CheckRoomVM>> CheckRoom(CheckDate date)
         {
             return await _bookingService.CheckRoom(date);
@@ -46,6 +48,7 @@ namespace Hotel.BackendApi.Controllers
         }
         [HttpPost]
         [Route("CheckRoomById")]
+        [AllowAnonymous]
         public async Task<IActionResult> CheckRoomById(CheckDate date)
         {          
             try
@@ -88,13 +91,28 @@ namespace Hotel.BackendApi.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("UpdateStatus")]
-        public async Task<IActionResult> UpdateStatus(int bookingId,string status)
+        [HttpPost]
+        [Route("GetPaymentHistory")]
+        public async Task<IActionResult> GetPaymentHistory(PagingModel model)
         {
             try
             {
-                var bookings = await _bookingService.UpdateStatus(bookingId, status);
+                var bookings = await _bookingService.GetPaymentHistory(model);
+                return Ok(new { message = "Lấy thành công", data = bookings });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Lỗi thực thi", error = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        [Route("UpdateStatus")]
+        public async Task<IActionResult> UpdateStatus(UpdateBookingStatus model)
+        {
+            try
+            {
+                var bookings = await _bookingService.UpdateStatus(model);
                 return Ok(new { message = "Lấy thành công", data = bookings });
             }
             catch (Exception ex)
@@ -117,6 +135,7 @@ namespace Hotel.BackendApi.Controllers
         }
         [HttpPost]
         [Route("PlaceOrder")]
+        [AllowAnonymous]
         public async Task<IActionResult> PlaceOrder(BookingModel bookingVM)
         {
             try
@@ -129,13 +148,27 @@ namespace Hotel.BackendApi.Controllers
                 return BadRequest(new { message = "Lỗi thực thi", error = ex.Message });
             }
         }
-        [HttpGet]
+        [HttpDelete]
         [Route("deleteBooking")]
-        public IActionResult Delete(int id) {
+        public async Task<IActionResult> DeleteBooking(int id) {
             try
             {
-                 _bookingService.DeleteBooking(id);
-                return Ok(new { message = "Lấy thành công", });
+                var response = await _bookingService.DeleteBooking(id);
+                return Ok(new { message = "Lấy thành công", data = response });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Lỗi thực thi", error = ex.Message });
+            }
+        }
+        [HttpGet]
+        [Route("GetTransactionDetail")]
+        public async Task<IActionResult> GetTransactionDetail(int BookingId)
+        {
+            try
+            {
+                var response = await _bookingService.GetTransactionDetail(BookingId);
+                return Ok(new { message = "Lấy thành công", data = response });
             }
             catch (Exception ex)
             {
@@ -144,23 +177,8 @@ namespace Hotel.BackendApi.Controllers
         }
 
         [HttpGet]
-        [Route("SendMail")]
-        public IActionResult SendMail(string email,string code)
-        {
-            try
-            {
-                var bodyHtml  = EmailMessage.EmailBody(code);
-                var Title = "Mã hóa đơn";
-                _mailService.SendEmailAsync(email,Title,bodyHtml);
-                return Ok(new { message = "Gửi thành công", });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = "Lỗi thực thi", error = ex.Message });
-            }
-        }
-        [HttpGet]
         [Route("PaymentExecute")]
+        [AllowAnonymous]
         public async Task<IActionResult> PaymentCallbackVnpay()
         {
             try
@@ -168,18 +186,37 @@ namespace Hotel.BackendApi.Controllers
                 var response = _vnPayService.PaymentExecute(Request.Query);
                 var bookingDetail = _hotelContext.Bookings.FirstOrDefault(s => s.Id == int.Parse(response.OrderId)) 
                     ?? throw new Exception("Lỗi không tìm thấy đơn");
-                
-                if(bookingDetail.PaymentStatus == PaymentStatus.Paid)
+                var transaction = _hotelContext.Transactions.FirstOrDefault(x => x.BookingId == int.Parse(response.OrderId));
+                if(transaction != null)
                 {
-                    return Ok(new { message = "Đã thanh toán", statusCode = response.VnPayResponseCode });
+                    return Ok(new { message = "Đã thanh toán", paymentCode = response.VnPayResponseCode,code = bookingDetail.Code});
                 }
                 if (response.VnPayResponseCode == "00")
-                {                 
-                   await  _bookingService.UpdatePaymentStatus(int.Parse(response.OrderId),PaymentStatus.Paid);
+                {
+                    var newTransaction = new Transaction { 
+                       BookingId = int.Parse(response.OrderId),
+                       OrderDescription = response.OrderDescription,
+                       Amount = bookingDetail.TotalPrice,
+                       RefundAmount = 0,
+                       TransactionId = response.TransactionId,
+                       PaymentMethod = response.PaymentMethod,
+                       CreatedDate = DateTime.Now,                 
+                    };
+                     _hotelContext.Transactions.Add(newTransaction);
+                    await _hotelContext.SaveChangesAsync();
+
+                    var updateStatus = new UpdateBookingStatus { 
+                    BookingId = int.Parse(response.OrderId),
+                    Status = PaymentStatus.Paid
+                    };
+
+                    await _bookingService.UpdatePaymentStatus(updateStatus);
+
                     var bodyHtml = EmailMessage.EmailBody(bookingDetail.Code!);
                     var Title = "Mã hóa đơn";
                     await _mailService.SendEmailAsync(bookingDetail.Email!, Title, bodyHtml);
-                    return Ok(new { message = "Thanh toán thành công", data = bookingDetail, statusCode = response.VnPayResponseCode });
+
+                    return Ok(new { message = "Thanh toán thành công", paymentCode = response.VnPayResponseCode, code = bookingDetail.Code });
                 }
                 else
                 {

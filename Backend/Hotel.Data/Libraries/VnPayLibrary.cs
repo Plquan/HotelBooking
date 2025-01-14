@@ -47,7 +47,6 @@ namespace Hotel.Data.Libraries
                 PaymentMethod = "VnPay",
                 OrderDescription = orderInfo,
                 OrderId = orderId.ToString(),
-                PaymentId = vnPayTranId.ToString(),
                 TransactionId = vnPayTranId.ToString(),
                 Token = vnpSecureHash,
                 VnPayResponseCode = vnpResponseCode
@@ -131,7 +130,7 @@ namespace Hotel.Data.Libraries
             var myChecksum = HmacSha512(secretKey, rspRaw);
             return myChecksum.Equals(inputHash, StringComparison.InvariantCultureIgnoreCase);
         }
-        private string HmacSha512(string key, string inputData)
+        public string HmacSha512(string key, string inputData)
         {
             var hash = new StringBuilder();
             var keyBytes = Encoding.UTF8.GetBytes(key);

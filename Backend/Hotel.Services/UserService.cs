@@ -59,7 +59,6 @@ namespace Hotel.Services
                 PhoneNumber = model.PhoneNumber,
                 Status = model.Status,
                 CreatedAt = DateTime.Now,
-                UpdateAt = DateTime.Now,
             };
             if (model.Roles != null)
             {

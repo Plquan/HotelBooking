@@ -4,6 +4,7 @@ using Hotel.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hotel.Data.Migrations
 {
     [DbContext(typeof(HotelContext))]
-    partial class HotelContextModelSnapshot : ModelSnapshot
+    [Migration("20250113124306_123321")]
+    partial class _123321
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -310,10 +313,15 @@ namespace Hotel.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal?>("RefundAmount")
+                    b.Property<decimal>("RefundAmount")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("RefundReason")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TransactionId")
@@ -693,7 +701,7 @@ namespace Hotel.Data.Migrations
             modelBuilder.Entity("Hotel.Data.Models.Refund", b =>
                 {
                     b.HasOne("Hotel.Data.Models.Transaction", "Transaction")
-                        .WithMany()
+                        .WithMany("refunds")
                         .HasForeignKey("TransactionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -808,6 +816,11 @@ namespace Hotel.Data.Migrations
                     b.Navigation("RoomImages");
 
                     b.Navigation("Rooms");
+                });
+
+            modelBuilder.Entity("Hotel.Data.Models.Transaction", b =>
+                {
+                    b.Navigation("refunds");
                 });
 #pragma warning restore 612, 618
         }

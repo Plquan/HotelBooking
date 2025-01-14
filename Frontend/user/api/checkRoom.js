@@ -1,8 +1,8 @@
 ﻿const baseUrl = "https://localhost:7197/images";
 document.addEventListener('DOMContentLoaded', function () {
-    const fromDate = localStorage.getItem('fromDate');
-    const toDate = localStorage.getItem('toDate');
-    const numberPerson = localStorage.getItem('numberPerson');
+    const fromDate = localStorage.getItem('fromDate')
+    const toDate = localStorage.getItem('toDate')
+    const numberPerson = localStorage.getItem('numberPerson') || 1
 
     document.getElementById('fromDate').value = fromDate
     document.getElementById('toDate').value = toDate
@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
     checkRoom(data)
 });
 function checkRoom(data){
+    toggleLoading(true)
     axios.post('https://localhost:7197/api/Booking/CheckRoom', data)
     .then(function (respone) {
         const respData = respone.data
@@ -30,18 +31,17 @@ function checkRoom(data){
                  if(roomType.rooms.length === 0){                      
                     return
                  }
-                const fromDateFormatted = new Date(fromDate);
-                const toDateFormatted = new Date(toDate);
+                const fromDateFormatted = new Date(data.fromDate);
+                const toDateFormatted = new Date(data.toDate);
                 const night = (toDateFormatted - fromDateFormatted) / (1000 * 60 * 60 * 24);
-
                 let options = '';
                 for (let i = 1; i <= roomType.rooms.length; i++) {
-                    const VNDprice = (i * roomType.price * night).toLocaleString('vi-VN');
-                    options += `<option value="${i}">${i} (VND ${VNDprice})</option>`;
+                    const VNDprice = (i * roomType.price * night).toLocaleString('vi-VN')
+                    options += `<option value="${i}">${i} - (VND ${VNDprice})</option>`;
                 }
                 //content
                 if (roomType.content.length > 150) {
-                    roomType.content = roomType.content.slice(0, 150) + "...";
+                    roomType.content = roomType.content.slice(0, 150) + "..."
                 }
                 const itemDiv = document.createElement('div')
                 itemDiv.classList.add('reservation-room_item')
@@ -83,7 +83,11 @@ function checkRoom(data){
             container.innerHTML = '<h4 style="text-align: center; font-family: Poppins, sans-serif;">Không có phòng trống !</h4>'
         }
 
-    });
+    }) .catch(function (error) {         
+        console.error('Loi:', error);
+    }).finally(function(){
+        toggleLoading(false)     
+    })
 }
 
 function checkDate() {
@@ -156,6 +160,6 @@ function toggleLoading(show) {
     } else {
         setTimeout(() => {
             overlay.style.display = "none"; 
-        }, 300); 
+        }, 400); 
     }
 }

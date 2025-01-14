@@ -14,15 +14,12 @@ const baseUrl = "https://localhost:7197/images";
  getAllRoom()
 
 
-
 function getAllRoom(){
     toggleLoading(true)
         axios.get('https://localhost:7197/api/RoomType/GetAll')
         .then(function (response) {
-            toggleLoading(false)
+           
             const rooms = response.data;
-            console.log(rooms);
-
             const container = document.getElementById('rooms');
 
             let itemDiv = document.createElement('div');
@@ -38,12 +35,11 @@ function getAllRoom(){
                                    <a>
                                     <div class="rooms-content">
                                         <h4 class="sky-h4">${room.name}</h4>
-                                        <p class="price">${room.price}Đ / NGÀY</p>
+                                        <p class="price">${room.price.toLocaleString('vi-VN')}Đ / NGÀY</p>
                                     </div>
                                </a>
                             </div>
-                        </div>`;
-
+                        </div>`
                     itemDiv.innerHTML += roomHTML;
                     if ((index + 1) % 3 === 0) {
                         container.appendChild(itemDiv);
@@ -93,6 +89,6 @@ function toggleLoading(show) {
     } else {
         setTimeout(() => {
             overlay.style.display = "none"; 
-        }, 300); 
+        }, 400); 
     }
 }

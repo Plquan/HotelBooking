@@ -18,6 +18,7 @@
     <link rel="stylesheet" type="text/css" href="css/gallery.css">
     <link rel="stylesheet" type="text/css" href="css/vit-gallery.css">
     <link rel="shortcut icon" type="text/css" href="images/favicon.png" />
+    <link rel="stylesheet" type="text/css" href="css/toastr.min.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
   
     <!-- MAIN STYLE -->
@@ -25,55 +26,20 @@
 </head>
 
 <body>
-    <!-- HEADER -->
-    <header class="header-sky">
-        <div class="container">
-            <!--HEADER-TOP-->
-            <div class="header-top no-border">
-                <div class="header-top-left">
-                    <span><i class="ion-android-cloud-outline"></i>18 °C</span>
-                    <span><i class="ion-ios-location-outline"></i> 121 King Str, Melbourne Victoria</span>
-                    <span><i class="fa fa-phone" aria-hidden="true"></i> 1-548-854-8898</span>
-                </div>
-                <div class="header-top-right">
-                    <ul>
-                        <li class="dropdown"><a href="login.html" title="Login" class="dropdown-toggle">LOGIN</a></li>
-                        <li class="dropdown"><a href="register.html" title="Register" class="dropdown-toggle">REGISTER</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">USD <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li class="active"><a href="#">USD</a></li>
-                                <li><a href="#">EUR</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">ENG <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li class="active"><a href="#">ENG</a></li>
-                                <li><a href="#">JP</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- END/HEADER-TOP -->
-        </div>
-       <div id="navP"></div>
-    </header>
+    <div id="overlay" class="overlay">
+        <div class="spinner"></div>
+    </div>
+    <!-- HEADER --> 
+        <div id="navP"></div>
+
     <section class="body-page">
         <div class="container">
             <div class="content">             
-                <h5 class="h3-404">THANH TOÁN !</h5>
-                <p class="p-404">Mã code:<a href="#" title="">  the box below</a></p>
-                <form class="navbar-form " role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search page">
-                    </div>
-                    <button type="submit" data-toggle="modal" 
-                    data-target="#booking_detail"  class="btn btn-default">SEARCH</button>
-                </form>
-                <p class="p-404 size">đi tới trang <a href="#" title="">Home Page </a></p>
+                <h5 class="h3-404" id="paymentTitle"></h5>
+                <p class="p-404">Cảm ơn bạn đã đặt phòng tại <strong>Khách sạn SKYLINE</strong>. Chúng tôi rất vui khi được phục vụ bạn. Mã đơn: <a id="code"></a></p>
+                <p class="p-404 size">quay lại <a href="home.html" title="">TRANG CHỦ </a></p>
             </div>
+            
         </div>
     </section>
    <div id="footerP"></div>
@@ -91,6 +57,7 @@
     <script type="text/javascript" src="js/bootstrap-select.js"></script>
     <script type="text/javascript" src="js/jquery.littlelightbox.js"></script> 
     <script type="text/javascript" src="js/sky.js"></script>
+    <script type="text/javascript" src="js/toastr.min.js"></script>
     <script src="api/paymentResult.js"></script>
 
 </body>

@@ -18,9 +18,9 @@ function getListPaging(keyWord,filterType){
         keyWord: keyWord,
         filterType: filterType
     }
+    toggleLoading(true)
     axios.post(`https://localhost:7197/api/Booking/GetListPaging`,pagingModel)
     .then(function (response) {
-        console.log(response)
         const respData = response.data.data
         const bookings = response.data.data.items;
         const tableBody = document.getElementById('showBooking');
@@ -33,15 +33,17 @@ function getListPaging(keyWord,filterType){
             row.innerHTML = `
                                     <td>${counter}</td>
                                     <td>${booking.code}</td>
-                                    <td>${booking.paymentMethod === 'COD'? 'Online':'Trực tiếp'}</td>
-                                     <td title = ""><button type="button" class="btn ${paymentClass(booking.paymentStatus)} ">${paymentStatus(booking.paymentStatus)}</button></td>
+                                    <td><button type="button" class="btn btn-primary" style="background-color: #4682B4;">${booking.paymentMethod === 'COD' ?
+                                    '<i class ="fa fa-hand-holding-usd">' :'<i class ="fa fa-credit-card"> </i>'}
+                                    </button></td>
+                                    <td><button type="button" onclick="showTransaction('${booking.paymentMethod}',${booking.id})" class="btn ${paymentClass(booking.paymentStatus)} ">${paymentStatus(booking.paymentStatus)}</button></td>
                                     <td>  
                                     <p><i class="fa fa-user"></i> ${booking.userName}</p>                                 
                                     <p><i class="fa fa-clock"></i> ${new Date(booking.createdDate).toLocaleString()}</p>
                                     </td>
                                     <td>  
-                                    <p><i class="fa fa-user"></i> ${booking.confirmBy === null ? '':booking.confirmBy}</p>                                 
-                                    <p><i class="fa fa-clock"></i> ${booking.confirmDate === null ? '':new Date(booking.createdDate).toLocaleString()}</p>
+                                    <p><i class="fa fa-user"></i> ${booking.confirmBy ?? '...'}</p>                                 
+                                    <p><i class="fa fa-clock"></i> ${booking.confirmDate ? new Date(booking.confirmDate).toLocaleString() : '...'}</p>
                                     </td>
                                     <td>                                
                                     <select class="form-control" onchange="updateStatus(${booking.id},this.value)" >
@@ -49,9 +51,12 @@ function getListPaging(keyWord,filterType){
                                     </select>
                                     </td>
                                     <td class="text-right">                        
-                                    <a onclick="showBookingDetail(${booking.id})" type="button" data-toggle="modal" data-target="#booking_detail" class="btn btn-icon btn-success">
+                                    <a onclick="showBookingDetail(${booking.id})" type="button"  class="btn btn-icon btn-success" data-toggle="modal" data-target="#booking_detail">
                                     <i class="fa fa-search"></i>
                                     </a>
+                                    <button onclick="refund(${booking.id})" style="background-color: #4682B4;" ${booking.paymentMethod === 'OP' && booking.paymentStatus === 'Paid' ? '' : 'disabled'} type="button" data-toggle="modal" data-target="#refund_detail" class="btn btn-icon btn-success">
+                                    <i class="fa fa-exchange-alt"></i>
+                                    </button> 
                                     <a onclick="deleteBooking(${booking.id})" type="button" class="btn btn-icon btn-danger" data-toggle="modal"
                                    data-target="#delete_asset">
                                    <i class="fa fa-trash"></i>
@@ -64,7 +69,92 @@ function getListPaging(keyWord,filterType){
     })
     .catch(function (error) {
         console.error('Lỗi khi lấy dữ liệu:', error);
-    });
+    }).finally(function(){
+        toggleLoading(false)     
+    })
+}
+function refund(id){
+    toggleLoading(true)     
+    axios.get(`https://localhost:7197/api/Booking/GetBookingDetail/${id}`)
+    .then(function(response){
+        const respData = response.data.data.data
+        document.getElementById('code').textContent = respData.code
+        document.getElementById('bookingPrice').textContent = respData.totalPrice.toLocaleString('vi-VN') +" đ"
+        document.getElementById('bookingId').value = respData.id
+    }).catch(function (error) {
+        console.error('Lỗi:', error);
+    }).finally(function(){
+        toggleLoading(false)     
+    })
+
+}
+
+function showTransaction(method,id){
+switch (method){
+    case "OP":
+        toggleLoading(true)
+        axios.get(`https://localhost:7197/api/Booking/GetTransactionDetail?BookingId=${id}`)
+        .then(function(response){
+            const resp = response.data.data
+            if(resp.isSuccess){        
+                document.getElementById('transactionId').textContent = resp.data.transactionId
+                document.getElementById('totalAmount').textContent = resp.data.amount.toLocaleString('vi-VN') +" đ"
+                document.getElementById('refundAmount').textContent = resp.data.refundAmount.toLocaleString('vi-VN') +" đ"
+                document.getElementById('createdDate').textContent = new Date(resp.data.createdDate).toLocaleString()
+                $('#transaction_detail').modal('show')
+            }
+            else{
+                toastr.warning(resp.data.message)
+            }
+          
+        }).catch(function (error) {
+             console.error('Lỗi khi lấy dữ liệu:', error);
+         }).finally(function(){
+             toggleLoading(false)     
+         })
+       break
+    case "COD":
+        toastr.info("Đơn đặt phòng này thanh toán trực tiếp")
+        break
+    default:
+        toastr.info("Ko xác định")
+        break
+}
+ 
+}
+function confirmRefund(){
+    const typeRefund = document.querySelector('input[name="radio"]:checked').value
+    const amount = document.getElementById('amount').value || 0
+    const refundNote = document.getElementById('refundNote').value
+    const bookingId = document.getElementById('bookingId').value
+
+    if(!typeRefund){
+        toastr.warning('Chưa chọn kiểu hoàn tiền')
+        return
+    }
+    const data = {
+        refundAmount:amount,
+        refundReason:refundNote,
+        bookingId:bookingId,
+        transactionType:typeRefund
+     }
+     toggleLoading(true)   
+    axios.post('https://localhost:7197/api/Payment/RefundAsync',data)
+    .then(function(response){
+        const resp = response.data.data
+        console.log(response.data)
+        if(resp.isSuccess){
+            getListPaging()
+        }
+        else{
+            toastr.error(resp.message)
+        }
+    }).catch(function (error) {
+        console.error('Lỗi:', error);
+    }).finally(function(){
+        $('#refund_detail').modal('hide')
+        toggleLoading(false)     
+    })
 }
 function paymentClass(status){
     let iclass = ''
@@ -90,8 +180,10 @@ function paymentStatus(status){
         case "Paid":
             iclass = '<i class="fa fa-check "></i>'
             break
+        case "Refund":
+            iclass = '<i class=" fa-check-circle"></i>'    
         default:
-             iclass = '<i class=""></i>'
+             iclass = '<i class="fa fa-undo-alt"></i>'
             break;    
     }
     return iclass
@@ -126,7 +218,7 @@ document.getElementById('searchInput').addEventListener('input', function () {
         });     
         row.style.display = isMatch ? '' : 'none';
     });
-});
+})
 function showBookingDetail(id){
     axios.get(`https://localhost:7197/api/Booking/GetBookingDetail/${id}`)
     .then(function(response){
@@ -196,21 +288,31 @@ function bookingStatus(status) {
     return options;
 }
 function updateStatus(bookingId,status){
-    axios.get(`https://localhost:7197/api/Booking/UpdateStatus?bookingId=${bookingId}&status=${status}`)
+    const data = {
+        bookingId:bookingId,
+        status:status
+    }
+    toggleLoading(true)     
+    axios.post(`https://localhost:7197/api/Booking/UpdateStatus`,data)
     .then(function(response){
+        const resp = response.data.data
+        console.log(response)
         if(response.data.data.statusCode === 200){
-            toastr.info('Cập nhật trạng thái thành công')
-            getListPaging()
+            toastr.info(resp.message)
+          getListPaging()
         }
         else{
-            toastr.warning('Cập nhật không thành công')
+            toastr.warning(resp.message)
             getListPaging()
         }
     }) .catch(function (error) {
         console.error('Lỗi khi cập nhật dữ liệu:', error);
-    });
+    }).finally(function(){
+        toggleLoading(false)     
+    })
 }
 function filterBooking(keyWord){
+    toggleLoading(true)
  if(keyWord === "All"){
     getListPaging()
     return
@@ -218,7 +320,9 @@ function filterBooking(keyWord){
  axios.get(`https://localhost:7197/api/Booking/FilterBooking?keyWord=${keyWord}`)
  .then(function(response){
    console.log(response.data)
- })
+ }).finally(function(){
+    toggleLoading(false)     
+})
 }
 function renderPagination(data) {
     if(data === null || data.length === 0){
@@ -266,4 +370,24 @@ function filterContact(value) {
     KEYWORD = value
     FILTER_TYPE = filterType
     getListPaging()
+}
+function showInputPrice(value){
+const amount = document.getElementById('amount')
+if(value === true){
+    amount.style.display = 'block'
+}
+else if(value === false){
+    amount.style.display = 'none'
+}
+}
+function toggleLoading(show) {
+    const overlay = document.getElementById("overlay");
+
+    if (show) {
+        overlay.style.display = "flex";
+    } else {
+        setTimeout(() => {
+            overlay.style.display = "none"; 
+        }, 400); 
+    }
 }

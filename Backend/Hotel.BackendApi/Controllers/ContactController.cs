@@ -1,6 +1,7 @@
 ﻿using Hotel.Data.Ultils;
 using Hotel.Data.ViewModels.Contacts;
 using Hotel.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Drawing.Printing;

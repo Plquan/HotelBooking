@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="../assets/css/feathericon.min.css">
     <link rel="stylehseet" href="../https://cdn.oesmith.co.uk/morris-0.5.1.css">
     <link rel="stylesheet" href="../assets/plugins/morris/morris.css">
-    <link rel="stylesheet" href="../assets/css/tagify.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/toastr.min.css">
 </head>
@@ -20,10 +19,10 @@
 </head>
 
 <body>
+
     <div class="main-wrapper">
         <div id="headerP"></div>
         <div id="navP"></div>
-
 
         <div class="page-wrapper">
 			<div class="content container-fluid">
@@ -31,8 +30,7 @@
 					<div class="row align-items-center">
 						<div class="col">
 							<div class="mt-5">
-								<h4 class="card-title float-left mt-2">Danh sách</h4>
-								<a href="/admin/room/add.html" class="btn btn-primary float-right veiwbutton">Thêm mới</a>
+								<h4 class="card-title float-left mt-2">Quản lí người dùng</h4>
 							</div>
 						</div>
 					</div>
@@ -42,53 +40,72 @@
 					<div class="col-sm-12">
 						<div class="card card-table">
 							<div class="card-body booking_card">
-                                 <!-- Bộ lọc -->
-                                 <div class="row align-items-center" style="margin-bottom: 20px;">
-                                    <div class="col-md-6 mr-auto">
+                                <!-- Bộ lọc -->
+                                <div class="row align-items-center" style="margin-bottom: 20px;">
+                                    <div class="col-md-6 mr-auto"> 
                                         <div>
-                                            <button type="button" class="btn btn-danger">Tất cả <span id="allBtn"
-                                                    class="badge bg-white" style="color: red;">0</span></button>
-                                            <button type="button" class="btn btn-primary">Kích hoạt <span id="activeBtn"
-                                                    class="badge bg-white" style="color: #009688;">0</span></button>
-                                            <button type="button" class="btn btn-primary">Chưa kích hoạt <span
-                                                    id="inActiveBtn" class="badge bg-white"
-                                                    style="color: #009688;">0</span></button>
+                                            <button type="button" id="allBtn" class="btn btn-danger">Tất cả <span class="badge bg-white" style="color: red;">0</span></button>
+                                            <select onchange="updateEntries(this.value)" class="form-select" style="width: auto; min-width: 50px; height: 27px; border-radius: 2px;">
+                                                <option value="5">5 </option>
+                                                <option value="10">10 </option>
+                                                <option value="15">15 </option>
+                                            </select>
+                                            
                                         </div>
                                     </div>
                                     <div class="col-md-6 ml-auto">
                                         <div class="input-group">
                                             <div>
-                                                <select class="form-control" style="border-radius: 3px 0px 0px 3px;">
-                                                    <option>Tất cả</option>
-                                                    <option>Tìm kiếm theo tên</option>
+                                                <select class="form-control" style="border-radius: 3px 0px 0px 3px;" onchange="filterBooking(this.value)">
+                                                    <option value="All">--- Tất cả ---</option>        
+                                                    <option value="Pending">Chưa xác nhận</option>
+                                                    <option value="Hold">Giữ phòng</option>
+                                                    <option value="CheckIn">Nhận phòng</option>
+                                                    <option value="CheckOut">Trả phòng</option>
+                                                    <option value="Cancelled">Đã hủy</option>                                           
                                                 </select>
                                             </div>
-                                            <input class="form-control" type="text"
-                                                style="width: 80px;border: 1px solid #ced4da">
-                                            <button type="button" class="btn btn-primary"
+                                                <input class="form-control" type="text" id="searchInput" style="width: 80px;border: 1px solid #ced4da">     
+                                                <button type="button" class="btn btn-primary"
                                                 style="border-radius: 0;border: 1px solid green;"" >Xóa tìm kiếm</button>                                                                      
-                                    <button type=" button" class="btn btn-primary"
-                                                style="background-color: #4682B4;border-radius: 0px 4px 4px 0px;">Tìm
-                                                kiếm</button>
-                                        </div>
+                                                <button type="button" class="btn btn-primary" 
+                                                style="background-color: #4682B4;border-radius: 0px 4px 4px 0px;">Tìm kiếm</button>                                                                                                                       
+                                            </div>
                                     </div>
                                 </div>
-                                <!-- Bộ lọc -->					
-								<div class="table-responsive">
-		
-									<table class="datatable table table-stripped table table-hover table-center mb-0">
+                                <!-- Bộ lọc -->
+								<div class="table-responsive" >
+									<table class="datatable table table-stripped table table-hover table-center mb-0" >
 										<thead>
 											<tr>
-												<th>Stt</th>
-												<th>Số phòng</th>
-												<th>Loại phòng</th>
-												<th>Trạng thái</th>
+												<th>#</th>
+												<th>Mã đặt phòng</th>
+                                                <th>PT Thanh toán</th>
+												<th>TT Thanh toán</th>
+                                                <th>Ngày tạo</th>
+                                                <th>Phê duyệt</th>
+                                                <th>Trạng thái</th>
 												<th class="text-right">Chức năng</th>
 											</tr>
 										</thead>
-										<tbody id="ShowRoom">
+										<tbody id="showBooking">
 										</tbody>
 									</table>
+                                    <div>
+                                        <ul class="pagination" id="pagination">
+                                            <!-- <li class="page-item disabled">
+                                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item active">
+                                                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">Next</a> -->
+                                            </li>
+                                        </ul>
+                                    </div>
 								</div>
 							</div>
 						</div>
@@ -99,10 +116,10 @@
 				<div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content">
 						<div class="modal-body text-center">
-							<img src="~/admin/assets/img/sent.png" alt="" width="50" height="46">
-							<h3 class="delete_class">Are you sure want to delete this Asset?</h3>
+							<img src="../assets/img/sent.png" alt="" width="50" height="46">
+							<h3 class="delete_class">Bạn có chắc chắn muốn xóa ?</h3>
 							<div class="m-t-20">
-								<a href="#" class="btn btn-white" data-dismiss="modal">hủy</a>
+								<a href="#" class="btn btn-white" data-dismiss="modal">Hủy</a>
 								<button type="button" id="confirmDelete" class="btn btn-danger">Xóa</button>
 							</div>
 						</div>
@@ -110,30 +127,114 @@
 				</div>
 			</div>
 		</div>
+    </div>
 
-
+    <div id="booking_detail" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content modal-md">
+                <div class="modal-header">
+                    <h4 class="modal-title">Thông tin hóa đơn</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label style="font-weight: 500;">Họ tên:</label><span class="text-center" style="margin-left: 10px;" id="userName"></span>                         
+                        </div>
+                        <div class="form-group">
+                            <label style="font-weight: 500;">Số điện thoại:</label><span class="text-center" style="margin-left: 10px;" id="phone"></span>                         
+                        </div>
+                        <div class="form-group">
+                            <label style="font-weight: 500;">Email:</label><span class="text-center" style="margin-left: 10px;" id="email"></span>                         
+                        </div>
+                        <div class="form-group">
+                            <label style="font-weight: 500;">Ngày nhận phòng:</label><span class="text-center" style="margin-left: 10px;" id="fromDate"></span>                         
+                        </div>
+                        <div class="form-group">
+                            <label style="font-weight: 500;">Ngày trả phòng:</label><span class="text-center" style="margin-left: 10px;" id="toDate"></span>                         
+                        </div>
+                        <div class="form-group">
+                            <label style="font-weight: 500;">Số người:</label><span class="text-center" style="margin-left: 10px;" id="totalPerson"></span>                         
+                        </div>
+                        <div class="form-group">
+                            <label style="font-weight: 500;">Số phòng:</label><span class="text-center" style="margin-left: 10px;" id="totalRoom"></span>                         
+                        </div>
+                        <div class="form-group">
+                            <label style="font-weight: 500;">Tổng tiền:</label><span class="text-center" style="margin-left: 10px;" id="totalPrice"></span>                         
+                        </div>
+                        <div class="form-group">
+                            <label  style="font-weight: 500;">Ghi chú:</label>                         
+                                <textarea style="height: 80px;" class="form-control" readonly type="text" id="note"> </textarea>                        
+                        </div>
+                        <!-- <div class="m-t-20 text-center">
+                            <button class="btn btn-primary submit-btn">Create Event</button>
+                        </div> -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="refund_detail" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content modal-md">
+                <div class="modal-header">
+                    <h4 class="modal-title">Thông tin hoàn tiền</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label style="font-weight: 500;">Mã đơn:</label><span class="text-center" style="margin-left: 10px;" id="code"></span>     
+                        <input type="hidden" id="bookingId">                    
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: 500;">Tổng tiền:</label><span class="text-center" style="margin-left: 10px;" id="totalPrice"></span>                         
+                    </div>
+                    <form>              
+                        <div class="form-group">
+                          
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" checked value="02" name="radio"> Hoàn tiền toàn phần
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" value="03" name="radio"> Hoàn tiền 1 phần
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  style="font-weight: 500;">Ghi chú:</label>                         
+                                <textarea style="height: 80px;" class="form-control" type="text" id="response"> </textarea>                        
+                        </div>
+                        <div class="m-t-20 text-center">
+                            <button type="button" onclick="" class="btn btn-primary buttonedit ml-2">Hoàn tiền</button>
+                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="../assets/js/axios.min.js"></script>
     <script src="../assets/js/jquery-3.5.1.min.js"></script>
     <script src="../assets/js/popper.min.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
     <script src="../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="../assets/plugins/raphael/raphael.min.js"></script>
-    <script src="../assets/js/ckeditor5.js"></script>
-    <script src="../assets/plugins/morris/morris.min.js"></script>
     <script src="../assets/js/toastr.min.js"></script>
-    <script src="../assets/js/tagify.js"></script>
-    <script src="../assets/js/chart.morris.js"></script>
     <script src="../assets/js/script.js"></script>
-    <script src="../api/user/index.js"></script>
+    <script src="../api/booking/index.js"></script>
+
 </body>
 <script>
 
-    $(function () {
-        $("#navP").load("../template/nav.html");
-        $("#headerP").load("../template/header.html");
+$(function () {
+    $("#headerP").load("../template/header.html", function () {
+        $.getScript("../api/auth/checkAuth.js")
+        $.getScript("../api/auth/auth.js");
     });
+    $("#navP").load("../template/nav.html");
+});
 
 </script>
-
 </html>
