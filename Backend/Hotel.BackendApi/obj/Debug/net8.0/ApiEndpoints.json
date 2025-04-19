@@ -27,6 +27,26 @@
   },
   {
     "ContainingType": "Hotel.BackendApi.Controllers.AuthController",
+    "Method": "GetMe",
+    "RelativePath": "api/Auth/GetMe",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "Hotel.Data.Ultils.ApiResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.AuthController",
     "Method": "LoginAsync",
     "RelativePath": "api/Auth/Login",
     "HttpMethod": "POST",
@@ -39,7 +59,17 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "Hotel.Data.Ultils.ApiResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Hotel.BackendApi.Controllers.AuthController",
@@ -109,7 +139,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.List\u00601[[Hotel.Data.ViewModels.Reservations.CheckRoomVM, Hotel.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "Hotel.Data.Ultils.ApiResponse",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -160,6 +190,26 @@
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.BookingController",
+    "Method": "GetBooked",
+    "RelativePath": "api/Booking/GetBooked",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "Hotel.Data.Ultils.ApiResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Hotel.BackendApi.Controllers.BookingController",
@@ -249,7 +299,17 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "Hotel.Data.Ultils.ApiResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Hotel.BackendApi.Controllers.BookingController",
@@ -697,7 +757,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.List\u00601[[Hotel.Data.ViewModels.RoomTypes.RoomTypeVM, Hotel.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "Hotel.Data.Ultils.ApiResponse",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -723,7 +783,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "Hotel.Data.ViewModels.RoomTypes.RoomTypeVM",
+        "Type": "Hotel.Data.Ultils.ApiResponse",
         "MediaTypes": [
           "text/plain",
           "application/json",

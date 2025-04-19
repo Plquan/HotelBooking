@@ -2,6 +2,7 @@
 using Hotel.Data;
 using Hotel.Data.Dtos;
 using Hotel.Data.Models;
+using Hotel.Data.Ultils;
 using Hotel.Data.ViewModels.RoomTypes;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -19,8 +20,8 @@ namespace Hotel.Services
         Task Delete(int id);
         Task Update(RoomTypeDTO room);
         Task<string> ChangeStatus(int id);
-        Task<List<RoomTypeVM>> GetAll();
-        Task<RoomTypeVM> GetById(int id);
+        Task<ApiResponse> GetAll();
+        Task<ApiResponse> GetById(int id);
         Task<Paging<RoomTypeVM>> GetListPaging(int pageIndex, int pageSize);
     }
 
@@ -101,7 +102,7 @@ namespace Hotel.Services
             }
         }
 
-        public async Task<List<RoomTypeVM>> GetAll()
+        public async Task<ApiResponse> GetAll()
         {
             var roomTypes = await (from rt in _context.RoomTypes                            
                               select new RoomTypeVM
@@ -119,16 +120,27 @@ namespace Hotel.Services
                                   RoomImages = _mapper.Map<List<RoomImageModel>>(rt.RoomImages),
                                   RoomFacilitys = _mapper.Map<List<RoomFacilityModel>>(rt.RoomFacilitys)
                               }).ToListAsync();
-      
-            return roomTypes;
+
+            return new ApiResponse {
+                Data = roomTypes,
+                StatusCode = 200,
+                IsSuccess = true,
+                Message = "Lấy danh sách thành công"
+            };
+
         }
 
-		public async Task<RoomTypeVM> GetById(int id)
+        public async Task<ApiResponse> GetById(int id)
 		{
 			var room = await _context.RoomTypes.FirstOrDefaultAsync(x => x.Id == id);
             if (room == null)
             {
-                throw new Exception("Không tìm thấy phòng!");
+                return new ApiResponse
+                {
+                    IsSuccess = false,
+                    StatusCode = 404,
+                    Message = "Không tìm thấy phòng",
+                };
             }
             var facility = await _context.RoomFacilitys.Where(x => x.RoomTypeId == id).ToListAsync();
 			var image = await _context.RoomImages.Where(x => x.RoomTypeId == id).ToListAsync();
@@ -146,9 +158,15 @@ namespace Hotel.Services
                 Size = room.Size,
                 RoomImages = _mapper.Map<List<RoomImageModel>>(image),
                 RoomFacilitys = _mapper.Map<List<RoomFacilityModel>>(facility)
-			};
-            return roomtype;
-		}
+            };
+            return new ApiResponse { 
+               IsSuccess = true,
+               StatusCode = 200,
+               Message = "Lấy thông tin phòng thành công",
+               Data = roomtype
+            };
+
+        }
 
         public async Task Update(RoomTypeDTO roomTypeDTO)
         {

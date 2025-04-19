@@ -41,7 +41,7 @@ namespace Hotel.BackendApi.Controllers
         [HttpPost]
         [Route("CheckRoom")]
         [AllowAnonymous]
-        public async Task<List<CheckRoomVM>> CheckRoom(CheckDate date)
+        public async Task<ApiResponse> CheckRoom(CheckDate date)
         {
             return await _bookingService.CheckRoom(date);
            
@@ -91,8 +91,7 @@ namespace Hotel.BackendApi.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("GetPaymentHistory")]
+        [HttpPost("GetPaymentHistory")]
         public async Task<IActionResult> GetPaymentHistory(PagingModel model)
         {
             try
@@ -108,6 +107,7 @@ namespace Hotel.BackendApi.Controllers
 
         [HttpPost]
         [Route("UpdateStatus")]
+        [AllowAnonymous]
         public async Task<IActionResult> UpdateStatus(UpdateBookingStatus model)
         {
             try
@@ -136,18 +136,19 @@ namespace Hotel.BackendApi.Controllers
         [HttpPost]
         [Route("PlaceOrder")]
         [AllowAnonymous]
-        public async Task<IActionResult> PlaceOrder(BookingModel bookingVM)
-        {
-            try
-            {         
-               await _bookingService.PlaceOrder(bookingVM);
-                return Ok(new { message = "Lấy thành công", data = bookingVM });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = "Lỗi thực thi", error = ex.Message });
-            }
+        public async Task<ApiResponse> PlaceOrder(BookingModel bookingVM)
+        {     
+              var res =  await _bookingService.PlaceOrder(bookingVM,HttpContext);
+              return res;
         }
+
+        [HttpGet("GetBooked")]
+        public async Task<ApiResponse> GetBooked()
+        {
+            var res = await _bookingService.GetBooked();
+            return res;
+        }
+
         [HttpDelete]
         [Route("deleteBooking")]
         public async Task<IActionResult> DeleteBooking(int id) {

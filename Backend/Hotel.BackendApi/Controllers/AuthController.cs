@@ -8,6 +8,7 @@ namespace Hotel.BackendApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class AuthController : ControllerBase      
     {
         private readonly IAuthService _authService;
@@ -18,21 +19,10 @@ namespace Hotel.BackendApi.Controllers
 
         [HttpPost]
         [Route("Login")]
-        public async Task<IActionResult> LoginAsync(LoginRequest login)
+        public async Task<ApiResponse> LoginAsync(LoginRequest login)
         {
-
-            try
-            {
                 var respone = await _authService.LoginAsync(login);
-                if (!respone.IsSuccess) { 
-                return BadRequest($"Lỗi khi đăng nhập {respone.Message}");
-                }
-                return Ok(respone);
-            }
-            catch (Exception ex) 
-            {
-                return BadRequest(new { message = "Lỗi thực thi", error = ex.Message });
-            }
+                return respone;     
         }
         [HttpPost]
         [Route("Register")]
@@ -104,6 +94,14 @@ namespace Hotel.BackendApi.Controllers
             {
                 return BadRequest(new { message = "Lỗi thực thi", error = ex.Message });
             }
+        }
+
+        [HttpGet("GetMe")]
+        [Authorize]
+        public async Task<ApiResponse> GetMe()
+        {
+            var response = await _authService.GetCurrentUserAsync();
+            return response;
         }
     }
 }

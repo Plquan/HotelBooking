@@ -1,4 +1,5 @@
-﻿using Hotel.Data.ViewModels.Reservations;
+﻿using Hotel.Data.Models;
+using Hotel.Data.ViewModels.Reservations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,6 @@ namespace Hotel.Data.ViewModels.Vnpay
         public double? Amount { get; set; }
         public string? OrderDescription { get; set; }
         public string? Name { get; set; }
-        public BookingModel? Booking {  get; set; }
+        public Booking? Booking {  get; set; }
     }
 }

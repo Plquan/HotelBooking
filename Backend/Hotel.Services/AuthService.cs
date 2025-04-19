@@ -1,8 +1,10 @@
-﻿using Hotel.Data;
+﻿using AutoMapper;
+using Hotel.Data;
 using Hotel.Data.Models;
 using Hotel.Data.Ultils;
 using Hotel.Data.Ultils.Email;
 using Hotel.Data.ViewModels.AppUsers;
+using Hotel.Data.ViewModels.Auth;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -14,6 +16,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
@@ -41,6 +44,7 @@ namespace Hotel.Services
         Task<ApiResponse> RegisterAsync(RegisterRequest register);
         Task<ApiResponse> LogoutAsync(string? accessToken, string? refreshToken);
         Task<ApiResponse> ConfirmEmailAsync(ConfirmEmailModel model);
+        Task<ApiResponse> GetCurrentUserAsync();
         Task<ApiResponse> ResendCodeConfirmEmailAsync(string email);
 
     }
@@ -56,6 +60,7 @@ namespace Hotel.Services
         private readonly HotelContext _context;
         private readonly ILogger<AuthService> _logger;
         private readonly IMailService _mailService;
+        private readonly IMapper _mapper;
         public AuthService(UserManager<AppUser> userManager,
                                 SignInManager<AppUser> signInManager,
                                 IConfiguration configuration,
@@ -64,7 +69,9 @@ namespace Hotel.Services
                                 IHttpContextAccessor httpContextAccessor,
                                 HotelContext context,
                                 ILogger<AuthService> logger,
-                                IMailService mailService)
+                                IMailService mailService,
+                                IMapper mapper
+                                )
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -75,6 +82,7 @@ namespace Hotel.Services
             _context = context;
             _logger = logger;
             _mailService = mailService;
+            _mapper = mapper;
         }
 
         public async Task<ApiResponse> LoginAsync(LoginRequest login)
@@ -239,82 +247,45 @@ namespace Hotel.Services
                 };
             }
         }
-        //public async Task<ApiResponse> RegisterAsync(RegisterRequest register)
-        //{
-        //    if (await _userManager.FindByEmailAsync(register.Email ?? "") != null)
-        //        return new ApiResponse() { StatusCode = 409, Message = "Email này đã được đăng ký" };
-
-        //    string code = GenerateVerificationCode();
-        //    var user = new AppUser
-        //    {
-        //        UserName = register.UserName,
-        //        Email = register.Email,
-        //        PhoneNumber = register.Phone,
-        //        VerifyCode = code,
-        //        CodeExpireTime = DateTime.UtcNow.AddMinutes(2),
-        //    };
-        //    var result = await _userManager.CreateAsync(user, register.Password);
-
-
-        //    if (!result.Succeeded)
-        //    {
-        //        foreach (var item in result.Errors)
-        //        {
-        //            _logger.LogError($"There are an error for userManager: {item.Description} at {DateTime.UtcNow}");
-        //        }
-
-        //    }
-        //    string title = "Xác thực email của bạn";        
-        //    string html = AuthCodeMessage.EmailBody(code, title, 2);
-        //    await _mailService.SendEmailAsync(register.Email ?? "", title, html);
-        //    return new ApiResponse
-        //    {
-        //        StatusCode = 200,
-        //        IsSuccess = true,
-        //        Message = "Đăng kí thành công"
-        //    };
-
-        //}
         public async Task<ApiResponse> RegisterAsync(RegisterRequest register)
         {
-            var existingUser = await _userManager.FindByEmailAsync(register.Email ?? "");
+            // Kiểm tra đầu vào
+            if (string.IsNullOrWhiteSpace(register.Email) || string.IsNullOrWhiteSpace(register.UserName) || string.IsNullOrWhiteSpace(register.Password))
+            {
+                return new ApiResponse
+                {
+                    StatusCode = 400,
+                    Message = "Email, tên người dùng và mật khẩu không được để trống."
+                };
+            }
 
+            // Kiểm tra email tồn tại
+            var existingUser = await _userManager.FindByEmailAsync(register.Email);
             if (existingUser != null)
             {
-
                 if (!await _userManager.IsEmailConfirmedAsync(existingUser))
                 {
+                    // Cập nhật thông tin người dùng chưa xác thực
                     existingUser.UserName = register.UserName;
                     existingUser.PhoneNumber = register.Phone;
                     existingUser.VerifyCode = GenerateVerificationCode();
                     existingUser.CodeExpireTime = DateTime.UtcNow.AddMinutes(2);
 
                     var updateResult = await _userManager.UpdateAsync(existingUser);
-
                     if (!updateResult.Succeeded)
                     {
                         foreach (var error in updateResult.Errors)
                         {
-                            _logger.LogError($"Lỗi : {error.Description} at {DateTime.UtcNow}");
+                            _logger.LogError($"Lỗi: {error.Description} at {DateTime.UtcNow}");
                         }
                         return new ApiResponse
                         {
                             StatusCode = 500,
-                            Message = "Có lỗi xảy ra khi đăng kí tài khoản."
+                            Message = "Có lỗi xảy ra khi cập nhật tài khoản."
                         };
                     }
 
-
-                    string title = "Xác thực email của bạn";
-                    string html = AuthCodeMessage.EmailBody(existingUser.VerifyCode, title, 2);
-                    await _mailService.SendEmailAsync(register.Email ?? "", title, html);
-
-                    return new ApiResponse
-                    {
-                        StatusCode = 200,
-                        IsSuccess = true,
-                        Message = "Vui lòng xác thực email"
-                    };
+                    return await SendVerificationEmailAsync(register.Email, existingUser.VerifyCode);
                 }
 
                 return new ApiResponse
@@ -323,16 +294,20 @@ namespace Hotel.Services
                     Message = "Email này đã được đăng ký."
                 };
             }
-            var userName = await _userManager.FindByNameAsync(register.UserName ?? "");
+
+            // Kiểm tra tên người dùng tồn tại
+            var userName = await _userManager.FindByNameAsync(register.UserName);
             if (userName != null)
             {
                 return new ApiResponse
                 {
+                    StatusCode = 409,
                     IsSuccess = false,
-                    Message = "Tên người dùng đã tồn tại"
+                    Message = "Tên người dùng đã tồn tại."
                 };
             }
 
+            // Tạo người dùng mới
             string code = GenerateVerificationCode();
             var user = new AppUser
             {
@@ -340,16 +315,15 @@ namespace Hotel.Services
                 Email = register.Email,
                 PhoneNumber = register.Phone,
                 VerifyCode = code,
-                CodeExpireTime = DateTime.UtcNow.AddMinutes(2),
+                CodeExpireTime = DateTime.UtcNow.AddMinutes(2)
             };
 
             var result = await _userManager.CreateAsync(user, register.Password);
-
             if (!result.Succeeded)
             {
                 foreach (var item in result.Errors)
                 {
-                    _logger.LogError($"There are an error for userManager: {item.Description} at {DateTime.UtcNow}");
+                    _logger.LogError($"Lỗi UserManager: {item.Description} at {DateTime.UtcNow}");
                 }
                 return new ApiResponse
                 {
@@ -358,18 +332,32 @@ namespace Hotel.Services
                 };
             }
 
-            string newTitle = "Xác thực email của bạn";
-            string newHtml = AuthCodeMessage.EmailBody(code, newTitle, 2);
-            await _mailService.SendEmailAsync(register.Email ?? "", newTitle, newHtml);
-
-            return new ApiResponse
-            {
-                StatusCode = 200,
-                IsSuccess = true,
-                Message = "Vui lòng xác thực email"
-            };
+            return await SendVerificationEmailAsync(register.Email, code);
         }
-
+        private async Task<ApiResponse> SendVerificationEmailAsync(string email, string code)
+        {
+            try
+            {
+                string title = "Xác thực email của bạn";
+                string html = AuthCodeMessage.EmailBody(code, title, 5);
+                await _mailService.SendEmailAsync(email, title, html);
+                return new ApiResponse
+                {
+                    StatusCode = 200,
+                    IsSuccess = true,
+                    Message = "Vui lòng xác thực email."
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Lỗi khi gửi email: {ex.Message} at {DateTime.UtcNow}");
+                return new ApiResponse
+                {
+                    StatusCode = 500,
+                    Message = "Không thể gửi email xác thực. Vui lòng thử lại sau."
+                };
+            }
+        }
         public async Task<ApiResponse> LogoutAsync(string? accessToken, string? refreshToken)
         {        
             try
@@ -439,7 +427,7 @@ namespace Hotel.Services
             {
                 return new ApiResponse()
                 {
-                    StatusCode = 400,
+                    StatusCode = 200,
                     IsSuccess = false,
                     Message = "Mã xác thực không hợp lệ"
                 };
@@ -465,12 +453,10 @@ namespace Hotel.Services
                 IsSuccess = true
             };
         }
-
         private static string GenerateVerificationCode()
         {
             return new Random().Next(1000, 9999).ToString();
         }
-
         public async Task<ApiResponse> ResendCodeConfirmEmailAsync(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
@@ -502,6 +488,44 @@ namespace Hotel.Services
                 StatusCode = 200,
                 Message = "Gửi lại mã code thành công",
             };
+        }
+        public async Task<ApiResponse> GetCurrentUserAsync()
+        {
+            try
+            {
+                var userId = _httpContextAccessor?.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier)
+                     ?? throw new Exception("User not found");
+                var currentUser = await _userManager.FindByIdAsync(userId);
+                if (currentUser == null)
+                {
+                    return new ApiResponse
+                    {
+                        StatusCode = StatusCodes.Status404NotFound,
+                        IsSuccess = false,
+                        Message = "Không tìm thấy thông tin người dùng"
+                    };
+                }
+                var userRoles = await _userManager.GetRolesAsync(currentUser);
+                var userInfo = _mapper.Map<PublicUserVM>(currentUser);
+                userInfo.Roles = userRoles;
+                return new ApiResponse
+                {
+                    StatusCode = 200,
+                    IsSuccess = true,
+                    Data = userInfo
+                };
+            }
+            catch (Exception ex)
+            {
+
+                return new ApiResponse
+                {
+                    StatusCode = StatusCodes.Status500InternalServerError,
+                    IsSuccess = false,
+                    Message = "Lỗi hệ thống, vui lòng thử lại sau"
+                };
+            }
+
         }
     }
 

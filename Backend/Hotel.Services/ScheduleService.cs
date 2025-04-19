@@ -46,6 +46,7 @@ namespace Hotel.Services
                 await Task.Delay(3600000, stoppingToken);
             }
         }
+
         private async Task CheckRoomStatus(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)

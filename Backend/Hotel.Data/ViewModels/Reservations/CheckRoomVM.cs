@@ -19,8 +19,7 @@ namespace Hotel.Data.ViewModels.Reservations
         public string? View { get; set; }
         public string? BedType { get; set; }
         public string? Size { get; set; }
-        public string? Thumb { set; get; }
-        public List<RoomDTO>? Rooms { get; set; }
+        public int? AvailableRooms { get; set; }
         public List<RoomImageModel>? RoomImages { get; set; }
     }
 }

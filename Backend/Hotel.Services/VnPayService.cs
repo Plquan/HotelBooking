@@ -29,20 +29,16 @@ namespace Hotel.Services
     public class VnPayService : IVnPayService
     {
         private readonly IConfiguration _configuration;
-        private readonly IBookingService _bookingService;
         private readonly HotelContext _context;
 
-        public VnPayService(IConfiguration configuration, IBookingService bookingService, HotelContext context)
+        public VnPayService(IConfiguration configuration, HotelContext context)
         {
             _configuration = configuration;
-            _bookingService = bookingService;
             _context = context;
         }
 
         public async Task<string> CreatePaymentUrl(PaymentInformationModel model, HttpContext context)
         {
-            var bookingId = await _bookingService.PlaceOrder(model.Booking);
-
             var timeZoneById = TimeZoneInfo.FindSystemTimeZoneById(_configuration["TimeZoneId"]!);
             var timeNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneById);
             var tick = DateTime.Now.Ticks.ToString();
@@ -58,7 +54,7 @@ namespace Hotel.Services
             pay.AddRequestData("vnp_OrderInfo", $"{model.Name} {model.Amount} {model.OrderDescription}");
             pay.AddRequestData("vnp_OrderType", model.OrderType!);
             pay.AddRequestData("vnp_ReturnUrl", _configuration["Vnpay:ReturnUrl"]!);
-            pay.AddRequestData("vnp_TxnRef", bookingId.ToString());
+            pay.AddRequestData("vnp_TxnRef", model.Booking.Id.ToString());
             var paymentUrl =
                 pay.CreateRequestUrl(_configuration["Vnpay:BaseUrl"]!, _configuration["Vnpay:HashSecret"]!);
             return paymentUrl;

@@ -132,7 +132,6 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient();
 builder.Services.AddAutoMapper(typeof(Program));
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
  app.UseSwagger();
     app.UseSwaggerUI(c =>
@@ -146,7 +145,6 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

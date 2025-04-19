@@ -2,6 +2,7 @@
 
 using Hotel.Data.Dtos;
 using Hotel.Data.Models;
+using Hotel.Data.Ultils;
 using Hotel.Data.ViewModels.RoomTypes;
 using Hotel.Services;
 using Microsoft.AspNetCore.Http;
@@ -43,7 +44,7 @@ namespace Hotel.BackendApi.Controllers
 
         [HttpGet]
         [Route("GetAll")]
-        public async Task<ActionResult<List<RoomTypeVM>>> GetAll()
+        public async Task<ActionResult<ApiResponse>> GetAll()
         {
             var roomtype = await _roomTypeService.GetAll();
             return roomtype;
@@ -62,7 +63,7 @@ namespace Hotel.BackendApi.Controllers
         }
         [HttpGet]
         [Route("GetById/{id}")]
-        public async Task<RoomTypeVM> GetById(int id)
+        public async Task<ApiResponse> GetById(int id)
         {
             var roomtype = await _roomTypeService.GetById(id);
             return roomtype;
