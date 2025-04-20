@@ -20,6 +20,7 @@ namespace Hotel.Data.ViewModels.Reservations
         public string? BedType { get; set; }
         public string? Size { get; set; }
         public int? AvailableRooms { get; set; }
+        public bool? IsSaved { set; get; }
         public List<RoomImageModel>? RoomImages { get; set; }
     }
 }

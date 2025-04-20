@@ -5,6 +5,7 @@ using Hotel.Data.Models;
 using Hotel.Data.Ultils;
 using Hotel.Data.ViewModels.RoomTypes;
 using Hotel.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -87,6 +88,20 @@ namespace Hotel.BackendApi.Controllers
             {
                 return BadRequest(new { message = "Lỗi thực thi", error = ex.Message });
             }
+        }
+        [HttpPost("SaveRoom")]
+        [Authorize]
+        public async Task<ApiResponse> SaveRoom([FromBody] int roomId)
+        {
+            var res = await _roomTypeService.SaveRoom(roomId);
+            return res;
+        }
+        [HttpGet("GetListSavedRoom")]
+        [Authorize]
+        public async Task<ApiResponse> GetListSavedRoom()
+        {
+            var res = await _roomTypeService.GetListSavedRoom();
+            return res;
         }
     }
 }

@@ -29,6 +29,7 @@ namespace Hotel.Data
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Refund> Refunds { get; set; }
         public DbSet<Setting> Settings { get; set; }
+        public DbSet<SavedRoom> SavedRooms { get; set; } 
     }
 
     

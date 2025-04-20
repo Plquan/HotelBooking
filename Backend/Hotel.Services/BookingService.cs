@@ -84,6 +84,21 @@ namespace Hotel.Services
 
         }
 
+        public async Task<bool> CheckSaved(int roomId)
+        {
+            var userId = _httpContextAccessor?.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+            {
+                return false;
+            }
+
+            var check = await _context.SavedRooms.Where(x => x.AppUserId == userId).Where(x => x.RoomTypeId == roomId).CountAsync();
+            if (check > 0) {
+                return true;
+            }
+            return false;
+                  
+        }
         public async Task<ApiResponse> CheckRoom(CheckDate date)
         {
 
@@ -129,7 +144,11 @@ namespace Hotel.Services
                                                     RoomNumber = r.RoomNumber!,
                                                 }).Count()
                                    }).ToListAsync();
-                    return new ApiResponse { 
+            foreach (var roomType in roomTypes)
+            {
+                roomType.IsSaved = await CheckSaved(roomType.Id);
+            }
+            return new ApiResponse { 
                         IsSuccess = true,
                         StatusCode = 200,
                         Message = "Lấy dữ liệu thành công",

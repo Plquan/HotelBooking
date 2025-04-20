@@ -816,6 +816,52 @@
   },
   {
     "ContainingType": "Hotel.BackendApi.Controllers.RoomTypeController",
+    "Method": "GetListSavedRoom",
+    "RelativePath": "api/RoomType/GetListSavedRoom",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "Hotel.Data.Ultils.ApiResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.RoomTypeController",
+    "Method": "SaveRoom",
+    "RelativePath": "api/RoomType/SaveRoom",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "roomId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Hotel.Data.Ultils.ApiResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Hotel.BackendApi.Controllers.RoomTypeController",
     "Method": "Update",
     "RelativePath": "api/RoomType/Update",
     "HttpMethod": "PUT",
